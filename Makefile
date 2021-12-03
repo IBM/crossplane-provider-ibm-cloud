@@ -1,10 +1,27 @@
+#
+# Copyright 2021 IBM Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 # ====================================================================================
 # Setup Project
 
 PROJECT_NAME := provider-ibm-cloud
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
-PLATFORMS ?= linux_amd64 linux_arm64
+# IBM Crossplane supported platforms
+PLATFORMS ?= linux_amd64 linux_ppc64le linux_s390x
 
 # kind-related versions
 KIND_VERSION ?= v0.11.1
@@ -23,6 +40,7 @@ KIND_NODE_IMAGE_TAG ?= v1.19.11
 
 # ====================================================================================
 # Setup Go
+GO_SUPPORTED_VERSIONS = 1.16
 
 # Set a sane default so that the nprocs calculation below is less noisy on the initial
 # loading of this file
@@ -47,9 +65,13 @@ GO111MODULE = on
 # ====================================================================================
 # Setup Images
 
-DOCKER_REGISTRY = crossplane
+DOCKER_REGISTRY = hyc-cloud-private-scratch-docker-local.artifactory.swg-devops.com/ibmcom
 IMAGES = provider-ibm-cloud provider-ibm-cloud-controller
 -include build/makelib/image.mk
+
+# ====================================================================================
+# Setup Local Dev
+-include build/makelib/local.mk
 
 # ====================================================================================
 # Targets
@@ -142,3 +164,7 @@ crossplane.help:
 help-special: crossplane.help
 
 .PHONY: crossplane.help help-special
+
+# ====================================================================================
+# IBM Customization
+-include ibm/Makefile.common.mk

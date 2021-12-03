@@ -6,7 +6,7 @@ spec:
   credentials:
     source: Secret
     secretRef:
-      namespace: crossplane-system
+      namespace: ibm-common-services
       name: provider-ibm-cloud-secret
       key: credentials
   region: us-south    

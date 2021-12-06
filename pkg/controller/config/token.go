@@ -44,7 +44,6 @@ import (
 )
 
 const (
-	timeout      = 2 * time.Minute
 	requeueTime  = 30 * time.Minute
 	errGetPC     = "cannot get ProviderConfig"
 	errNoSecret  = "no credentials secret reference was provided"
@@ -129,9 +128,6 @@ func NewTokenReconciler(m manager.Manager, of resource.ProviderConfigKinds, o ..
 func (r *TokenReconciler) Reconcile(ctx context.Context, req reconcile.Request) (reconcile.Result, error) {
 	log := r.log.WithValues("request", req)
 	log.Debug("Reconciling")
-
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	defer cancel()
 
 	pc := &v1beta1.ProviderConfig{}
 	if err := r.client.Get(ctx, req.NamespacedName, pc); err != nil {

@@ -49,7 +49,7 @@ ifeq (,$(BUILDX))
 	curl -LO https://github.com/docker/buildx/releases/download/$(BUILDX_VERSION)/buildx-$(BUILDX_VERSION).$(OS)-$(ARCH);\
 	mv buildx-$(BUILDX_VERSION).$(OS)-$(ARCH) $(BUILDX_PLUGIN);\
 	chmod a+x $(BUILDX_PLUGIN);\
-	$(BUILDX_PLUGIN) create --use --platform linux/amd64,linux/ppc64le,linux/2390x;\
+	$(BUILDX_PLUGIN) create --use --platform linux/amd64,linux/ppc64le,linux/s390x;\
 	}
 endif
 

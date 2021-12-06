@@ -19,7 +19,7 @@ package v1beta1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/crossplane/crossplane-runtime/apis/common/v1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // IBM Patch: update crossplane-runtime version
@@ -31,22 +31,23 @@ type ProviderConfigSpec struct {
 	Region string `json:"region,omitempty"`
 }
 
+// A ProviderCredentials stores the credentials of a ProviderConfig.
 type ProviderCredentials struct {
 	// Source of the provider credentials.
 	// +kubebuilder:validation:Enum=None;Secret;InjectedIdentity
-	Source v1.CredentialsSource `json:"source"`
+	Source runtimev1.CredentialsSource `json:"source"`
 
 	// A CredentialsSecretRef is a reference to a secret key that contains the
 	// credentials that must be used to connect to the provider.
 	// +optional
-	SecretRef *v1.SecretKeySelector `json:"secretRef,omitempty"`
+	SecretRef *runtimev1.SecretKeySelector `json:"secretRef,omitempty"`
 }
 
 // IBM Patch end
 
 // A ProviderConfigStatus represents the status of a ProviderConfig.
 type ProviderConfigStatus struct {
-	v1.ProviderConfigStatus `json:",inline"`
+	runtimev1.ProviderConfigStatus `json:",inline"`
 }
 
 // +kubebuilder:object:root=true
@@ -86,7 +87,7 @@ type ProviderConfigUsage struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	v1.ProviderConfigUsage `json:",inline"`
+	runtimev1.ProviderConfigUsage `json:",inline"`
 }
 
 // +kubebuilder:object:root=true

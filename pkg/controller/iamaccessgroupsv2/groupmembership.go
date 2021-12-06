@@ -25,7 +25,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
@@ -144,7 +144,7 @@ func (c *gmExternal) Observe(ctx context.Context, mg resource.Managed) (managed.
 		return managed.ExternalObservation{}, errors.Wrap(err, errGenObservation)
 	}
 
-	cr.Status.SetConditions(cpv1alpha1.Available())
+	cr.Status.SetConditions(cpv1.Available())
 	cr.Status.AtProvider.State = ibmcgm.StateActive
 
 	upToDate, err := ibmcgm.IsUpToDate(&cr.Spec.ForProvider, instance, c.logger)
@@ -165,7 +165,7 @@ func (c *gmExternal) Create(ctx context.Context, mg resource.Managed) (managed.E
 		return managed.ExternalCreation{}, errors.New(errNotGroupMembership)
 	}
 
-	cr.SetConditions(cpv1alpha1.Creating())
+	cr.SetConditions(cpv1.Creating())
 	createOptions := &iamagv2.AddMembersToAccessGroupOptions{}
 	if err := ibmcgm.GenerateCreateGroupMembershipOptions(cr.Spec.ForProvider, createOptions); err != nil {
 		return managed.ExternalCreation{}, errors.Wrap(err, errCreateGroupMembershipOpts)
@@ -200,7 +200,7 @@ func (c *gmExternal) Delete(ctx context.Context, mg resource.Managed) error {
 		return errors.New(errNotGroupMembership)
 	}
 
-	cr.SetConditions(cpv1alpha1.Deleting())
+	cr.SetConditions(cpv1.Deleting())
 
 	_, _, err := c.client.IamAccessGroupsV2().RemoveMembersFromAccessGroup(&iamagv2.RemoveMembersFromAccessGroupOptions{
 		AccessGroupID: reference.ToPtrValue(meta.GetExternalName(cr)),

@@ -29,7 +29,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -105,7 +105,7 @@ func agrWithSpec(p v1alpha1.AccessGroupRuleParameters) agrModifier {
 	return func(r *v1alpha1.AccessGroupRule) { r.Spec.ForProvider = p }
 }
 
-func agrWithConditions(c ...cpv1alpha1.Condition) agrModifier {
+func agrWithConditions(c ...cpv1.Condition) agrModifier {
 	return func(i *v1alpha1.AccessGroupRule) { i.Status.SetConditions(c...) }
 }
 
@@ -289,7 +289,7 @@ func TestAccessGroupRuleObserve(t *testing.T) {
 			},
 			want: want{
 				mg: agr(agrWithSpec(*agrParams()),
-					agrWithConditions(cpv1alpha1.Available()),
+					agrWithConditions(cpv1.Available()),
 					agrWithStatus(*agrObservation(func(cro *v1alpha1.AccessGroupRuleObservation) {
 						cro.State = ibmcagr.StateActive
 					})),
@@ -331,7 +331,7 @@ func TestAccessGroupRuleObserve(t *testing.T) {
 			want: want{
 				mg: agr(agrWithSpec(*agrParams()),
 					agrWithEtagAnnotation(eTag),
-					agrWithConditions(cpv1alpha1.Available()),
+					agrWithConditions(cpv1.Available()),
 					agrWithStatus(*agrObservation(func(cro *v1alpha1.AccessGroupRuleObservation) {
 						cro.State = ibmcagr.StateActive
 					}))),
@@ -419,7 +419,7 @@ func TestAccessGroupRuleCreate(t *testing.T) {
 			},
 			want: want{
 				mg: agr(agrWithSpec(*agrParams()),
-					agrWithConditions(cpv1alpha1.Creating()),
+					agrWithConditions(cpv1.Creating()),
 					agrWithExternalNameAnnotation(ruleID)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -446,7 +446,7 @@ func TestAccessGroupRuleCreate(t *testing.T) {
 			},
 			want: want{
 				mg: agr(agrWithSpec(*agrParams()),
-					agrWithConditions(cpv1alpha1.Creating())),
+					agrWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errCreateAccessGroupRule),
 			},
@@ -472,7 +472,7 @@ func TestAccessGroupRuleCreate(t *testing.T) {
 			},
 			want: want{
 				mg: agr(agrWithSpec(*agrParams()),
-					agrWithConditions(cpv1alpha1.Creating())),
+					agrWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusConflict)), errCreateAccessGroupRule),
 			},
@@ -498,7 +498,7 @@ func TestAccessGroupRuleCreate(t *testing.T) {
 			},
 			want: want{
 				mg: agr(agrWithSpec(*agrParams()),
-					agrWithConditions(cpv1alpha1.Creating())),
+					agrWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusForbidden)), errCreateAccessGroupRule),
 			},
@@ -576,7 +576,7 @@ func TestAccessGroupRuleDelete(t *testing.T) {
 				mg: agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams())),
 			},
 			want: want{
-				mg:  agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams()), agrWithConditions(cpv1alpha1.Deleting())),
+				mg:  agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams()), agrWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -598,7 +598,7 @@ func TestAccessGroupRuleDelete(t *testing.T) {
 				mg: agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams())),
 			},
 			want: want{
-				mg:  agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams()), agrWithConditions(cpv1alpha1.Deleting())),
+				mg:  agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams()), agrWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errDeleteAccessGroupRule),
 			},
 		},
@@ -620,7 +620,7 @@ func TestAccessGroupRuleDelete(t *testing.T) {
 				mg: agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams())),
 			},
 			want: want{
-				mg:  agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams()), agrWithConditions(cpv1alpha1.Deleting())),
+				mg:  agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams()), agrWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusUnauthorized)), errDeleteAccessGroupRule),
 			},
 		},
@@ -642,7 +642,7 @@ func TestAccessGroupRuleDelete(t *testing.T) {
 				mg: agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams())),
 			},
 			want: want{
-				mg:  agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams()), agrWithConditions(cpv1alpha1.Deleting())),
+				mg:  agr(agrWithStatus(*agrObservation()), agrWithSpec(*agrParams()), agrWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusForbidden)), errDeleteAccessGroupRule),
 			},
 		},

@@ -126,7 +126,7 @@ func NewTokenReconciler(m manager.Manager, of resource.ProviderConfigKinds, o ..
 
 // Reconcile a ProviderConfig by accounting for the managed resources that are
 // using it, and ensuring it cannot be deleted until it is no longer in use.
-func (r *TokenReconciler) Reconcile(req reconcile.Request) (reconcile.Result, error) {
+func (r *TokenReconciler) Reconcile(ctx context.Context, req reconcile.Request) (reconcile.Result, error) {
 	log := r.log.WithValues("request", req)
 	log.Debug("Reconciling")
 

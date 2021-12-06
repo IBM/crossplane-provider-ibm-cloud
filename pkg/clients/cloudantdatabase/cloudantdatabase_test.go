@@ -19,7 +19,7 @@ package cloudantdatabase
 import (
 	"testing"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/google/go-cmp/cmp"
 
@@ -35,8 +35,8 @@ func params(m ...func(*v1alpha1.CloudantDatabaseParameters)) *v1alpha1.CloudantD
 	p := &v1alpha1.CloudantDatabaseParameters{
 		Db:                       "mydatabase",
 		CloudantAdminURL:         reference.ToPtrValue("mycloudantadminurl"),
-		CloudantAdminURLRef:      &runtimev1alpha1.Reference{},
-		CloudantAdminURLSelector: &runtimev1alpha1.Selector{},
+		CloudantAdminURLRef:      &runtimev1.Reference{},
+		CloudantAdminURLSelector: &runtimev1.Selector{},
 		Partitioned:              ibmc.BoolPtr(false),
 		Q:                        ibmc.Int64Ptr(int64(2)),
 	}

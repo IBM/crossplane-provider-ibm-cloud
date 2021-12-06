@@ -4,7 +4,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/reference"
 
@@ -152,11 +152,11 @@ func IsUpToDate(id string, in *v1alpha1.ScalingGroupParameters, observed *icdv5.
 		return false, err
 	}
 
-	l.Info(cmp.Diff(desired, actual, cmpopts.IgnoreTypes(&runtimev1alpha1.Reference{}, &runtimev1alpha1.Selector{}, []runtimev1alpha1.Reference{})))
+	l.Info(cmp.Diff(desired, actual, cmpopts.IgnoreTypes(&runtimev1.Reference{}, &runtimev1.Selector{}, []runtimev1.Reference{})))
 
 	return cmp.Equal(desired, actual, cmpopts.EquateEmpty(),
 		cmpopts.IgnoreFields(v1alpha1.ScalingGroupParameters{}),
-		cmpopts.IgnoreTypes(&runtimev1alpha1.Reference{}, &runtimev1alpha1.Selector{}, []runtimev1alpha1.Reference{})), nil
+		cmpopts.IgnoreTypes(&runtimev1.Reference{}, &runtimev1.Selector{}, []runtimev1.Reference{})), nil
 }
 
 // GenerateScalingGroupParameters generates scaling group parameters from groups

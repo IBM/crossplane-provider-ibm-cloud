@@ -19,7 +19,7 @@ package topic
 import (
 	"testing"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/google/go-cmp/cmp"
 
@@ -35,8 +35,8 @@ func params(m ...func(*v1alpha1.TopicParameters)) *v1alpha1.TopicParameters {
 	p := &v1alpha1.TopicParameters{
 		Name:                  "myTopic",
 		KafkaAdminURL:         reference.ToPtrValue("myKafkaAdminURL"),
-		KafkaAdminURLRef:      &runtimev1alpha1.Reference{},
-		KafkaAdminURLSelector: &runtimev1alpha1.Selector{},
+		KafkaAdminURLRef:      &runtimev1.Reference{},
+		KafkaAdminURLSelector: &runtimev1.Selector{},
 		Partitions:            ibmc.Int64Ptr(int64(2)),
 		PartitionCount:        ibmc.Int64Ptr(int64(2)),
 		// can test empty ConfigCreate or generate ConfigCreate to test

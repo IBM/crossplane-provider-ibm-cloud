@@ -20,7 +20,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/reference"
 
@@ -106,7 +106,7 @@ func IsUpToDate(in *v1alpha1.CloudantDatabaseParameters, observed *cv1.DatabaseI
 	}
 	diff := (cmp.Diff(desired, actual,
 		cmpopts.EquateEmpty(),
-		cmpopts.IgnoreFields(v1alpha1.CloudantDatabaseParameters{}, "CloudantAdminURL", "CloudantAdminURLRef", "CloudantAdminURLSelector"), cmpopts.IgnoreTypes(&runtimev1alpha1.Reference{}, &runtimev1alpha1.Selector{}, []runtimev1alpha1.Reference{})))
+		cmpopts.IgnoreFields(v1alpha1.CloudantDatabaseParameters{}, "CloudantAdminURL", "CloudantAdminURLRef", "CloudantAdminURLSelector"), cmpopts.IgnoreTypes(&runtimev1.Reference{}, &runtimev1.Selector{}, []runtimev1.Reference{})))
 
 	if diff != "" {
 		l.Info("IsUpToDate", "Diff", diff)

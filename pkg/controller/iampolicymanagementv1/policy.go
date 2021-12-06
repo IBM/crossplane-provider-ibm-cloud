@@ -25,7 +25,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
@@ -143,7 +143,7 @@ func (c *pExternal) Observe(ctx context.Context, mg resource.Managed) (managed.E
 		return managed.ExternalObservation{}, errors.Wrap(err, errGenObservation)
 	}
 
-	cr.Status.SetConditions(cpv1alpha1.Available())
+	cr.Status.SetConditions(cpv1.Available())
 	cr.Status.AtProvider.State = ibmcp.StateActive
 
 	upToDate, err := ibmcp.IsUpToDate(&cr.Spec.ForProvider, instance, c.logger)
@@ -164,7 +164,7 @@ func (c *pExternal) Create(ctx context.Context, mg resource.Managed) (managed.Ex
 		return managed.ExternalCreation{}, errors.New(errNotPolicy)
 	}
 
-	cr.SetConditions(cpv1alpha1.Creating())
+	cr.SetConditions(cpv1.Creating())
 	resInstanceOptions := &iampmv1.CreatePolicyOptions{}
 	if err := ibmcp.GenerateCreatePolicyOptions(cr.Spec.ForProvider, resInstanceOptions); err != nil {
 		return managed.ExternalCreation{}, errors.Wrap(err, errCreatePolicyOpts)
@@ -206,7 +206,7 @@ func (c *pExternal) Delete(ctx context.Context, mg resource.Managed) error {
 		return errors.New(errNotPolicy)
 	}
 
-	cr.SetConditions(cpv1alpha1.Deleting())
+	cr.SetConditions(cpv1.Deleting())
 
 	_, err := c.client.IamPolicyManagementV1().DeletePolicy(&iampmv1.DeletePolicyOptions{PolicyID: &cr.Status.AtProvider.ID})
 	if err != nil {

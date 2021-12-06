@@ -18,7 +18,7 @@ limitations under the License.
 
 package v1beta1
 
-import runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+import runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 // GetProviderConfigReference of this ProviderConfigUsage.
 func (p *ProviderConfigUsage) GetProviderConfigReference() runtimev1alpha1.Reference {

@@ -28,7 +28,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -127,7 +127,7 @@ func sgWithSpec(p v1alpha1.ScalingGroupParameters) sgModifier {
 	return func(r *v1alpha1.ScalingGroup) { r.Spec.ForProvider = p }
 }
 
-func sgWithConditions(c ...cpv1alpha1.Condition) sgModifier {
+func sgWithConditions(c ...cpv1.Condition) sgModifier {
 	return func(i *v1alpha1.ScalingGroup) { i.Status.SetConditions(c...) }
 }
 
@@ -159,7 +159,7 @@ func params(m ...func(*v1alpha1.ScalingGroupParameters)) *v1alpha1.ScalingGroupP
 
 func observation(m ...func(*v1alpha1.ScalingGroupObservation)) *v1alpha1.ScalingGroupObservation {
 	o := &v1alpha1.ScalingGroupObservation{
-		State: string(cpv1alpha1.Available().Reason),
+		State: string(cpv1.Available().Reason),
 		Groups: []v1alpha1.Group{
 			{
 				ID:    id,
@@ -384,7 +384,7 @@ func TestScalingGroupObserve(t *testing.T) {
 			},
 			want: want{
 				mg: sg(sgWithSpec(*params()),
-					sgWithConditions(cpv1alpha1.Available()),
+					sgWithConditions(cpv1.Available()),
 					sgWithStatus(*observation())),
 				obs: managed.ExternalObservation{
 					ResourceExists:    true,
@@ -422,7 +422,7 @@ func TestScalingGroupObserve(t *testing.T) {
 			},
 			want: want{
 				mg: sg(sgWithSpec(*params()),
-					sgWithConditions(cpv1alpha1.Available()),
+					sgWithConditions(cpv1.Available()),
 					sgWithStatus(*observation(func(p *v1alpha1.ScalingGroupObservation) {
 						p.Groups = observation().Groups
 						p.Groups[0].Disk.AllocationMb = int64(diskAllocationMb * 2)
@@ -512,7 +512,7 @@ func TestScalingGroupCreate(t *testing.T) {
 			},
 			want: want{
 				mg: sg(sgWithSpec(*params()),
-					sgWithConditions(cpv1alpha1.Creating()),
+					sgWithConditions(cpv1.Creating()),
 					sgWithExternalNameAnnotation(id)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -591,7 +591,7 @@ func TestScalingGroupDelete(t *testing.T) {
 				mg: sg(sgWithStatus(*observation())),
 			},
 			want: want{
-				mg:  sg(sgWithStatus(*observation()), sgWithConditions(cpv1alpha1.Deleting())),
+				mg:  sg(sgWithStatus(*observation()), sgWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},

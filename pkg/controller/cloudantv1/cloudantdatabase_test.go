@@ -29,7 +29,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -90,7 +90,7 @@ func cdbWithSpec(p v1alpha1.CloudantDatabaseParameters) cdbModifier {
 	return func(r *v1alpha1.CloudantDatabase) { r.Spec.ForProvider = p }
 }
 
-func cdbWithConditions(c ...cpv1alpha1.Condition) cdbModifier {
+func cdbWithConditions(c ...cpv1.Condition) cdbModifier {
 	return func(i *v1alpha1.CloudantDatabase) { i.Status.SetConditions(c...) }
 }
 
@@ -310,7 +310,7 @@ func TestCloudantDatabaseObserve(t *testing.T) {
 			},
 			want: want{
 				mg: cloudantdatabase(cdbWithSpec(*cdbParams()),
-					cdbWithConditions(cpv1alpha1.Available()),
+					cdbWithConditions(cpv1.Available()),
 					cdbWithStatus(*cdbObservation()),
 				),
 				obs: managed.ExternalObservation{
@@ -349,7 +349,7 @@ func TestCloudantDatabaseObserve(t *testing.T) {
 		// 	},
 		// 	want: want{
 		// 		mg: cloudantdatabase(cdbWithSpec(*cdbParams()),
-		// 			cdbWithConditions(cpv1alpha1.Available()),
+		// 			cdbWithConditions(cpv1.Available()),
 		// 			cdbWithStatus(*cdbObservation()),
 		// 		),
 		// 		obs: managed.ExternalObservation{
@@ -436,7 +436,7 @@ func TestCloudantDatabaseCreate(t *testing.T) {
 			},
 			want: want{
 				mg: cloudantdatabase(cdbWithSpec(*cdbParams()),
-					cdbWithConditions(cpv1alpha1.Creating()),
+					cdbWithConditions(cpv1.Creating()),
 					cdbWithExternalNameAnnotation(cdbName)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -463,7 +463,7 @@ func TestCloudantDatabaseCreate(t *testing.T) {
 			},
 			want: want{
 				mg: cloudantdatabase(cdbWithSpec(*cdbParams()),
-					cdbWithConditions(cpv1alpha1.Creating())),
+					cdbWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errCreateCloudantDatabase),
 			},
@@ -541,7 +541,7 @@ func TestCloudantDatabaseDelete(t *testing.T) {
 				mg: cloudantdatabase(cdbWithExternalNameAnnotation(cdbName)),
 			},
 			want: want{
-				mg:  cloudantdatabase(cdbWithExternalNameAnnotation(cdbName), cdbWithConditions(cpv1alpha1.Deleting()), cdbWithStatus(*cdbEmptyObservation(func(p *v1alpha1.CloudantDatabaseObservation) { p.State = "terminating" }))),
+				mg:  cloudantdatabase(cdbWithExternalNameAnnotation(cdbName), cdbWithConditions(cpv1.Deleting()), cdbWithStatus(*cdbEmptyObservation(func(p *v1alpha1.CloudantDatabaseObservation) { p.State = "terminating" }))),
 				err: nil,
 			},
 		},
@@ -563,7 +563,7 @@ func TestCloudantDatabaseDelete(t *testing.T) {
 				mg: cloudantdatabase(cdbWithExternalNameAnnotation(cdbName)),
 			},
 			want: want{
-				mg:  cloudantdatabase(cdbWithExternalNameAnnotation(cdbName), cdbWithConditions(cpv1alpha1.Deleting())),
+				mg:  cloudantdatabase(cdbWithExternalNameAnnotation(cdbName), cdbWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -585,7 +585,7 @@ func TestCloudantDatabaseDelete(t *testing.T) {
 				mg: cloudantdatabase(cdbWithExternalNameAnnotation(cdbName)),
 			},
 			want: want{
-				mg:  cloudantdatabase(cdbWithExternalNameAnnotation(cdbName), cdbWithConditions(cpv1alpha1.Deleting())),
+				mg:  cloudantdatabase(cdbWithExternalNameAnnotation(cdbName), cdbWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errDeleteCloudantDatabase),
 			},
 		},

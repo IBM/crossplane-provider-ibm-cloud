@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // In spec mandatory fields should be by value, and optional fields pointers
@@ -36,12 +36,12 @@ type ScalingGroupParameters struct {
 	// IDRef is a reference to an ICD resource instance used to set ID
 	// +immutable
 	// +optional
-	IDRef *runtimev1alpha1.Reference `json:"idRef,omitempty"`
+	IDRef *runtimev1.Reference `json:"idRef,omitempty"`
 
 	// SourceSelector selects a reference to an ICD resource instance used to set ID.
 	// +immutable
 	// +optional
-	IDSelector *runtimev1alpha1.Selector `json:"idSelector,omitempty"`
+	IDSelector *runtimev1.Selector `json:"idSelector,omitempty"`
 
 	// Members -
 	Members *SetMembersGroupMembers `json:"members,omitempty"`
@@ -226,15 +226,15 @@ type GroupCPU struct {
 
 // A ScalingGroupSpec defines the desired state of a ScalingGroup.
 type ScalingGroupSpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
-	ConnectionTemplates          map[string]string      `json:"connectionTemplates,omitempty"`
-	ForProvider                  ScalingGroupParameters `json:"forProvider"`
+	runtimev1.ResourceSpec `json:",inline"`
+	ConnectionTemplates    map[string]string      `json:"connectionTemplates,omitempty"`
+	ForProvider            ScalingGroupParameters `json:"forProvider"`
 }
 
 // A ScalingGroupStatus represents the observed state of a ScalingGroup.
 type ScalingGroupStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
-	AtProvider                     ScalingGroupObservation `json:"atProvider,omitempty"`
+	runtimev1.ResourceStatus `json:",inline"`
+	AtProvider               ScalingGroupObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

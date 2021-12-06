@@ -20,7 +20,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // ResourceInstanceParameters are the configurable fields of a ResourceInstance.
@@ -173,14 +173,14 @@ type PlanHistoryItem struct {
 
 // A ResourceInstanceSpec defines the desired state of a ResourceInstance.
 type ResourceInstanceSpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
-	ForProvider                  ResourceInstanceParameters `json:"forProvider"`
+	runtimev1.ResourceSpec `json:",inline"`
+	ForProvider            ResourceInstanceParameters `json:"forProvider"`
 }
 
 // A ResourceInstanceStatus represents the observed state of a ResourceInstance.
 type ResourceInstanceStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
-	AtProvider                     ResourceInstanceObservation `json:"atProvider,omitempty"`
+	runtimev1.ResourceStatus `json:",inline"`
+	AtProvider               ResourceInstanceObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

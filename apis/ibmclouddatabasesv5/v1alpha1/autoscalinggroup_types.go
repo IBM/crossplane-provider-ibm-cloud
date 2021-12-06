@@ -20,7 +20,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // In spec mandatory fields should be by value, and optional fields pointers
@@ -41,12 +41,12 @@ type AutoscalingGroupParameters struct {
 	// IDRef is a reference to an ICD resource instance used to set ID
 	// +immutable
 	// +optional
-	IDRef *runtimev1alpha1.Reference `json:"idRef,omitempty"`
+	IDRef *runtimev1.Reference `json:"idRef,omitempty"`
 
 	// SourceSelector selects a reference to an ICD resource instance used to set ID.
 	// +immutable
 	// +optional
-	IDSelector *runtimev1alpha1.Selector `json:"idSelector,omitempty"`
+	IDSelector *runtimev1.Selector `json:"idSelector,omitempty"`
 
 	// Disk -
 	// +optional
@@ -154,9 +154,9 @@ type AutoscalingCPUGroupCPURate struct {
 
 // A AutoscalingGroupSpec defines the desired state of a AutoscalingGroup.
 type AutoscalingGroupSpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
-	ConnectionTemplates          map[string]string          `json:"connectionTemplates,omitempty"`
-	ForProvider                  AutoscalingGroupParameters `json:"forProvider"`
+	runtimev1.ResourceSpec `json:",inline"`
+	ConnectionTemplates    map[string]string          `json:"connectionTemplates,omitempty"`
+	ForProvider            AutoscalingGroupParameters `json:"forProvider"`
 }
 
 // AutoscalingGroupObservation are the observable fields of a Autoscaling Group.
@@ -167,8 +167,8 @@ type AutoscalingGroupObservation struct {
 
 // A AutoscalingGroupStatus represents the observed state of a AutoscalingGroup.
 type AutoscalingGroupStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
-	AtProvider                     AutoscalingGroupObservation `json:"atProvider,omitempty"`
+	runtimev1.ResourceStatus `json:",inline"`
+	AtProvider               AutoscalingGroupObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

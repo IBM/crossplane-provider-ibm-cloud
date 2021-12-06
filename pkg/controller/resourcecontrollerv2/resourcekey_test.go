@@ -31,7 +31,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -67,7 +67,7 @@ var _ managed.ExternalClient = &resourcekeyExternal{}
 
 type keyModifier func(*v1alpha1.ResourceKey)
 
-func rkWithConditions(c ...cpv1alpha1.Condition) keyModifier {
+func rkWithConditions(c ...cpv1.Condition) keyModifier {
 	return func(i *v1alpha1.ResourceKey) { i.Status.SetConditions(c...) }
 }
 
@@ -195,7 +195,7 @@ func genTestCRResourceKey(im ...keyModifier) *v1alpha1.ResourceKey {
 		rkWihIAMCompatible(iamCompatible),
 		rkWithResourceInstanceURL(resInstURL),
 		rkWithCreatedBy(createdBy),
-		rkWithConditions(cpv1alpha1.Available()),
+		rkWithConditions(cpv1.Available()),
 		rkWithSpec(resourceKeySpec()),
 	)
 	for _, m := range im {
@@ -456,7 +456,7 @@ func TestResourceKeyCreate(t *testing.T) {
 			},
 			want: want{
 				mg: key(rkWithSpec(resourceKeySpec()),
-					rkWithConditions(cpv1alpha1.Creating()),
+					rkWithConditions(cpv1.Creating()),
 					rkWithExternalNameAnnotation(rkID)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -491,7 +491,7 @@ func TestResourceKeyCreate(t *testing.T) {
 				mg: key(rkWithSpec(resourceKeySpec())),
 			},
 			want: want{
-				mg:  key(rkWithSpec(resourceKeySpec()), rkWithConditions(cpv1alpha1.Creating())),
+				mg:  key(rkWithSpec(resourceKeySpec()), rkWithConditions(cpv1.Creating())),
 				err: errors.Wrap(errors.New(errWrongGUID), errCreateResourceKey),
 			},
 		},
@@ -568,7 +568,7 @@ func TestResourceKeyDelete(t *testing.T) {
 				mg: key(rkWithID(id)),
 			},
 			want: want{
-				mg:  key(rkWithID(id), rkWithConditions(cpv1alpha1.Deleting())),
+				mg:  key(rkWithID(id), rkWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -590,7 +590,7 @@ func TestResourceKeyDelete(t *testing.T) {
 				mg: key(rkWithID(id)),
 			},
 			want: want{
-				mg:  key(rkWithID(id), rkWithConditions(cpv1alpha1.Deleting())),
+				mg:  key(rkWithID(id), rkWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -612,7 +612,7 @@ func TestResourceKeyDelete(t *testing.T) {
 				mg: key(rkWithID(id)),
 			},
 			want: want{
-				mg:  key(rkWithID(id), rkWithConditions(cpv1alpha1.Deleting())),
+				mg:  key(rkWithID(id), rkWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errDeleteResourceKey),
 			},
 		},

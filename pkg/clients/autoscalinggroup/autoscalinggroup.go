@@ -6,7 +6,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 	icdv5 "github.com/IBM/experimental-go-sdk/ibmclouddatabasesv5"
 
@@ -149,11 +149,11 @@ func IsUpToDate(id string, in *v1alpha1.AutoscalingGroupParameters, observed *ic
 		return false, err
 	}
 
-	l.Info(cmp.Diff(desired, actual, cmpopts.IgnoreTypes(&runtimev1alpha1.Reference{}, &runtimev1alpha1.Selector{}, []runtimev1alpha1.Reference{})))
+	l.Info(cmp.Diff(desired, actual, cmpopts.IgnoreTypes(&runtimev1.Reference{}, &runtimev1.Selector{}, []runtimev1.Reference{})))
 
 	return cmp.Equal(desired, actual, cmpopts.EquateEmpty(),
 		cmpopts.IgnoreFields(v1alpha1.AutoscalingGroupParameters{}),
-		cmpopts.IgnoreTypes(&runtimev1alpha1.Reference{}, &runtimev1alpha1.Selector{}, []runtimev1alpha1.Reference{})), nil
+		cmpopts.IgnoreTypes(&runtimev1.Reference{}, &runtimev1.Selector{}, []runtimev1.Reference{})), nil
 }
 
 // GenerateAutoscalingGroupParameters generates autoscaling group parameters from AutoscalingGroup

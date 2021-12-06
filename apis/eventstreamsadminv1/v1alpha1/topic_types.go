@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // TopicParameters are the configurable fields of a Topic.
@@ -37,12 +37,12 @@ type TopicParameters struct {
 	// A reference to the Event Streams Secret Key used to set KafkaAdminURL
 	// +immutable
 	// +optional
-	KafkaAdminURLRef *runtimev1alpha1.Reference `json:"kafkaAdminUrlRef,omitempty"`
+	KafkaAdminURLRef *runtimev1.Reference `json:"kafkaAdminUrlRef,omitempty"`
 
 	// SourceSelector selects a reference to a resource used to set Source
 	// +immutable
 	// +optional
-	KafkaAdminURLSelector *runtimev1alpha1.Selector `json:"kafkaAdminUrlSelector,omitempty"`
+	KafkaAdminURLSelector *runtimev1.Selector `json:"kafkaAdminUrlSelector,omitempty"`
 
 	// The number of partitions.
 	// +optional
@@ -129,14 +129,14 @@ type ReplicaAssignmentBrokers struct {
 
 // A TopicSpec defines the desired state of a Topic.
 type TopicSpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
-	ForProvider                  TopicParameters `json:"forProvider"`
+	runtimev1.ResourceSpec `json:",inline"`
+	ForProvider            TopicParameters `json:"forProvider"`
 }
 
 // A TopicStatus represents the observed state of a Topic.
 type TopicStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
-	AtProvider                     TopicObservation `json:"atProvider,omitempty"`
+	runtimev1.ResourceStatus `json:",inline"`
+	AtProvider               TopicObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

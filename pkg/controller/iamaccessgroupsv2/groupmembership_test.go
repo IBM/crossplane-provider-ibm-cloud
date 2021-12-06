@@ -30,7 +30,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -108,7 +108,7 @@ func gmWithSpec(p v1alpha1.GroupMembershipParameters) gmModifier {
 	return func(r *v1alpha1.GroupMembership) { r.Spec.ForProvider = p }
 }
 
-func gmWithConditions(c ...cpv1alpha1.Condition) gmModifier {
+func gmWithConditions(c ...cpv1.Condition) gmModifier {
 	return func(i *v1alpha1.GroupMembership) { i.Status.SetConditions(c...) }
 }
 
@@ -351,7 +351,7 @@ func TestGroupMembershipObserve(t *testing.T) {
 			},
 			want: want{
 				mg: gm(gmWithSpec(*gmParams()),
-					gmWithConditions(cpv1alpha1.Available()),
+					gmWithConditions(cpv1.Available()),
 					gmWithStatus(*gmObservation(func(cro *v1alpha1.GroupMembershipObservation) {
 						cro.State = ibmcgm.StateActive
 					})),
@@ -393,7 +393,7 @@ func TestGroupMembershipObserve(t *testing.T) {
 			want: want{
 				mg: gm(gmWithSpec(*gmParams()),
 					gmWithEtagAnnotation(eTag),
-					gmWithConditions(cpv1alpha1.Available()),
+					gmWithConditions(cpv1.Available()),
 					gmWithStatus(*gmObservation(func(cro *v1alpha1.GroupMembershipObservation) {
 						cro.State = ibmcgm.StateActive
 						cro.Members[0].IamID = memberIamID3
@@ -482,7 +482,7 @@ func TestGroupMembershipCreate(t *testing.T) {
 			},
 			want: want{
 				mg: gm(gmWithSpec(*gmParams()),
-					gmWithConditions(cpv1alpha1.Creating()),
+					gmWithConditions(cpv1.Creating()),
 					gmWithExternalNameAnnotation(agID)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -509,7 +509,7 @@ func TestGroupMembershipCreate(t *testing.T) {
 			},
 			want: want{
 				mg: gm(gmWithSpec(*gmParams()),
-					gmWithConditions(cpv1alpha1.Creating())),
+					gmWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errCreateGroupMembership),
 			},
@@ -535,7 +535,7 @@ func TestGroupMembershipCreate(t *testing.T) {
 			},
 			want: want{
 				mg: gm(gmWithSpec(*gmParams()),
-					gmWithConditions(cpv1alpha1.Creating())),
+					gmWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusConflict)), errCreateGroupMembership),
 			},
@@ -561,7 +561,7 @@ func TestGroupMembershipCreate(t *testing.T) {
 			},
 			want: want{
 				mg: gm(gmWithSpec(*gmParams()),
-					gmWithConditions(cpv1alpha1.Creating())),
+					gmWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusForbidden)), errCreateGroupMembership),
 			},
@@ -640,7 +640,7 @@ func TestGroupMembershipDelete(t *testing.T) {
 				mg: gm(gmWithStatus(*gmObservation()), gmWithExternalNameAnnotation(accessGroupID)),
 			},
 			want: want{
-				mg:  gm(gmWithStatus(*gmObservation()), gmWithConditions(cpv1alpha1.Deleting())),
+				mg:  gm(gmWithStatus(*gmObservation()), gmWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -662,7 +662,7 @@ func TestGroupMembershipDelete(t *testing.T) {
 				mg: gm(gmWithStatus(*gmObservation()), gmWithExternalNameAnnotation(accessGroupID)),
 			},
 			want: want{
-				mg:  gm(gmWithStatus(*gmObservation()), gmWithConditions(cpv1alpha1.Deleting())),
+				mg:  gm(gmWithStatus(*gmObservation()), gmWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errDeleteGroupMembership),
 			},
 		},
@@ -684,7 +684,7 @@ func TestGroupMembershipDelete(t *testing.T) {
 				mg: gm(gmWithStatus(*gmObservation()), gmWithExternalNameAnnotation(accessGroupID)),
 			},
 			want: want{
-				mg:  gm(gmWithStatus(*gmObservation()), gmWithConditions(cpv1alpha1.Deleting())),
+				mg:  gm(gmWithStatus(*gmObservation()), gmWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusUnauthorized)), errDeleteGroupMembership),
 			},
 		},
@@ -706,7 +706,7 @@ func TestGroupMembershipDelete(t *testing.T) {
 				mg: gm(gmWithStatus(*gmObservation()), gmWithExternalNameAnnotation(accessGroupID)),
 			},
 			want: want{
-				mg:  gm(gmWithStatus(*gmObservation()), gmWithConditions(cpv1alpha1.Deleting())),
+				mg:  gm(gmWithStatus(*gmObservation()), gmWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusForbidden)), errDeleteGroupMembership),
 			},
 		},

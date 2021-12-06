@@ -1,7 +1,7 @@
 apiVersion: meta.pkg.crossplane.io/v1alpha1
 kind: Provider
 metadata:
-  name: provider-ibm-cloud
+  name: ibm-crossplane-provider-ibm-cloud
 spec:
   controller:
-    image: crossplane/provider-ibm-cloud-controller:VERSION
+    image: DOCKER_REGISTRY/crossplane-provider-ibm-cloud-controller:VERSION

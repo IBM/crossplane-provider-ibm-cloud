@@ -1,5 +1,4 @@
 FROM BASEIMAGE
-RUN apk --no-cache add ca-certificates bash
 
 ARG ARCH
 ARG TINI_VERSION

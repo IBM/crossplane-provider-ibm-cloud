@@ -56,7 +56,7 @@ func getInitializedMockClient(t *testing.T) client.Client {
 	objs := []runtime.Object{pc, pcu}
 	s := scheme.Scheme
 	s.AddKnownTypes(v1beta1.SchemeGroupVersion, pc, pcu)
-	c := fake.NewFakeClient(objs...)
+	c := fake.NewClientBuilder().WithRuntimeObjects(objs...).Build()
 
 	secret := &corev1.Secret{
 		ObjectMeta: metav1.ObjectMeta{

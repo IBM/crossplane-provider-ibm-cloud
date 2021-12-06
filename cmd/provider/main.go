@@ -44,6 +44,7 @@ func main() {
 		debug          = app.Flag("debug", "Run with debug logging.").Short('d').Bool()
 		syncPeriod     = app.Flag("sync", "Controller manager sync period such as 300ms, 1.5h, or 2h45m").Short('s').Default("1h").Duration()
 		leaderElection = app.Flag("leader-election", "Use leader election for the conroller manager.").Short('l').Default("false").OverrideDefaultFromEnvar("LEADER_ELECTION").Bool()
+		namespace      = app.Flag("namespace", "Namespace containing nss configuration.").Short('n').Default("ibm-common-services").OverrideDefaultFromEnvar("WATCH_NAMESPACE").String()
 	)
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 
@@ -68,7 +69,7 @@ func main() {
 	}
 	nss := &unstructured.Unstructured{}
 	nss.SetGroupVersionKind(schema.GroupVersionKind{Version: "operator.ibm.com/v1", Kind: "NamespaceScope"})
-	if err := cfn.Get(context.Background(), types.NamespacedName{Namespace: "ibm-common-services", Name: "common-service"}, nss); err != nil {
+	if err := cfn.Get(context.Background(), types.NamespacedName{Namespace: *namespace, Name: "common-service"}, nss); err != nil {
 		kingpin.FatalIfError(err, "Cannot get NamespaceScope common-service")
 	}
 

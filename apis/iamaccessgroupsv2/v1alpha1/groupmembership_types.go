@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // In spec mandatory fields should be by value, and optional fields pointers
@@ -36,12 +36,12 @@ type GroupMembershipParameters struct {
 	// Reference to AccessGroupID
 	// +immutable
 	// +optional
-	AccessGroupIDRef *runtimev1alpha1.Reference `json:"accessGroupIdRef,omitempty"`
+	AccessGroupIDRef *runtimev1.Reference `json:"accessGroupIdRef,omitempty"`
 
 	// Selector for AccessGroupID
 	// +immutable
 	// +optional
-	AccessGroupIDSelector *runtimev1alpha1.Selector `json:"accessGroupIdSelector,omitempty"`
+	AccessGroupIDSelector *runtimev1.Selector `json:"accessGroupIdSelector,omitempty"`
 
 	// An array of member objects to add to an access group.
 	Members []AddGroupMembersRequestMembersItem `json:"members"`
@@ -98,14 +98,14 @@ type ListGroupMembersResponseMember struct {
 
 // A GroupMembershipSpec defines the desired state of a GroupMembership.
 type GroupMembershipSpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
-	ForProvider                  GroupMembershipParameters `json:"forProvider"`
+	runtimev1.ResourceSpec `json:",inline"`
+	ForProvider            GroupMembershipParameters `json:"forProvider"`
 }
 
 // A GroupMembershipStatus represents the observed state of a GroupMembership.
 type GroupMembershipStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
-	AtProvider                     GroupMembershipObservation `json:"atProvider,omitempty"`
+	runtimev1.ResourceStatus `json:",inline"`
+	AtProvider               GroupMembershipObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

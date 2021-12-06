@@ -24,7 +24,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
@@ -142,13 +142,13 @@ func (c *resourcekeyExternal) Observe(ctx context.Context, mg resource.Managed) 
 
 	switch cr.Status.AtProvider.State {
 	case "active":
-		cr.Status.SetConditions(runtimev1alpha1.Available())
+		cr.Status.SetConditions(runtimev1.Available())
 	case "inactive":
-		cr.Status.SetConditions(runtimev1alpha1.Creating())
+		cr.Status.SetConditions(runtimev1.Creating())
 	default:
-		cr.Status.SetConditions(runtimev1alpha1.Unavailable())
+		cr.Status.SetConditions(runtimev1.Unavailable())
 	}
-	cr.Status.SetConditions(runtimev1alpha1.Available())
+	cr.Status.SetConditions(runtimev1.Available())
 
 	upToDate, err := resclient.IsUpToDate(c.client, &cr.Spec.ForProvider, instance, c.logger)
 	if err != nil {
@@ -173,7 +173,7 @@ func (c *resourcekeyExternal) Create(ctx context.Context, mg resource.Managed) (
 		return managed.ExternalCreation{}, errors.New(errNotResourceKey)
 	}
 
-	cr.SetConditions(runtimev1alpha1.Creating())
+	cr.SetConditions(runtimev1.Creating())
 	resInstanceOptions := &rcv2.CreateResourceKeyOptions{}
 	if err := resclient.GenerateCreateResourceKeyOptions(c.client, cr.Spec.ForProvider, resInstanceOptions); err != nil {
 		return managed.ExternalCreation{}, errors.Wrap(err, errCreateResourceKeyOpts)
@@ -214,7 +214,7 @@ func (c *resourcekeyExternal) Delete(ctx context.Context, mg resource.Managed) e
 		return errors.New(errNotResourceKey)
 	}
 
-	cr.SetConditions(runtimev1alpha1.Deleting())
+	cr.SetConditions(runtimev1.Deleting())
 
 	_, err := c.client.ResourceControllerV2().DeleteResourceKey(&rcv2.DeleteResourceKeyOptions{ID: &cr.Status.AtProvider.ID})
 	if err != nil {

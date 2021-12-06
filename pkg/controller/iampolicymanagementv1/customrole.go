@@ -25,7 +25,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
@@ -138,7 +138,7 @@ func (c *crExternal) Observe(ctx context.Context, mg resource.Managed) (managed.
 		return managed.ExternalObservation{}, errors.Wrap(err, errGenObservation)
 	}
 
-	cr.Status.SetConditions(cpv1alpha1.Available())
+	cr.Status.SetConditions(cpv1.Available())
 	cr.Status.AtProvider.State = ibmccr.StateActive
 
 	upToDate, err := ibmccr.IsUpToDate(&cr.Spec.ForProvider, instance, c.logger)
@@ -159,7 +159,7 @@ func (c *crExternal) Create(ctx context.Context, mg resource.Managed) (managed.E
 		return managed.ExternalCreation{}, errors.New(errNotCustomRole)
 	}
 
-	cr.SetConditions(cpv1alpha1.Creating())
+	cr.SetConditions(cpv1.Creating())
 	resInstanceOptions := &iampmv1.CreateRoleOptions{}
 	if err := ibmccr.GenerateCreateCustomRoleOptions(cr.Spec.ForProvider, resInstanceOptions); err != nil {
 		return managed.ExternalCreation{}, errors.Wrap(err, errCreateCustomRoleOpts)
@@ -201,7 +201,7 @@ func (c *crExternal) Delete(ctx context.Context, mg resource.Managed) error {
 		return errors.New(errNotCustomRole)
 	}
 
-	cr.SetConditions(cpv1alpha1.Deleting())
+	cr.SetConditions(cpv1.Deleting())
 
 	_, err := c.client.IamPolicyManagementV1().DeleteRole(&iampmv1.DeleteRoleOptions{RoleID: &cr.Status.AtProvider.ID})
 	if err != nil {

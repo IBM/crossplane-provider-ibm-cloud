@@ -29,7 +29,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -125,7 +125,7 @@ func pWithSpec(p v1alpha1.PolicyParameters) pModifier {
 	return func(r *v1alpha1.Policy) { r.Spec.ForProvider = p }
 }
 
-func pWithConditions(c ...cpv1alpha1.Condition) pModifier {
+func pWithConditions(c ...cpv1.Condition) pModifier {
 	return func(i *v1alpha1.Policy) { i.Status.SetConditions(c...) }
 }
 
@@ -360,7 +360,7 @@ func TestPolicyObserve(t *testing.T) {
 			},
 			want: want{
 				mg: p(pWithSpec(*params()),
-					pWithConditions(cpv1alpha1.Available()),
+					pWithConditions(cpv1.Available()),
 					pWithStatus(*observation(func(po *v1alpha1.PolicyObservation) {
 						po.State = ibmcp.StateActive
 					})),
@@ -403,7 +403,7 @@ func TestPolicyObserve(t *testing.T) {
 			want: want{
 				mg: p(pWithSpec(*params()),
 					pWithEtagAnnotation(eTag),
-					pWithConditions(cpv1alpha1.Available()),
+					pWithConditions(cpv1.Available()),
 					pWithStatus(*observation(func(p *v1alpha1.PolicyObservation) {
 						p.State = ibmcp.StateActive
 					}))),
@@ -491,7 +491,7 @@ func TestPolicyCreate(t *testing.T) {
 			},
 			want: want{
 				mg: p(pWithSpec(*params()),
-					pWithConditions(cpv1alpha1.Creating()),
+					pWithConditions(cpv1.Creating()),
 					pWithExternalNameAnnotation(policyID)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -518,7 +518,7 @@ func TestPolicyCreate(t *testing.T) {
 			},
 			want: want{
 				mg: p(pWithSpec(*params()),
-					pWithConditions(cpv1alpha1.Creating())),
+					pWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errCreatePolicy),
 			},
@@ -544,7 +544,7 @@ func TestPolicyCreate(t *testing.T) {
 			},
 			want: want{
 				mg: p(pWithSpec(*params()),
-					pWithConditions(cpv1alpha1.Creating())),
+					pWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusConflict)), errCreatePolicy),
 			},
@@ -570,7 +570,7 @@ func TestPolicyCreate(t *testing.T) {
 			},
 			want: want{
 				mg: p(pWithSpec(*params()),
-					pWithConditions(cpv1alpha1.Creating())),
+					pWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusForbidden)), errCreatePolicy),
 			},
@@ -648,7 +648,7 @@ func TestPolicyDelete(t *testing.T) {
 				mg: p(pWithStatus(*observation())),
 			},
 			want: want{
-				mg:  p(pWithStatus(*observation()), pWithConditions(cpv1alpha1.Deleting())),
+				mg:  p(pWithStatus(*observation()), pWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -670,7 +670,7 @@ func TestPolicyDelete(t *testing.T) {
 				mg: p(pWithStatus(*observation())),
 			},
 			want: want{
-				mg:  p(pWithStatus(*observation()), pWithConditions(cpv1alpha1.Deleting())),
+				mg:  p(pWithStatus(*observation()), pWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errDeletePolicy),
 			},
 		},
@@ -692,7 +692,7 @@ func TestPolicyDelete(t *testing.T) {
 				mg: p(pWithStatus(*observation())),
 			},
 			want: want{
-				mg:  p(pWithStatus(*observation()), pWithConditions(cpv1alpha1.Deleting())),
+				mg:  p(pWithStatus(*observation()), pWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusUnauthorized)), errDeletePolicy),
 			},
 		},
@@ -714,7 +714,7 @@ func TestPolicyDelete(t *testing.T) {
 				mg: p(pWithStatus(*observation())),
 			},
 			want: want{
-				mg:  p(pWithStatus(*observation()), pWithConditions(cpv1alpha1.Deleting())),
+				mg:  p(pWithStatus(*observation()), pWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusForbidden)), errDeletePolicy),
 			},
 		},

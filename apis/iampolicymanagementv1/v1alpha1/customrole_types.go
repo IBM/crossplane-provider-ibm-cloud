@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // In spec mandatory fields should be by value, and optional fields pointers
@@ -77,14 +77,14 @@ type CustomRoleObservation struct {
 
 // A CustomRoleSpec defines the desired state of a CustomRole.
 type CustomRoleSpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
-	ForProvider                  CustomRoleParameters `json:"forProvider"`
+	runtimev1.ResourceSpec `json:",inline"`
+	ForProvider            CustomRoleParameters `json:"forProvider"`
 }
 
 // A CustomRoleStatus represents the observed state of a CustomRole.
 type CustomRoleStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
-	AtProvider                     CustomRoleObservation `json:"atProvider,omitempty"`
+	runtimev1.ResourceStatus `json:",inline"`
+	AtProvider               CustomRoleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

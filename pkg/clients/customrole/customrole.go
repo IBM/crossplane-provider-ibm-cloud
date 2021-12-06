@@ -9,7 +9,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/reference"
 
@@ -96,11 +96,11 @@ func IsUpToDate(in *v1alpha1.CustomRoleParameters, observed *iampmv1.CustomRole,
 		return false, err
 	}
 
-	l.Info(cmp.Diff(desired, actual, cmpopts.IgnoreTypes(&runtimev1alpha1.Reference{}, &runtimev1alpha1.Selector{}, []runtimev1alpha1.Reference{})))
+	l.Info(cmp.Diff(desired, actual, cmpopts.IgnoreTypes(&runtimev1.Reference{}, &runtimev1.Selector{}, []runtimev1.Reference{})))
 
 	return cmp.Equal(desired, actual, cmpopts.EquateEmpty(),
 		cmpopts.IgnoreFields(v1alpha1.CustomRoleParameters{}),
-		cmpopts.IgnoreTypes(&runtimev1alpha1.Reference{}, &runtimev1alpha1.Selector{}, []runtimev1alpha1.Reference{})), nil
+		cmpopts.IgnoreTypes(&runtimev1.Reference{}, &runtimev1.Selector{}, []runtimev1.Reference{})), nil
 }
 
 // GenerateCustomRoleParameters generates service instance parameters from resource instance

@@ -28,7 +28,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -87,7 +87,7 @@ func wlWithSpec(p v1alpha1.WhitelistParameters) wlModifier {
 	return func(r *v1alpha1.Whitelist) { r.Spec.ForProvider = p }
 }
 
-func wlWithConditions(c ...cpv1alpha1.Condition) wlModifier {
+func wlWithConditions(c ...cpv1.Condition) wlModifier {
 	return func(i *v1alpha1.Whitelist) { i.Status.SetConditions(c...) }
 }
 
@@ -117,7 +117,7 @@ func wlParams(m ...func(*v1alpha1.WhitelistParameters)) *v1alpha1.WhitelistParam
 
 func wlObservation(m ...func(*v1alpha1.WhitelistObservation)) *v1alpha1.WhitelistObservation {
 	o := &v1alpha1.WhitelistObservation{
-		State: string(cpv1alpha1.Available().Reason),
+		State: string(cpv1.Available().Reason),
 	}
 
 	for _, f := range m {
@@ -256,7 +256,7 @@ func TestWhitelistObserve(t *testing.T) {
 			},
 			want: want{
 				mg: wl(wlWithSpec(*wlParams()),
-					wlWithConditions(cpv1alpha1.Available()),
+					wlWithConditions(cpv1.Available()),
 					wlWithStatus(*wlObservation())),
 				obs: managed.ExternalObservation{
 					ResourceExists:    true,
@@ -293,7 +293,7 @@ func TestWhitelistObserve(t *testing.T) {
 			},
 			want: want{
 				mg: wl(wlWithSpec(*wlParams()),
-					wlWithConditions(cpv1alpha1.Available()),
+					wlWithConditions(cpv1.Available()),
 					wlWithStatus(*wlObservation(func(p *v1alpha1.WhitelistObservation) {
 					}))),
 				obs: managed.ExternalObservation{
@@ -379,7 +379,7 @@ func TestWhitelistCreate(t *testing.T) {
 			},
 			want: want{
 				mg: wl(wlWithSpec(*wlParams()),
-					wlWithConditions(cpv1alpha1.Creating()),
+					wlWithConditions(cpv1.Creating()),
 					wlWithExternalNameAnnotation(id)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -459,7 +459,7 @@ func TestWhitelistDelete(t *testing.T) {
 				mg: wl(wlWithStatus(*wlObservation())),
 			},
 			want: want{
-				mg:  wl(wlWithStatus(*wlObservation()), wlWithConditions(cpv1alpha1.Deleting())),
+				mg:  wl(wlWithStatus(*wlObservation()), wlWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},

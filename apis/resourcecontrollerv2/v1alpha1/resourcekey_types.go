@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // ResourceKeyParameters are the configurable fields of a ResourceKey.
@@ -35,12 +35,12 @@ type ResourceKeyParameters struct {
 	// A reference to a resource used to set Source
 	// +immutable
 	// +optional
-	SourceRef *runtimev1alpha1.Reference `json:"sourceRef,omitempty"`
+	SourceRef *runtimev1.Reference `json:"sourceRef,omitempty"`
 
 	// SourceSelector selects a reference to a resource used to set Source
 	// +immutable
 	// +optional
-	SourceSelector *runtimev1alpha1.Selector `json:"sourceSelector,omitempty"`
+	SourceSelector *runtimev1.Selector `json:"sourceSelector,omitempty"`
 
 	// Configuration options represented as key-value pairs. Service defined options are passed through to the target
 	// resource brokers, whereas platform defined options are not.
@@ -132,15 +132,15 @@ type Credentials struct {
 
 // A ResourceKeySpec defines the desired state of a ResourceKey.
 type ResourceKeySpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
-	ConnectionTemplates          map[string]string     `json:"connectionTemplates,omitempty"`
-	ForProvider                  ResourceKeyParameters `json:"forProvider"`
+	runtimev1.ResourceSpec `json:",inline"`
+	ConnectionTemplates    map[string]string     `json:"connectionTemplates,omitempty"`
+	ForProvider            ResourceKeyParameters `json:"forProvider"`
 }
 
 // A ResourceKeyStatus represents the observed state of a ResourceKey.
 type ResourceKeyStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
-	AtProvider                     ResourceKeyObservation `json:"atProvider,omitempty"`
+	runtimev1.ResourceStatus `json:",inline"`
+	AtProvider               ResourceKeyObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

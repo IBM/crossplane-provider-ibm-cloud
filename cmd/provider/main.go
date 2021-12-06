@@ -17,8 +17,15 @@ limitations under the License.
 package main
 
 import (
+	"context"
+	"fmt"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
 	"os"
 	"path/filepath"
+	"sigs.k8s.io/controller-runtime/pkg/cache"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	"gopkg.in/alecthomas/kingpin.v2"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -53,10 +60,30 @@ func main() {
 	cfg, err := ctrl.GetConfig()
 	kingpin.FatalIfError(err, "Cannot get API server rest config")
 
+	var namespaces []string
+	cfn, err := client.New(cfg, client.Options{})
+	if err != nil {
+		log.Debug("Cannot create client for nss", "error", err)
+	}
+	nss := &unstructured.Unstructured{}
+	nss.SetGroupVersionKind(schema.GroupVersionKind{Version: "operator.ibm.com/v1", Kind: "NamespaceScope"})
+	if err := cfn.Get(context.Background(), types.NamespacedName{Namespace: "ibm-common-services", Name: "common-service"}, nss); err != nil {
+		kingpin.FatalIfError(err, "Cannot get NamespaceScope common-service")
+	}
+
+	spec := nss.Object["spec"].(map[string]interface{})
+	ms := spec["namespaceMembers"]
+	if ms != nil {
+		for _, m := range ms.([]interface{}) {
+			namespaces = append(namespaces, fmt.Sprintf("%v", m))
+		}
+	}
+
 	mgr, err := ctrl.NewManager(cfg, ctrl.Options{
 		LeaderElection:   *leaderElection,
 		LeaderElectionID: "crossplane-leader-election-provider-ibm-cloud",
 		SyncPeriod:       syncPeriod,
+		NewCache:         cache.MultiNamespacedCacheBuilder(namespaces),
 	})
 	kingpin.FatalIfError(err, "Cannot create controller manager")
 

@@ -28,7 +28,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -104,7 +104,7 @@ func asgWithSpec(p v1alpha1.AutoscalingGroupParameters) asgModifier {
 	return func(r *v1alpha1.AutoscalingGroup) { r.Spec.ForProvider = p }
 }
 
-func asgWithConditions(c ...cpv1alpha1.Condition) asgModifier {
+func asgWithConditions(c ...cpv1.Condition) asgModifier {
 	return func(i *v1alpha1.AutoscalingGroup) { i.Status.SetConditions(c...) }
 }
 
@@ -166,7 +166,7 @@ func asgParams(m ...func(*v1alpha1.AutoscalingGroupParameters)) *v1alpha1.Autosc
 
 func asgObservation(m ...func(*v1alpha1.AutoscalingGroupObservation)) *v1alpha1.AutoscalingGroupObservation {
 	o := &v1alpha1.AutoscalingGroupObservation{
-		State: string(cpv1alpha1.Available().Reason),
+		State: string(cpv1.Available().Reason),
 	}
 
 	for _, f := range m {
@@ -337,7 +337,7 @@ func TestAutoscalingGroupObserve(t *testing.T) {
 			},
 			want: want{
 				mg: asg(asgWithSpec(*asgParams()),
-					asgWithConditions(cpv1alpha1.Available()),
+					asgWithConditions(cpv1.Available()),
 					asgWithStatus(*asgObservation())),
 				obs: managed.ExternalObservation{
 					ResourceExists:    true,
@@ -376,7 +376,7 @@ func TestAutoscalingGroupObserve(t *testing.T) {
 			},
 			want: want{
 				mg: asg(asgWithSpec(*asgParams()),
-					asgWithConditions(cpv1alpha1.Available()),
+					asgWithConditions(cpv1.Available()),
 					asgWithStatus(*asgObservation(func(p *v1alpha1.AutoscalingGroupObservation) {
 					}))),
 				obs: managed.ExternalObservation{
@@ -463,7 +463,7 @@ func TestAutoscalingGroupCreate(t *testing.T) {
 			},
 			want: want{
 				mg: asg(asgWithSpec(*asgParams()),
-					asgWithConditions(cpv1alpha1.Creating()),
+					asgWithConditions(cpv1.Creating()),
 					asgWithExternalNameAnnotation(id)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -542,7 +542,7 @@ func TestAutoscalingGroupDelete(t *testing.T) {
 				mg: asg(asgWithStatus(*asgObservation())),
 			},
 			want: want{
-				mg:  asg(asgWithStatus(*asgObservation()), asgWithConditions(cpv1alpha1.Deleting())),
+				mg:  asg(asgWithStatus(*asgObservation()), asgWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},

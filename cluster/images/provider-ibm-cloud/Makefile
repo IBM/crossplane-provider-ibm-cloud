@@ -26,11 +26,10 @@ endif
 endif
 	@$(INFO) $(CONTAINER_CLI) build $(IMAGE)
 	@cp Dockerfile $(IMAGE_TEMP_DIR) || $(FAIL)
-	@cp -R ../../../package $(IMAGE_TEMP_DIR) || $(FAIL)
+	@cp ../../../package/crossplane.yaml $(IMAGE_TEMP_DIR)/package.yaml || $(FAIL)
 	@cd $(IMAGE_TEMP_DIR) && $(SED_CMD) 's|BASEIMAGE|$(OSBASEIMAGE)|g' Dockerfile || $(FAIL)
-	@cd $(IMAGE_TEMP_DIR) && $(SED_CMD) 's|DOCKER_REGISTRY|$(BUILD_REGISTRY)|g' package/crossplane.yaml || $(FAIL)
-	@cd $(IMAGE_TEMP_DIR) && $(SED_CMD) 's|VERSION|$(VERSION)|g' package/crossplane.yaml || $(FAIL)
-	@cd $(IMAGE_TEMP_DIR) && find package -type f -name '*.yaml' -exec cat {} >> 'package.yaml' \; -exec printf '\n---\n' \; || $(FAIL)
+	@cd $(IMAGE_TEMP_DIR) && $(SED_CMD) 's|DOCKER_REGISTRY|$(BUILD_REGISTRY)|g' package.yaml || $(FAIL)
+	@cd $(IMAGE_TEMP_DIR) && $(SED_CMD) 's|VERSION|$(VERSION)|g' package.yaml || $(FAIL)
 	@$(CONTAINER_CLI) $(BUILDX_ARGS) $(BUILD_ARGS) \
 		--build-arg ARCH=$(ARCH) \
 		--build-arg TINI_VERSION=$(TINI_VERSION) \

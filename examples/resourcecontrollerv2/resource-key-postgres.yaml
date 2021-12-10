@@ -9,11 +9,11 @@ spec:
       name: mypostgres
     role: Manager
   providerConfigRef:
-    name: ibm-cloud
+    name: ibm-crossplane-provider-ibm-cloud
   connectionTemplates:
     connectionString: "jdbc:postgresql://{{ (index .connection.postgres.hosts 0).hostname }}:{{ (index .connection.postgres.hosts 0).port }}{{ .connection.postgres.path }}"
     user: "{{ .connection.postgres.authentication.username }}"
     password: "{{ .connection.postgres.authentication.password }}"
   writeConnectionSecretToRef:
     name: mypostgres
-    namespace: crossplane-system  
+    namespace: ibm-common-services

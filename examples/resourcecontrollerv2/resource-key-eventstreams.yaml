@@ -9,7 +9,7 @@ spec:
       name: myes
     role: Manager
   providerConfigRef:
-    name: ibm-cloud
+    name: ibm-crossplane-provider-ibm-cloud
   writeConnectionSecretToRef:
     name: myes
     namespace: crossplane-system  

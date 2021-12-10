@@ -11,4 +11,4 @@ spec:
     tags:
       - dev
   providerConfigRef:
-    name: ibm-crossplane-provider-ibm-cloud
+    name: ibm-cloud

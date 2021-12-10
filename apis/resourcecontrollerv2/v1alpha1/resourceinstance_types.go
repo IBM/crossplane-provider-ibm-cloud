@@ -57,6 +57,7 @@ type ResourceInstanceParameters struct {
 
 	// Configuration options represented as key-value pairs that are passed through to the target resource brokers.
 	// +optional
+	// +kubebuilder:pruning:PreserveUnknownFields
 	Parameters *runtime.RawExtension `json:"parameters,omitempty"`
 }
 

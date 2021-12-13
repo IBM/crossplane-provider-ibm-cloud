@@ -89,13 +89,8 @@ func main() {
 		dc, err := dynamic.NewForConfig(cfg)
 		kingpin.FatalIfError(err, "Cannot create client for observing NamespaceScope")
 
-		// Handle each update causing the pod to restart.
-		startNssInformer(dc, *watchNamespace, func(oldObj, newObj interface{}) {
-			if newObj.(*unstructured.Unstructured).GetName() == nssName {
-				log.Debug("Observed NamespaceScope has been updated, restarting")
-				os.Exit(1)
-			}
-		})
+		stopper := startNssInformer(log, dc, *watchNamespace, nssName)
+		defer close(stopper)
 		log.Debug(fmt.Sprintf("Starting watch on namespaceScope %s", nssName))
 	}
 	log.Debug(fmt.Sprintf("Creating multinamespaced cache with namespaces: %+q", namespaces))
@@ -142,7 +137,7 @@ func listNamespacesFromNss(cfn client.Client, watchNamespace string, nssName str
 	return namespaces, nil
 }
 
-func startNssInformer(dc dynamic.Interface, watchNamespace string, updateFunc func(oldObj interface{}, newObj interface{})) {
+func startNssInformer(log logging.Logger, dc dynamic.Interface, watchNamespace string, nssName string) chan struct{} {
 	factory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(dc, 0, watchNamespace, nil)
 	informer := factory.ForResource(schema.GroupVersionResource{
 		Group:    "operator.ibm.com",
@@ -150,16 +145,21 @@ func startNssInformer(dc dynamic.Interface, watchNamespace string, updateFunc fu
 		Resource: "namespacescopes",
 	})
 
-	stopper := make(chan struct{})
-	defer close(stopper)
-
-	// Handle each update causing the pod to restart.
+	// Handle each update by restarting pod.
 	handlers := ca.ResourceEventHandlerFuncs{
-		UpdateFunc: updateFunc,
+		UpdateFunc: func(oldObj, newObj interface{}) {
+			if newObj.(*unstructured.Unstructured).GetName() == nssName {
+				log.Debug("Observed NamespaceScope has been updated, restarting")
+				os.Exit(1)
+			}
+		},
 	}
 	informer.Informer().AddEventHandler(handlers)
 
+	stopper := make(chan struct{})
 	go informer.Informer().Run(stopper)
+
+	return stopper
 }
 
 // IBM Patch end

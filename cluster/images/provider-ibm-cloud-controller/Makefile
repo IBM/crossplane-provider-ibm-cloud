@@ -14,11 +14,11 @@ include ../../../build/makelib/image.mk
 # Targets
 
 img.build:
-ifneq (,$(shell which podman))
-	$(eval CONTAINER_CLI = podman build --arch $(ARCH) --format docker)
-else
 ifneq (,$(BUILDX))
 	$(eval CONTAINER_CLI = docker buildx build --platform linux/$(ARCH) $(BUILDX_ARGS))
+else
+ifneq (,$(shell which podman))
+	$(eval CONTAINER_CLI = podman build --arch $(ARCH) --format docker)
 else
 ifneq (,$(BUILDX_PLUGIN))
 	$(eval CONTAINER_CLI = $(BUILDX_PLUGIN) build --platform linux/$(ARCH) $(BUILDX_ARGS))

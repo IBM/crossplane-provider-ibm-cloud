@@ -4,4 +4,4 @@ metadata:
   name: ibm-crossplane-provider-ibm-cloud
 spec:
   controller:
-    image: DOCKER_REGISTRY/crossplane-provider-ibm-cloud-controller:VERSION
+    image: DOCKER_REGISTRY/ibm-crossplane-provider-ibm-cloud-controller:VERSION

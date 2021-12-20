@@ -41,12 +41,12 @@ eval $(make --no-print-directory -C ${projectdir} build.vars)
 # ------------------------------
 
 SAFEHOSTARCH="${SAFEHOSTARCH:-amd64}"
-BUILD_IMAGE="${BUILD_REGISTRY}/crossplane-${PROJECT_NAME}:${VERSION}-${SAFEHOSTARCH}"
-CONTROLLER_IMAGE="${BUILD_REGISTRY}/crossplane-${PROJECT_NAME}-controller:${VERSION}-${SAFEHOSTARCH}"
+BUILD_IMAGE="${BUILD_REGISTRY}/ibm-crossplane-${PROJECT_NAME}:${VERSION}-${SAFEHOSTARCH}"
+CONTROLLER_IMAGE="${BUILD_REGISTRY}/ibm-crossplane-${PROJECT_NAME}-controller:${VERSION}-${SAFEHOSTARCH}"
 
 version_tag="$(cat ${projectdir}/_output/version)"
 # tag as latest version to load into kind cluster
-PACKAGE_CONTROLLER_IMAGE="${DOCKER_REGISTRY}/crossplane-${PROJECT_NAME}-controller:${VERSION}"
+PACKAGE_CONTROLLER_IMAGE="${DOCKER_REGISTRY}/ibm-crossplane-${PROJECT_NAME}-controller:${VERSION}"
 K8S_CLUSTER="${K8S_CLUSTER:-${PROJECT_NAME}-inttests}"
 
 CROSSPLANE_NAMESPACE="crossplane-system"

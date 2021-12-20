@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // BucketPararams are input params when creating a bucket
@@ -48,7 +48,7 @@ type BucketPararams struct {
 	//
 	// +immutable
 	// +optional
-	IbmServiceInstanceIDRef *runtimev1alpha1.Reference `json:"ibmServiceInstanceIDRef,omitempty"`
+	IbmServiceInstanceIDRef *runtimev1.Reference `json:"ibmServiceInstanceIDRef,omitempty"`
 
 	// Selects a reference to a resource instance containing the bucket
 	//
@@ -57,7 +57,7 @@ type BucketPararams struct {
 	//
 	// +immutable
 	// +optional
-	IbmServiceInstanceIDSelector *runtimev1alpha1.Selector `json:"ibmServiceInstanceIDSelector,omitempty"`
+	IbmServiceInstanceIDSelector *runtimev1.Selector `json:"ibmServiceInstanceIDSelector,omitempty"`
 
 	// The algorithm and key size used to for the managed encryption root key. Required if IbmSSEKpCustomerRootKeyCrn is also present.
 	//
@@ -87,7 +87,7 @@ type BucketObservation struct {
 
 // BucketSpec - desired end-state of a Bucket on the IBM cloud
 type BucketSpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
+	runtimev1.ResourceSpec `json:",inline"`
 
 	// Info the IBM cloud needs to create a bucket
 	ForProvider BucketPararams `json:"forProvider"`
@@ -95,7 +95,7 @@ type BucketSpec struct {
 
 // BucketStatus - whatever the status is (the IBM cloud decides that)
 type BucketStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
+	runtimev1.ResourceStatus `json:",inline"`
 
 	// Info the IBM cloud returns about a bucket
 	AtProvider BucketObservation `json:"atProvider,omitempty"`

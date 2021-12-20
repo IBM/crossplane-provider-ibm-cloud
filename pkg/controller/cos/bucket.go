@@ -25,7 +25,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
@@ -175,7 +175,7 @@ func (c *bucketExternal) Create(ctx context.Context, mg resource.Managed) (manag
 		return managed.ExternalCreation{}, errors.New(errCreateBucket)
 	}
 
-	crossplaneBucket.SetConditions(runtimev1alpha1.Creating())
+	crossplaneBucket.SetConditions(runtimev1.Creating())
 
 	s3BucketInp := s3.CreateBucketInput{}
 	if err := crossplane_client.GenerateS3BucketInput(crossplaneBucket.Spec.ForProvider.DeepCopy(), &s3BucketInp); err != nil {
@@ -205,7 +205,7 @@ func (c *bucketExternal) Delete(ctx context.Context, mg resource.Managed) error 
 		return errors.New(errThisIsNotABucket)
 	}
 
-	crossplaneBucket.SetConditions(runtimev1alpha1.Deleting())
+	crossplaneBucket.SetConditions(runtimev1.Deleting())
 
 	s3Client := c.generateClient()
 

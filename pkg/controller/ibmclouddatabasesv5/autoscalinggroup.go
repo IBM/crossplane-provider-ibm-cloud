@@ -25,7 +25,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
@@ -143,8 +143,8 @@ func (c *asgExternal) Observe(ctx context.Context, mg resource.Managed) (managed
 		return managed.ExternalObservation{}, errors.Wrap(err, errGenObservation)
 	}
 
-	cr.Status.SetConditions(cpv1alpha1.Available())
-	cr.Status.AtProvider.State = string(cpv1alpha1.Available().Reason)
+	cr.Status.SetConditions(cpv1.Available())
+	cr.Status.AtProvider.State = string(cpv1.Available().Reason)
 
 	upToDate, err := ibmcasg.IsUpToDate(meta.GetExternalName(cr), &cr.Spec.ForProvider, instance.Autoscaling, c.logger)
 	if err != nil {
@@ -164,7 +164,7 @@ func (c *asgExternal) Create(ctx context.Context, mg resource.Managed) (managed.
 		return managed.ExternalCreation{}, errors.New(errNotAutoscalingGroup)
 	}
 
-	cr.SetConditions(cpv1alpha1.Creating())
+	cr.SetConditions(cpv1.Creating())
 	if cr.Spec.ForProvider.ID == nil {
 		return managed.ExternalCreation{}, errors.New(errResNotAvailable)
 	}
@@ -199,6 +199,6 @@ func (c *asgExternal) Delete(ctx context.Context, mg resource.Managed) error {
 	if !ok {
 		return errors.New(errNotAutoscalingGroup)
 	}
-	cr.SetConditions(cpv1alpha1.Deleting())
+	cr.SetConditions(cpv1.Deleting())
 	return nil
 }

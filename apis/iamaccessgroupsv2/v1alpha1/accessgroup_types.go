@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // In spec mandatory fields should be by value, and optional fields pointers
@@ -72,14 +72,14 @@ type AccessGroupObservation struct {
 
 // A AccessGroupSpec defines the desired state of a AccessGroup.
 type AccessGroupSpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
-	ForProvider                  AccessGroupParameters `json:"forProvider"`
+	runtimev1.ResourceSpec `json:",inline"`
+	ForProvider            AccessGroupParameters `json:"forProvider"`
 }
 
 // A AccessGroupStatus represents the observed state of a AccessGroup.
 type AccessGroupStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
-	AtProvider                     AccessGroupObservation `json:"atProvider,omitempty"`
+	runtimev1.ResourceStatus `json:",inline"`
+	AtProvider               AccessGroupObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

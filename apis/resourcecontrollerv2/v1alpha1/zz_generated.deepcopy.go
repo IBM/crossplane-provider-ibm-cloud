@@ -21,7 +21,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	corev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -335,12 +335,12 @@ func (in *ResourceKeyParameters) DeepCopyInto(out *ResourceKeyParameters) {
 	}
 	if in.SourceRef != nil {
 		in, out := &in.SourceRef, &out.SourceRef
-		*out = new(corev1alpha1.Reference)
+		*out = new(v1.Reference)
 		**out = **in
 	}
 	if in.SourceSelector != nil {
 		in, out := &in.SourceSelector, &out.SourceSelector
-		*out = new(corev1alpha1.Selector)
+		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Parameters != nil {

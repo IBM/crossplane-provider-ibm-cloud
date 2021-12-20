@@ -25,7 +25,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
@@ -145,11 +145,11 @@ func (c *sgExternal) Observe(ctx context.Context, mg resource.Managed) (managed.
 	}
 
 	if cr.Status.AtProvider.Groups != nil {
-		cr.Status.SetConditions(cpv1alpha1.Available())
-		cr.Status.AtProvider.State = string(cpv1alpha1.Available().Reason)
+		cr.Status.SetConditions(cpv1.Available())
+		cr.Status.AtProvider.State = string(cpv1.Available().Reason)
 	} else {
-		cr.Status.SetConditions(cpv1alpha1.Unavailable())
-		cr.Status.AtProvider.State = string(cpv1alpha1.Unavailable().Reason)
+		cr.Status.SetConditions(cpv1.Unavailable())
+		cr.Status.AtProvider.State = string(cpv1.Unavailable().Reason)
 	}
 
 	upToDate, err := ibmcsg.IsUpToDate(meta.GetExternalName(cr), &cr.Spec.ForProvider, instance, c.logger)
@@ -170,7 +170,7 @@ func (c *sgExternal) Create(ctx context.Context, mg resource.Managed) (managed.E
 		return managed.ExternalCreation{}, errors.New(errNotScalingGroup)
 	}
 
-	cr.SetConditions(cpv1alpha1.Creating())
+	cr.SetConditions(cpv1.Creating())
 	if cr.Spec.ForProvider.ID == nil {
 		return managed.ExternalCreation{}, errors.New(errResNotAvailable)
 	}
@@ -204,6 +204,6 @@ func (c *sgExternal) Delete(ctx context.Context, mg resource.Managed) error {
 	if !ok {
 		return errors.New(errNotScalingGroup)
 	}
-	cr.SetConditions(cpv1alpha1.Deleting())
+	cr.SetConditions(cpv1.Deleting())
 	return nil
 }

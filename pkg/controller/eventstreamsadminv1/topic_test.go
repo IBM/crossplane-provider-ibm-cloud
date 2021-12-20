@@ -29,7 +29,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -90,7 +90,7 @@ func tWithSpec(p v1alpha1.TopicParameters) tModifier {
 	return func(r *v1alpha1.Topic) { r.Spec.ForProvider = p }
 }
 
-func tWithConditions(c ...cpv1alpha1.Condition) tModifier {
+func tWithConditions(c ...cpv1.Condition) tModifier {
 	return func(i *v1alpha1.Topic) { i.Status.SetConditions(c...) }
 }
 
@@ -102,8 +102,8 @@ func tParams(m ...func(*v1alpha1.TopicParameters)) *v1alpha1.TopicParameters {
 	p := &v1alpha1.TopicParameters{
 		Name:                  "myTopic",
 		KafkaAdminURL:         reference.ToPtrValue("myKafkaAdminURL"),
-		KafkaAdminURLRef:      &cpv1alpha1.Reference{},
-		KafkaAdminURLSelector: &cpv1alpha1.Selector{},
+		KafkaAdminURLRef:      &cpv1.Reference{},
+		KafkaAdminURLSelector: &cpv1.Selector{},
 		Partitions:            ibmc.Int64Ptr(int64(2)),
 		PartitionCount:        ibmc.Int64Ptr(int64(2)),
 		// Configs:               []v1alpha1.ConfigCreate{},
@@ -400,7 +400,7 @@ func TestTopicObserve(t *testing.T) {
 			},
 			want: want{
 				mg: topic(tWithSpec(*tParams()),
-					tWithConditions(cpv1alpha1.Available()),
+					tWithConditions(cpv1.Available()),
 					tWithStatus(*tObservation()),
 				),
 				obs: managed.ExternalObservation{
@@ -439,7 +439,7 @@ func TestTopicObserve(t *testing.T) {
 			},
 			want: want{
 				mg: topic(tWithSpec(*tParams()),
-					tWithConditions(cpv1alpha1.Available()),
+					tWithConditions(cpv1.Available()),
 					tWithStatus(*tObservation()),
 				),
 				obs: managed.ExternalObservation{
@@ -526,7 +526,7 @@ func TestTopicCreate(t *testing.T) {
 			},
 			want: want{
 				mg: topic(tWithSpec(*tParams()),
-					tWithConditions(cpv1alpha1.Creating()),
+					tWithConditions(cpv1.Creating()),
 					tWithExternalNameAnnotation(tName)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -553,7 +553,7 @@ func TestTopicCreate(t *testing.T) {
 			},
 			want: want{
 				mg: topic(tWithSpec(*tParams()),
-					tWithConditions(cpv1alpha1.Creating())),
+					tWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errCreateTopic),
 			},
@@ -631,7 +631,7 @@ func TestTopicDelete(t *testing.T) {
 				mg: topic(tWithExternalNameAnnotation(tName)),
 			},
 			want: want{
-				mg:  topic(tWithExternalNameAnnotation(tName), tWithConditions(cpv1alpha1.Deleting()), tWithStatus(*tEmptyObservation(func(p *v1alpha1.TopicObservation) { p.State = "terminating" }))),
+				mg:  topic(tWithExternalNameAnnotation(tName), tWithConditions(cpv1.Deleting()), tWithStatus(*tEmptyObservation(func(p *v1alpha1.TopicObservation) { p.State = "terminating" }))),
 				err: nil,
 			},
 		},
@@ -653,7 +653,7 @@ func TestTopicDelete(t *testing.T) {
 				mg: topic(tWithExternalNameAnnotation(tName)),
 			},
 			want: want{
-				mg:  topic(tWithExternalNameAnnotation(tName), tWithConditions(cpv1alpha1.Deleting())),
+				mg:  topic(tWithExternalNameAnnotation(tName), tWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -675,7 +675,7 @@ func TestTopicDelete(t *testing.T) {
 				mg: topic(tWithExternalNameAnnotation(tName)),
 			},
 			want: want{
-				mg:  topic(tWithExternalNameAnnotation(tName), tWithConditions(cpv1alpha1.Deleting())),
+				mg:  topic(tWithExternalNameAnnotation(tName), tWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errDeleteTopic),
 			},
 		},

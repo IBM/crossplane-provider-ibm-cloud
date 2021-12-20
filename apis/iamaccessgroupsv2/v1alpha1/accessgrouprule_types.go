@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // In spec mandatory fields should be by value, and optional fields pointers
@@ -36,12 +36,12 @@ type AccessGroupRuleParameters struct {
 	// Reference to AccessGroupID
 	// +immutable
 	// +optional
-	AccessGroupIDRef *runtimev1alpha1.Reference `json:"accessGroupIdRef,omitempty"`
+	AccessGroupIDRef *runtimev1.Reference `json:"accessGroupIdRef,omitempty"`
 
 	// Selector for AccessGroupID
 	// +immutable
 	// +optional
-	AccessGroupIDSelector *runtimev1alpha1.Selector `json:"accessGroupIdSelector,omitempty"`
+	AccessGroupIDSelector *runtimev1.Selector `json:"accessGroupIdSelector,omitempty"`
 
 	// The number of hours that the rule lives for (Must be between 1 and 24).
 	Expiration int64 `json:"expiration"`
@@ -99,14 +99,14 @@ type AccessGroupRuleObservation struct {
 
 // A AccessGroupRuleSpec defines the desired state of a AccessGroupRule.
 type AccessGroupRuleSpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
-	ForProvider                  AccessGroupRuleParameters `json:"forProvider"`
+	runtimev1.ResourceSpec `json:",inline"`
+	ForProvider            AccessGroupRuleParameters `json:"forProvider"`
 }
 
 // A AccessGroupRuleStatus represents the observed state of a AccessGroupRule.
 type AccessGroupRuleStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
-	AtProvider                     AccessGroupRuleObservation `json:"atProvider,omitempty"`
+	runtimev1.ResourceStatus `json:",inline"`
+	AtProvider               AccessGroupRuleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -31,7 +31,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -84,7 +84,7 @@ type handler struct {
 
 type instanceModifier func(*v1alpha1.ResourceInstance)
 
-func withConditions(c ...cpv1alpha1.Condition) instanceModifier {
+func withConditions(c ...cpv1.Condition) instanceModifier {
 	return func(i *v1alpha1.ResourceInstance) { i.Status.SetConditions(c...) }
 }
 
@@ -287,7 +287,7 @@ func genTestCRResourceInstance(im ...instanceModifier) *v1alpha1.ResourceInstanc
 		withResourceGroupID(resourceGroupID),
 		withResourceID(resourceID),
 		withCreatedAt(createdAt),
-		withConditions(cpv1alpha1.Available()),
+		withConditions(cpv1.Available()),
 		withLocked(true),
 		withExtensions(ibmc.MapToRawExtension(map[string]interface{}{})),
 		withLastOperation(ibmc.MapToRawExtension(map[string]interface{}{})),
@@ -587,7 +587,7 @@ func TestCreate(t *testing.T) {
 			},
 			want: want{
 				mg: instance(withSpec(resourceInstanceSpec()),
-					withConditions(cpv1alpha1.Creating()),
+					withConditions(cpv1.Creating()),
 					withExternalNameAnnotation(id)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -634,7 +634,7 @@ func TestCreate(t *testing.T) {
 				mg: instance(withSpec(resourceInstanceSpec())),
 			},
 			want: want{
-				mg:  instance(withSpec(resourceInstanceSpec()), withConditions(cpv1alpha1.Creating())),
+				mg:  instance(withSpec(resourceInstanceSpec()), withConditions(cpv1.Creating())),
 				err: errors.Wrap(errors.New(errNoRCDep), errCreateResourceInstance),
 			},
 		},
@@ -711,7 +711,7 @@ func TestDelete(t *testing.T) {
 				mg: instance(withID(id)),
 			},
 			want: want{
-				mg:  instance(withID(id), withConditions(cpv1alpha1.Deleting())),
+				mg:  instance(withID(id), withConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -733,7 +733,7 @@ func TestDelete(t *testing.T) {
 				mg: instance(withID(id)),
 			},
 			want: want{
-				mg:  instance(withID(id), withConditions(cpv1alpha1.Deleting())),
+				mg:  instance(withID(id), withConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -755,7 +755,7 @@ func TestDelete(t *testing.T) {
 				mg: instance(withID(id)),
 			},
 			want: want{
-				mg:  instance(withID(id), withConditions(cpv1alpha1.Deleting())),
+				mg:  instance(withID(id), withConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errDeleteResourceInstance),
 			},
 		},

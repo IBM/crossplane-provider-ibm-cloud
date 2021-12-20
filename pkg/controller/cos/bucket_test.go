@@ -27,7 +27,7 @@ import (
 	"github.com/IBM/go-sdk-core/core"
 	"github.com/IBM/ibm-cos-sdk-go/aws/credentials"
 	"github.com/IBM/ibm-cos-sdk-go/service/s3"
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/pkg/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
@@ -103,7 +103,7 @@ func withAtProvider(p v1alpha1.BucketObservation) bucketModifier {
 }
 
 // Returns a function that sets the bucket condition
-func withConditions(c ...cpv1alpha1.Condition) bucketModifier {
+func withConditions(c ...cpv1.Condition) bucketModifier {
 	return func(i *v1alpha1.Bucket) {
 		i.Status.SetConditions(c...)
 	}
@@ -253,7 +253,7 @@ func TestCreate(t *testing.T) {
 			},
 			want: want{
 				mg: createCrossplaneBucket(withForProvider(forProvider()),
-					withConditions(cpv1alpha1.Creating()),
+					withConditions(cpv1.Creating()),
 					withExternalNameAnnotation(aBucketName)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -282,7 +282,7 @@ func TestCreate(t *testing.T) {
 			},
 			want: want{
 				mg: createCrossplaneBucket(withForProvider(forProvider()),
-					withConditions(cpv1alpha1.Creating())),
+					withConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errCreateBucket),
 			},
@@ -354,7 +354,7 @@ func TestDelete(t *testing.T) {
 				mg: createCrossplaneBucket(withAtProvider(*bucketObservation())),
 			},
 			want: want{
-				mg:  createCrossplaneBucket(withAtProvider(*bucketObservation()), withConditions(cpv1alpha1.Deleting())),
+				mg:  createCrossplaneBucket(withAtProvider(*bucketObservation()), withConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -378,7 +378,7 @@ func TestDelete(t *testing.T) {
 				mg: createCrossplaneBucket(withAtProvider(*bucketObservation())),
 			},
 			want: want{
-				mg:  createCrossplaneBucket(withAtProvider(*bucketObservation()), withConditions(cpv1alpha1.Deleting())),
+				mg:  createCrossplaneBucket(withAtProvider(*bucketObservation()), withConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -402,7 +402,7 @@ func TestDelete(t *testing.T) {
 				mg: createCrossplaneBucket(withAtProvider(*bucketObservation())),
 			},
 			want: want{
-				mg:  createCrossplaneBucket(withAtProvider(*bucketObservation()), withConditions(cpv1alpha1.Deleting())),
+				mg:  createCrossplaneBucket(withAtProvider(*bucketObservation()), withConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errDeleteBucket),
 			},
 		},

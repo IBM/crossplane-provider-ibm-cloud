@@ -25,7 +25,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
@@ -141,7 +141,7 @@ func (c *agrExternal) Observe(ctx context.Context, mg resource.Managed) (managed
 		return managed.ExternalObservation{}, errors.Wrap(err, errGenObservation)
 	}
 
-	cr.Status.SetConditions(cpv1alpha1.Available())
+	cr.Status.SetConditions(cpv1.Available())
 	cr.Status.AtProvider.State = ibmcagr.StateActive
 
 	upToDate, err := ibmcagr.IsUpToDate(&cr.Spec.ForProvider, instance, c.logger)
@@ -162,7 +162,7 @@ func (c *agrExternal) Create(ctx context.Context, mg resource.Managed) (managed.
 		return managed.ExternalCreation{}, errors.New(errNotAccessGroupRule)
 	}
 
-	cr.SetConditions(cpv1alpha1.Creating())
+	cr.SetConditions(cpv1.Creating())
 	createOptions := &iamagv2.AddAccessGroupRuleOptions{}
 	if err := ibmcagr.GenerateAddAccessGroupRuleOptions(cr.Spec.ForProvider, createOptions); err != nil {
 		return managed.ExternalCreation{}, errors.Wrap(err, errCreateAccessGroupRuleOpts)
@@ -203,7 +203,7 @@ func (c *agrExternal) Delete(ctx context.Context, mg resource.Managed) error {
 		return errors.New(errNotAccessGroupRule)
 	}
 
-	cr.SetConditions(cpv1alpha1.Deleting())
+	cr.SetConditions(cpv1.Deleting())
 
 	_, err := c.client.IamAccessGroupsV2().RemoveAccessGroupRule(&iamagv2.RemoveAccessGroupRuleOptions{
 		RuleID:        reference.ToPtrValue(meta.GetExternalName(cr)),

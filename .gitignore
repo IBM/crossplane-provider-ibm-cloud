@@ -9,6 +9,7 @@ cmd/provider/__*
 # ignore IDE folders
 .vscode/
 .DS_Store
+.idea
 
 # ignore OpenAPI generator files
 .openapi-generator-ignore

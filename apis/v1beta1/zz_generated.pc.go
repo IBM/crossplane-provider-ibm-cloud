@@ -18,7 +18,7 @@ limitations under the License.
 
 package v1beta1
 
-import runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+import runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 // GetCondition of this ProviderConfig.
 func (p *ProviderConfig) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alpha1.Condition {

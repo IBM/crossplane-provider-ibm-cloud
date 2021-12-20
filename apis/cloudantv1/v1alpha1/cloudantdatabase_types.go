@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
 // CloudantDatabaseParameters are the configurable fields of a CloudantDatabase.
@@ -37,12 +37,12 @@ type CloudantDatabaseParameters struct {
 	// A reference to the Cloudant Secret Key used to set CloudantAdminURL
 	// +immutable
 	// +optional
-	CloudantAdminURLRef *runtimev1alpha1.Reference `json:"cloudantAdminUrlRef,omitempty"`
+	CloudantAdminURLRef *runtimev1.Reference `json:"cloudantAdminUrlRef,omitempty"`
 
 	// SourceSelector selects a reference to a resource used to set Source
 	// +immutable
 	// +optional
-	CloudantAdminURLSelector *runtimev1alpha1.Selector `json:"cloudantAdminUrlSelector,omitempty"`
+	CloudantAdminURLSelector *runtimev1.Selector `json:"cloudantAdminUrlSelector,omitempty"`
 
 	// Query parameter to specify whether to enable database partitions when creating a database.
 	// +immutable
@@ -123,14 +123,14 @@ type ContentInformationSizes struct {
 
 // A CloudantDatabaseSpec defines the desired state of a CloudantDatabase.
 type CloudantDatabaseSpec struct {
-	runtimev1alpha1.ResourceSpec `json:",inline"`
-	ForProvider                  CloudantDatabaseParameters `json:"forProvider"`
+	runtimev1.ResourceSpec `json:",inline"`
+	ForProvider            CloudantDatabaseParameters `json:"forProvider"`
 }
 
 // A CloudantDatabaseStatus represents the observed state of a CloudantDatabase.
 type CloudantDatabaseStatus struct {
-	runtimev1alpha1.ResourceStatus `json:",inline"`
-	AtProvider                     CloudantDatabaseObservation `json:"atProvider,omitempty"`
+	runtimev1.ResourceStatus `json:",inline"`
+	AtProvider               CloudantDatabaseObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

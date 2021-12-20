@@ -29,7 +29,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	cpv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -108,7 +108,7 @@ func crWithSpec(p v1alpha1.CustomRoleParameters) crModifier {
 	return func(r *v1alpha1.CustomRole) { r.Spec.ForProvider = p }
 }
 
-func crWithConditions(c ...cpv1alpha1.Condition) crModifier {
+func crWithConditions(c ...cpv1.Condition) crModifier {
 	return func(i *v1alpha1.CustomRole) { i.Status.SetConditions(c...) }
 }
 
@@ -284,7 +284,7 @@ func TestCustomRoleObserve(t *testing.T) {
 			},
 			want: want{
 				mg: cr(crWithSpec(*crParams()),
-					crWithConditions(cpv1alpha1.Available()),
+					crWithConditions(cpv1.Available()),
 					crWithStatus(*crObservation(func(cro *v1alpha1.CustomRoleObservation) {
 						cro.State = ibmccr.StateActive
 					})),
@@ -326,7 +326,7 @@ func TestCustomRoleObserve(t *testing.T) {
 			want: want{
 				mg: cr(crWithSpec(*crParams()),
 					crWithEtagAnnotation(eTag),
-					crWithConditions(cpv1alpha1.Available()),
+					crWithConditions(cpv1.Available()),
 					crWithStatus(*crObservation(func(cro *v1alpha1.CustomRoleObservation) {
 						cro.State = ibmccr.StateActive
 					}))),
@@ -414,7 +414,7 @@ func TestCustomRoleCreate(t *testing.T) {
 			},
 			want: want{
 				mg: cr(crWithSpec(*crParams()),
-					crWithConditions(cpv1alpha1.Creating()),
+					crWithConditions(cpv1.Creating()),
 					crWithExternalNameAnnotation(policyID)),
 				cre: managed.ExternalCreation{ExternalNameAssigned: true},
 				err: nil,
@@ -441,7 +441,7 @@ func TestCustomRoleCreate(t *testing.T) {
 			},
 			want: want{
 				mg: cr(crWithSpec(*crParams()),
-					crWithConditions(cpv1alpha1.Creating())),
+					crWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errCreateCustomRole),
 			},
@@ -467,7 +467,7 @@ func TestCustomRoleCreate(t *testing.T) {
 			},
 			want: want{
 				mg: cr(crWithSpec(*crParams()),
-					crWithConditions(cpv1alpha1.Creating())),
+					crWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusConflict)), errCreateCustomRole),
 			},
@@ -493,7 +493,7 @@ func TestCustomRoleCreate(t *testing.T) {
 			},
 			want: want{
 				mg: cr(crWithSpec(*crParams()),
-					crWithConditions(cpv1alpha1.Creating())),
+					crWithConditions(cpv1.Creating())),
 				cre: managed.ExternalCreation{ExternalNameAssigned: false},
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusForbidden)), errCreateCustomRole),
 			},
@@ -571,7 +571,7 @@ func TestCustomRoleDelete(t *testing.T) {
 				mg: cr(crWithStatus(*crObservation())),
 			},
 			want: want{
-				mg:  cr(crWithStatus(*crObservation()), crWithConditions(cpv1alpha1.Deleting())),
+				mg:  cr(crWithStatus(*crObservation()), crWithConditions(cpv1.Deleting())),
 				err: nil,
 			},
 		},
@@ -593,7 +593,7 @@ func TestCustomRoleDelete(t *testing.T) {
 				mg: cr(crWithStatus(*crObservation())),
 			},
 			want: want{
-				mg:  cr(crWithStatus(*crObservation()), crWithConditions(cpv1alpha1.Deleting())),
+				mg:  cr(crWithStatus(*crObservation()), crWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusBadRequest)), errDeleteCustomRole),
 			},
 		},
@@ -615,7 +615,7 @@ func TestCustomRoleDelete(t *testing.T) {
 				mg: cr(crWithStatus(*crObservation())),
 			},
 			want: want{
-				mg:  cr(crWithStatus(*crObservation()), crWithConditions(cpv1alpha1.Deleting())),
+				mg:  cr(crWithStatus(*crObservation()), crWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusUnauthorized)), errDeleteCustomRole),
 			},
 		},
@@ -637,7 +637,7 @@ func TestCustomRoleDelete(t *testing.T) {
 				mg: cr(crWithStatus(*crObservation())),
 			},
 			want: want{
-				mg:  cr(crWithStatus(*crObservation()), crWithConditions(cpv1alpha1.Deleting())),
+				mg:  cr(crWithStatus(*crObservation()), crWithConditions(cpv1.Deleting())),
 				err: errors.Wrap(errors.New(http.StatusText(http.StatusForbidden)), errDeleteCustomRole),
 			},
 		},

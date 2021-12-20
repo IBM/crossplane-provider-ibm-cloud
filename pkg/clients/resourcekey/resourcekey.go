@@ -23,7 +23,7 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/jeremywohl/flatten"
 
-	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	runtimev1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/pkg/reference"
@@ -116,7 +116,7 @@ func IsUpToDate(client ibmc.ClientSession, in *v1alpha1.ResourceKeyParameters, o
 
 	diff := (cmp.Diff(desired, actual,
 		cmpopts.EquateEmpty(),
-		cmpopts.IgnoreFields(v1alpha1.ResourceKeyParameters{}, "Source", "Parameters"), cmpopts.IgnoreTypes(&runtimev1alpha1.Reference{}, &runtimev1alpha1.Selector{}, []runtimev1alpha1.Reference{})))
+		cmpopts.IgnoreFields(v1alpha1.ResourceKeyParameters{}, "Source", "Parameters"), cmpopts.IgnoreTypes(&runtimev1.Reference{}, &runtimev1.Selector{}, []runtimev1.Reference{})))
 
 	if diff != "" {
 		fmt.Printf(">>> %s\n", diff)

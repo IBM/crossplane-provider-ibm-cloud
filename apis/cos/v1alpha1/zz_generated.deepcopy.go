@@ -21,7 +21,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	corev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -113,12 +113,12 @@ func (in *BucketPararams) DeepCopyInto(out *BucketPararams) {
 	}
 	if in.IbmServiceInstanceIDRef != nil {
 		in, out := &in.IbmServiceInstanceIDRef, &out.IbmServiceInstanceIDRef
-		*out = new(corev1alpha1.Reference)
+		*out = new(v1.Reference)
 		**out = **in
 	}
 	if in.IbmServiceInstanceIDSelector != nil {
 		in, out := &in.IbmServiceInstanceIDSelector, &out.IbmServiceInstanceIDSelector
-		*out = new(corev1alpha1.Selector)
+		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.IbmSSEKpEncryptionAlgorithm != nil {

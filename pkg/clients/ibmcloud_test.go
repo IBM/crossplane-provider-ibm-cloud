@@ -13,7 +13,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/fake"
 
-	crv1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
+	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 	"github.com/IBM/go-sdk-core/core"
 
@@ -42,14 +42,12 @@ func getInitializedMockClient(t *testing.T) client.Client {
 			Name: providerName,
 		},
 		Spec: v1beta1.ProviderConfigSpec{
-			ProviderConfigSpec: crv1alpha1.ProviderConfigSpec{
-				Credentials: crv1alpha1.ProviderCredentials{
-					SecretRef: &crv1alpha1.SecretKeySelector{
-						SecretReference: crv1alpha1.SecretReference{
-							Name: secretName,
-						},
-						Key: key,
+			Credentials: v1beta1.ProviderCredentials{
+				SecretRef: &cpv1.SecretKeySelector{
+					SecretReference: cpv1.SecretReference{
+						Name: secretName,
 					},
+					Key: key,
 				},
 			},
 		},
@@ -58,7 +56,7 @@ func getInitializedMockClient(t *testing.T) client.Client {
 	objs := []runtime.Object{pc, pcu}
 	s := scheme.Scheme
 	s.AddKnownTypes(v1beta1.SchemeGroupVersion, pc, pcu)
-	c := fake.NewFakeClient(objs...)
+	c := fake.NewClientBuilder().WithRuntimeObjects(objs...).Build()
 
 	secret := &corev1.Secret{
 		ObjectMeta: metav1.ObjectMeta{
@@ -84,7 +82,7 @@ func resourceInstance() *v1alpha1.ResourceInstance {
 		},
 		Spec: v1alpha1.ResourceInstanceSpec{},
 	}
-	i.SetProviderConfigReference(&crv1alpha1.Reference{Name: providerName})
+	i.SetProviderConfigReference(&cpv1.Reference{Name: providerName})
 	return i
 }
 

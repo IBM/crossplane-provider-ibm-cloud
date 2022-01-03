@@ -154,12 +154,6 @@ jobs:
       - name: Run Unit Tests
         run: make -j2 test
 
-      - name: Publish Unit Test Coverage
-        uses: codecov/codecov-action@v1
-        with:
-          flags: unittests
-          file: _output/tests/linux_amd64/coverage.txt
-
   e2e-tests:
     runs-on: ubuntu-18.04
     needs: detect-noop

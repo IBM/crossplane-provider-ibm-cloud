@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+# Copyright 2021 IBM Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+KUBECTL=$(command -v kubectl)
+DOCKER_INTEGRATION_REGISTRY="hyc-cloud-private-integration-docker-local.artifactory.swg-devops.com"
+DOCKER_EDGE_REGISTRY="hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com"
+DOCKER_USERNAME=$(${KUBECTL} -n default get secret artifactory-cred -o jsonpath='{.data.username}' | base64 --decode)
+DOCKER_PASSWORD=$(${KUBECTL} -n default get secret artifactory-cred -o jsonpath='{.data.password}' | base64 --decode)
+
+# support other container tools
+CONTAINER_CLI=${CONTAINER_CLI:-docker}
+
+# login the docker registry
+echo "${DOCKER_PASSWORD}" | ${CONTAINER_CLI} login "${DOCKER_INTEGRATION_REGISTRY}" -u "${DOCKER_USERNAME}" --password-stdin
+echo "${DOCKER_PASSWORD}" | ${CONTAINER_CLI} login "${DOCKER_EDGE_REGISTRY}" -u "${DOCKER_USERNAME}" --password-stdin

@@ -1,3 +1,9 @@
-version: "1"
-domain: crossplane.io
-repo: github.com/IBM/provider-ibm-cloud
+domain: ibm.com
+layout: go.kubebuilder.io/v2
+projectName: crossplane-provider-ibm-cloud-operator
+repo: github.com/IBM/crossplane-provider-ibm-cloud
+version: 3-alpha
+plugins:
+  go.sdk.operatorframework.io/v2-alpha: {}
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}

@@ -5,6 +5,7 @@ cover.out
 /vendor
 /.vendor-new
 cmd/provider/__*
+bin
 
 # ignore IDE folders
 .vscode/

@@ -40,7 +40,7 @@ KIND_NODE_IMAGE_TAG ?= v1.19.11
 
 # ====================================================================================
 # Setup Go
-GO_SUPPORTED_VERSIONS = 1.16
+GO_SUPPORTED_VERSIONS = 1.16|1.17
 
 # Set a sane default so that the nprocs calculation below is less noisy on the initial
 # loading of this file

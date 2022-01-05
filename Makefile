@@ -40,7 +40,7 @@ KIND_NODE_IMAGE_TAG ?= v1.19.11
 
 # ====================================================================================
 # Setup Go
-GO_SUPPORTED_VERSIONS = 1.16
+GO_SUPPORTED_VERSIONS = 1.16|1.17
 
 # Set a sane default so that the nprocs calculation below is less noisy on the initial
 # loading of this file
@@ -64,6 +64,10 @@ GO111MODULE = on
 
 # ====================================================================================
 # Setup Images
+export RELEASE_VERSION=$(shell cat RELEASE_VERSION)
+export VERSION=$(RELEASE_VERSION)
+export GIT_VERSION=$(shell git describe --exact-match 2> /dev/null || \
+                 	   git describe --match=$(git rev-parse --short=8 HEAD) --always --dirty --abbrev=8)
 
 DOCKER_REGISTRY = hyc-cloud-private-scratch-docker-local.artifactory.swg-devops.com/ibmcom
 IMAGES = provider-ibm-cloud provider-ibm-cloud-controller
@@ -72,6 +76,10 @@ IMAGES = provider-ibm-cloud provider-ibm-cloud-controller
 # ====================================================================================
 # Setup Local Dev
 -include build/makelib/local.mk
+
+# ====================================================================================
+# Include operator targets
+-include common/Makefile.operator.mk
 
 # ====================================================================================
 # Targets

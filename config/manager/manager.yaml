@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: controller
+  labels:
+    app.kubernetes.io/instance: ibm-crossplane-provider-ibm-cloud
+    app.kubernetes.io/managed-by: ibm-crossplane-provider-ibm-cloud
+    app.kubernetes.io/name: ibm-crossplane-provider-ibm-cloud
+    name: ibm-crossplane-provider-ibm-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ibm-crossplane-provider-ibm-cloud
+      intent: projected
+      release: ibm-crossplane-provider-ibm-cloud
+  template:
+    metadata:
+      labels:
+        app: ibm-crossplane-provider-ibm-cloud
+        intent: projected
+        release: ibm-crossplane-provider-ibm-cloud
+        app.kubernetes.io/instance: ibm-crossplane-provider-ibm-cloud
+        app.kubernetes.io/managed-by: ibm-crossplane-provider-ibm-cloud
+        app.kubernetes.io/name: ibm-crossplane-provider-ibm-cloud
+      annotations:
+        productID: 068a62892a1e4db39641342e592daa25
+        productMetric: FREE
+        productName: IBM Cloud Platform Common Services
+    spec:
+      restartPolicy: Always
+      serviceAccountName: ibm-crossplane-provider-ibm-cloud
+      schedulerName: default-scheduler
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
+                      - ppc64le
+                      - s390x
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - ibm-crossplane-provider-ibm-cloud
+                topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - resources:
+            limits:
+              cpu: 50m
+              memory: 256Mi
+              ephemeral-storage: 5Mi
+            requests:
+              cpu: 25m
+              memory: 128Mi
+              ephemeral-storage: 5Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          name: ibm-crossplane-provider-ibm-cloud
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['olm.targetNamespaces']
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: package-cache
+              mountPath: /cache
+          image: quay.io/opencloudio/ibm-crossplane-provider-ibm-cloud-controller:1.4.0
+          args: []
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              key: app
+              values: ibm-crossplane-provider-ibm-cloud
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/region
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              key: app
+              values: ibm-crossplane-provider-ibm-cloud
+      serviceAccount: ibm-crossplane-provider-ibm-cloud
+      volumes:
+        - name: package-cache
+          emptyDir:
+            sizeLimit: 5Mi
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

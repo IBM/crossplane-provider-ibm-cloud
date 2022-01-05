@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-FINDFILES=find . \( -path ./.git -o -path ./.github -o -path ./ibm-crossplane -o -path ./crossplane-provider-kubernetes \) -prune -o -type f
+FINDFILES=find . \( -path ./.git -o -path ./.github \) -prune -o -type f
 XARGS = xargs -0 ${XARGS_FLAGS}
 CLEANXARGS = xargs ${XARGS_FLAGS}
 

@@ -173,9 +173,6 @@ help-special: crossplane.help
 
 .PHONY: crossplane.help help-special
 
-build:
-	go version
-
 # ====================================================================================
 # IBM Customization
 -include ibm/Makefile.common.mk

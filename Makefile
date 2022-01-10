@@ -58,8 +58,11 @@ GO111MODULE = on
 -include build/makelib/golang.mk
 
 # ====================================================================================
-# Setup Kubernetes tools
-
+# Setup tools
+MANIFEST_TOOL_VERSION = v1.0.3
+BUILDX_VERSION = v0.6.1
+KIND_VERSION = v0.11.1
+USE_HELM3 = true
 -include build/makelib/k8s_tools.mk
 
 # ====================================================================================

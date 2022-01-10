@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/instance: ibm-crossplane-provider-ibm-cloud
     app.kubernetes.io/managed-by: ibm-crossplane-provider-ibm-cloud
     app.kubernetes.io/name: ibm-crossplane-provider-ibm-cloud
-  name: ibm-crossplane-provider-ibm-cloud-ibm-crossplane-provider-ibm-cloud
+  name: ibm-crossplane-provider-ibm-cloud-ibm-crossplane
 rules:
 - apiGroups:
   - cloudantv1.ibmcloud.crossplane.io

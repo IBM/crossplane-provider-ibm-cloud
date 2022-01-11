@@ -15,6 +15,3 @@ subjects:
   - kind: ServiceAccount
     name: ibm-crossplane-provider-ibm-cloud
     namespace: ibm-common-services
-  - kind: ServiceAccount
-    name: ibm-crossplane
-    namespace: ibm-common-services

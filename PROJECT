@@ -1,6 +1,6 @@
 domain: ibm.com
 layout: go.kubebuilder.io/v2
-projectName: crossplane-provider-ibm-cloud-operator
+projectName: ibm-crossplane-provider-ibm-cloud-operator
 repo: github.com/IBM/crossplane-provider-ibm-cloud
 version: 3-alpha
 plugins:

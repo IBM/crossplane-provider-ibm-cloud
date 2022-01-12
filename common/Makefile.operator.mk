@@ -39,10 +39,10 @@ GIT_VERSION ?= $(shell git describe --exact-match 2> /dev/null || \
                  	   git describe --match=$(git rev-parse --short=8 HEAD) --always --dirty --abbrev=8)
 
 # Current Operator image name
-OPERATOR_IMAGE_NAME ?= crossplane-provider-ibm-cloud-operator
+OPERATOR_IMAGE_NAME ?= ibm-crossplane-provider-ibm-cloud-operator
 
 # Current Operator bundle image name
-BUNDLE_IMAGE_NAME ?= crossplane-provider-ibm-cloud-operator-bundle
+BUNDLE_IMAGE_NAME ?= ibm-crossplane-provider-ibm-cloud-operator-bundle
 
 # Options for 'bundle-build'
 ifneq ($(origin CHANNELS), undefined)

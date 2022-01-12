@@ -84,15 +84,15 @@ ifeq ($(BUILD_LOCALLY),1)
 	@make build.all BUILDX_ARGS=--push
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-$(GIT_VERSION) || $(FAIL)
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-controller:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-controller:$(VERSION) || $(FAIL)
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-controller:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-controller:$(VERSION)-$(GIT_VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-$(GIT_VERSION) || $(FAIL)
 else
 	@make config-docker
 	@make build.all BUILDX_ARGS=--push
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-$(GIT_VERSION) || $(FAIL)
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-controller:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-controller:$(VERSION) || $(FAIL)
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-controller:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-controller:$(VERSION)-$(GIT_VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-$(GIT_VERSION) || $(FAIL)
 endif
 
 

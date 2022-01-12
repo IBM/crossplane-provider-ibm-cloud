@@ -6,7 +6,7 @@ include ../../../build/makelib/common.mk
 
 # ====================================================================================
 #  Options
-IMAGE_NAME = ibm-crossplane-provider-ibm-cloud-controller
+IMAGE_NAME = ibm-crossplane-provider-ibm-cloud-operator
 IMAGE = $(BUILD_REGISTRY)/$(IMAGE_NAME):$(VERSION)-$(ARCH)
 include ../../../build/makelib/image.mk
 

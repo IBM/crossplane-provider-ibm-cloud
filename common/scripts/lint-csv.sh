@@ -33,7 +33,7 @@ if [[ "X${YQ}" == "X" ]]; then
     YQ=/tmp/yq
 fi
 
-CSV_PATH=bundle/manifests/ibm-crossplane-operator.clusterserviceversion.yaml
+CSV_PATH=bundle/manifests/ibm-crossplane-provider-ibm-cloud-operator.clusterserviceversion.yaml
 
 # Lint alm-examples
 echo "==> Linting ${CSV_PATH}"

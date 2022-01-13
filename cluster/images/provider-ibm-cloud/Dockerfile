@@ -1,3 +1,5 @@
 FROM BASEIMAGE
 
 COPY package.yaml .
+
+USER 1001

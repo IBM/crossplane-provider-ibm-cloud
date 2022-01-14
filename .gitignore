@@ -18,3 +18,4 @@ bin
 
 # ignore sonobuoy reports
 *.tar.gz
+/bin/

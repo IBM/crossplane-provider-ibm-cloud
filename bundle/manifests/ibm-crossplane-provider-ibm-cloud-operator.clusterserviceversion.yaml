@@ -366,4 +366,3 @@ spec:
   relatedImages:
     - name: IBM_CROSSPLANE_PROVIDER_IBM_CLOUD_OPERATOR_IMAGE
       image: quay.io/opencloudio/ibm-crossplane-provider-ibm-cloud-operator:1.4.0
-  replaces: ibm-crossplane-provider-ibm-cloud-operator.v0.0.0

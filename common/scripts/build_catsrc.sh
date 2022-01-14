@@ -283,7 +283,7 @@ function build_operator_bundle() {
 COMMON_SERVICE_BASE_REGISTRY="hyc-cloud-private-daily-docker-local.artifactory.swg-devops.com/ibmcom"
 COMMON_SERVICE_BASE_CATSRC="$COMMON_SERVICE_BASE_REGISTRY/ibm-common-service-catalog:latest-validated"
 NEW_CUSTOM_CATSRC="crossplane-ibm-cloud-provider-common-service-catalog"
-PACKAGES="$OPERATOR_IMG"
+PACKAGES="$OPERATOR_IMG-app"
 
 DB_NAME="index.db"
 PATH_TO_DB=./database

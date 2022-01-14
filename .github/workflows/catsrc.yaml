@@ -20,7 +20,7 @@ on:
     inputs:
       tag:
         description: "Tag for the resulting catalog source image"
-        required: false
+        required: true
         default: "default"
       force:
         description: "Force build even if no changes in images"

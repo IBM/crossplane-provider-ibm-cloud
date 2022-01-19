@@ -16,7 +16,7 @@
 #
 
 if [[ (-z "${ARTIFACTORY_REPO}") ]]; then
-    ARTIFACTORY_REPO=scratch
+    ARTIFACTORY_REPO=integration
 fi
 if [[ (-z "${ARTIFACTORY_URL}") ]]; then
     ARTIFACTORY_URL="hyc-cloud-private-${ARTIFACTORY_REPO}-docker-local.artifactory.swg-devops.com"
@@ -50,6 +50,8 @@ kubectl -n "${INSTALL_NAMESPACE}" create secret docker-registry "artifactory-${A
 echo "[INFO] create ibm-crossplane-provider-ibm-cloud ServiceAccount"
 PROVIDER_NAME="ibm-crossplane-provider-ibm-cloud"
 kubectl -n "${INSTALL_NAMESPACE}" create sa "${PROVIDER_NAME}"
+kubectl -n "${INSTALL_NAMESPACE}" patch serviceaccount "${PROVIDER_NAME}" \
+  -p "{\"imagePullSecrets\": [{\"name\": \"artifactory-${ARTIFACTORY_REPO}\"}]}"
 
 echo "[INFO] apply provider's CRDs"
 kubectl apply -f ./config/crd/bases

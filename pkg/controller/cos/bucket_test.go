@@ -24,7 +24,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/IBM/go-sdk-core/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/ibm-cos-sdk-go/aws/credentials"
 	"github.com/IBM/ibm-cos-sdk-go/service/s3"
 	cpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"

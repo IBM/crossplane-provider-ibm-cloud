@@ -114,6 +114,9 @@ func GetResourceGroupID(client ClientSession, rgName *string) (*string, error) {
 
 	entries, _, err := client.ResourceManagerV2().ListResourceGroups(opts)
 	if err != nil {
+		if err.Error() == "Not Found" {
+			return nil, errors.New(errRGIDNotFound)
+		}
 		return nil, errors.Wrap(err, errListRG)
 	}
 
@@ -123,7 +126,7 @@ func GetResourceGroupID(client ClientSession, rgName *string) (*string, error) {
 		}
 	} else {
 		for _, rg := range entries.Resources {
-			if *rg.Name == *rgName {
+			if rg.Name != nil && *rg.Name == *rgName {
 				return rg.ID, nil
 			}
 		}
@@ -142,7 +145,7 @@ func GetResourceGroupName(client ClientSession, rgID string) (string, error) {
 	}
 
 	for _, rg := range entries.Resources {
-		if *rg.ID == rgID {
+		if rg.ID != nil && *rg.ID == rgID {
 			return reference.FromPtrValue(rg.Name), nil
 		}
 	}

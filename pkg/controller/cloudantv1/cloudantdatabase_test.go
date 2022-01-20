@@ -38,7 +38,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/test"
 
 	cv1 "github.com/IBM/cloudant-go-sdk/cloudantv1"
-	"github.com/IBM/go-sdk-core/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 
 	"github.com/crossplane-contrib/provider-ibm-cloud/apis/cloudantv1/v1alpha1"
 	ibmc "github.com/crossplane-contrib/provider-ibm-cloud/pkg/clients"

@@ -39,7 +39,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/crossplane/crossplane-runtime/pkg/test"
 
-	"github.com/IBM/go-sdk-core/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	rcv2 "github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
 
 	"github.com/crossplane-contrib/provider-ibm-cloud/apis/resourcecontrollerv2/v1alpha1"
@@ -48,7 +48,6 @@ import (
 
 var (
 	role          = "Manager"
-	role2         = "Viewer"
 	rkName        = "cos-creds"
 	rkID          = "crn:v1:bluemix:public:cloud-object-storage:global:a/0b5a00334eaf9eb9339d2ab48f20d7f5:f931e669-6c11-4d4d-b720-8b2f844a6d9e:resource-key:bbeca5fe-283f-443c-9aca-cd3f72c6f493"
 	createdBy     = "user00001"
@@ -174,7 +173,6 @@ func genTestSDKResourceKey() *rcv2.ResourceKey {
 		AccountID:           &accountID,
 		CreatedBy:           &createdBy,
 		IamCompatible:       &iamCompatible,
-		Role:                &role,
 		ResourceInstanceURL: &resInstURL,
 		SourceCRN:           &sourceCrn,
 		URL:                 &url,
@@ -322,7 +320,6 @@ func TestResourceKeyObserve(t *testing.T) {
 						}
 						w.Header().Set("Content-Type", "application/json")
 						rk := genTestSDKResourceKey()
-						rk.Role = &role2
 						_ = json.NewEncoder(w).Encode(rk)
 					},
 				},

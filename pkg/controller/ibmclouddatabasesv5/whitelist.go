@@ -19,6 +19,8 @@ package ibmclouddatabasesv5
 import (
 	"context"
 
+	"github.com/IBM/go-sdk-core/v5/core"
+
 	"github.com/google/go-cmp/cmp"
 	"github.com/pkg/errors"
 
@@ -178,7 +180,7 @@ func (c *wlExternal) Create(ctx context.Context, mg resource.Managed) (managed.E
 
 	_, resp, err := c.client.IbmCloudDatabasesV5().ReplaceWhitelist(opts)
 	if err != nil {
-		return managed.ExternalCreation{}, ibmc.ExtractErrorMessage(resp, err)
+		return managed.ExternalCreation{}, ibmc.ExtractErrorMessage((*core.DetailedResponse)(resp), err)
 	}
 
 	meta.SetExternalName(cr, reference.FromPtrValue(cr.Spec.ForProvider.ID))
@@ -199,7 +201,7 @@ func (c *wlExternal) Update(ctx context.Context, mg resource.Managed) (managed.E
 
 	_, resp, err := c.client.IbmCloudDatabasesV5().ReplaceWhitelist(opts)
 	if err != nil {
-		return managed.ExternalUpdate{}, ibmc.ExtractErrorMessage(resp, err)
+		return managed.ExternalUpdate{}, ibmc.ExtractErrorMessage((*core.DetailedResponse)(resp), err)
 	}
 
 	return managed.ExternalUpdate{}, nil

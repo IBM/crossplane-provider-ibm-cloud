@@ -27,7 +27,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/reference"
 
-	"github.com/IBM/go-sdk-core/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	rcv2 "github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
 
 	"github.com/crossplane-contrib/provider-ibm-cloud/apis/resourcecontrollerv2/v1alpha1"
@@ -41,7 +41,6 @@ func params(m ...func(*v1alpha1.ResourceKeyParameters)) *v1alpha1.ResourceKeyPar
 		Parameters: &v1alpha1.ResourceKeyPostParameters{
 			ServiceidCRN: "crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393",
 		},
-		Role: reference.ToPtrValue("crn:v1:bluemix:public:iam::::serviceRole:Writer"),
 	}
 
 	for _, f := range m {
@@ -86,7 +85,6 @@ func instance(m ...func(*rcv2.ResourceKey)) *rcv2.ResourceKey {
 		AccountID:           reference.ToPtrValue("4329073d16d2f3663f74bfa955259139"),
 		ResourceGroupID:     reference.ToPtrValue("0be5ad401ae913d8ff665d92680664ed"),
 		SourceCRN:           reference.ToPtrValue("crn:v1:bluemix:public:cloud-object-storage:global:a/4329073d16d2f3663f74bfa955259139:8d7af921-b136-4078-9666-081bd8470d94::"),
-		Role:                reference.ToPtrValue("crn:v1:bluemix:public:iam::::serviceRole:Writer"),
 		State:               reference.ToPtrValue("active"),
 		IamCompatible:       ibmc.BoolPtr(true),
 		ResourceInstanceURL: reference.ToPtrValue("/v2/resource_instances/8d7af921-b136-4078-9666-081bd8470d94"),
@@ -111,7 +109,6 @@ func instanceCreateOpts(m ...func(*rcv2.CreateResourceKeyOptions)) *rcv2.CreateR
 		Parameters: &rcv2.ResourceKeyPostParameters{
 			ServiceidCRN: reference.ToPtrValue("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393"),
 		},
-		Role: reference.ToPtrValue("crn:v1:bluemix:public:iam::::serviceRole:Writer"),
 	}
 	for _, f := range m {
 		f(i)

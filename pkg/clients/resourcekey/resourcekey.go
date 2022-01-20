@@ -36,9 +36,6 @@ import (
 
 // LateInitializeSpec fills optional and unassigned fields with the values in *rcv2.ResourceKey object.
 func LateInitializeSpec(client ibmc.ClientSession, spec *v1alpha1.ResourceKeyParameters, in *rcv2.ResourceKey) error { // nolint:gocyclo
-	if spec.Role == nil {
-		spec.Role = in.Role
-	}
 	return nil
 }
 
@@ -131,7 +128,6 @@ func IsUpToDate(client ibmc.ClientSession, in *v1alpha1.ResourceKeyParameters, o
 func GenerateResourceKeyParameters(client ibmc.ClientSession, in *rcv2.ResourceKey) (*v1alpha1.ResourceKeyParameters, error) {
 	o := &v1alpha1.ResourceKeyParameters{
 		Name: reference.FromPtrValue(in.Name),
-		Role: in.Role,
 	}
 
 	return o, nil

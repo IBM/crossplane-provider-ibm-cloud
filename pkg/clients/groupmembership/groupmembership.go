@@ -16,7 +16,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/reference"
 
-	corev4 "github.com/IBM/go-sdk-core/v4/core"
+	corev5 "github.com/IBM/go-sdk-core/v5/core"
 	iamagv2 "github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
 
 	"github.com/crossplane-contrib/provider-ibm-cloud/apis/iamaccessgroupsv2/v1alpha1"
@@ -226,7 +226,7 @@ func UpdateAccessGroupMembers(client ibmc.ClientSession, groupMembership v1alpha
 
 // ExtractErrorMessage extracts the content of an error message from the detailed response (if any)
 // and appends it to the error returned by the SDK
-func ExtractErrorMessage(resp *corev4.DetailedResponse, err error) error { // nolint:gocyclo
+func ExtractErrorMessage(resp *corev5.DetailedResponse, err error) error { // nolint:gocyclo
 	if resp == nil || resp != nil && resp.Result == nil {
 		return err
 	}

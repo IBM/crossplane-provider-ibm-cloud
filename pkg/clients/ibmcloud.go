@@ -39,8 +39,7 @@ import (
 	cv1 "github.com/IBM/cloudant-go-sdk/cloudantv1"
 	arv1 "github.com/IBM/eventstreams-go-sdk/pkg/adminrestv1"
 	icdv5 "github.com/IBM/experimental-go-sdk/ibmclouddatabasesv5"
-	"github.com/IBM/go-sdk-core/core"
-	corev4 "github.com/IBM/go-sdk-core/v4/core"
+	corev5 "github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/ibm-cos-sdk-go/aws"
 	"github.com/IBM/ibm-cos-sdk-go/aws/credentials/ibmiam"
 	"github.com/IBM/ibm-cos-sdk-go/aws/credentials/ibmiam/token"
@@ -118,7 +117,7 @@ type ClientOptions struct {
 	BearerToken string // This is contained in Authenticator (when it is of BearTokenAuthenticator type) - but we
 	// seem to not be able to look it up via reflection. So separately for the controllers that need it...
 	// Note that it should always be of the format 'Bearer <...>'
-	Authenticator core.Authenticator
+	Authenticator corev5.Authenticator
 }
 
 // GetAuthInfo returns the necessary authentication information that is necessary
@@ -152,7 +151,7 @@ func GetAuthInfo(ctx context.Context, c client.Client, mg resource.Managed) (opt
 	return ClientOptions{Authenticator: authenticator, BearerToken: *bearerTok}, nil
 }
 
-func getAuthenticator(s *v1.Secret) (core.Authenticator, *string, error) {
+func getAuthenticator(s *v1.Secret) (corev5.Authenticator, *string, error) {
 	aTok, ok := s.Data[AccessTokenKey]
 	if !ok {
 		return nil, nil, errors.New(errTokNotFound)
@@ -163,7 +162,7 @@ func getAuthenticator(s *v1.Secret) (core.Authenticator, *string, error) {
 		return nil, nil, err
 	}
 
-	authenticator := &core.BearerTokenAuthenticator{
+	authenticator := &corev5.BearerTokenAuthenticator{
 		BearerToken: bearerTok,
 	}
 
@@ -575,7 +574,7 @@ func IsResourcePendingReclamation(err error) bool {
 
 // ExtractErrorMessage extracts the content of an error message from the detailed response (if any)
 // and appends it to the error returned by the SDK
-func ExtractErrorMessage(resp *corev4.DetailedResponse, err error) error {
+func ExtractErrorMessage(resp *corev5.DetailedResponse, err error) error {
 	if resp == nil || resp != nil && resp.Result == nil {
 		return err
 	}

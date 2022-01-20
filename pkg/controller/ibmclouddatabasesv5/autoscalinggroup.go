@@ -19,6 +19,8 @@ package ibmclouddatabasesv5
 import (
 	"context"
 
+	"github.com/IBM/go-sdk-core/v5/core"
+
 	"github.com/google/go-cmp/cmp"
 	"github.com/pkg/errors"
 
@@ -188,7 +190,7 @@ func (c *asgExternal) Update(ctx context.Context, mg resource.Managed) (managed.
 	_, resp, err := c.client.IbmCloudDatabasesV5().SetAutoscalingConditions(opts)
 
 	if err != nil {
-		return managed.ExternalUpdate{}, ibmc.ExtractErrorMessage(resp, err)
+		return managed.ExternalUpdate{}, ibmc.ExtractErrorMessage((*core.DetailedResponse)(resp), err)
 	}
 
 	return managed.ExternalUpdate{}, nil

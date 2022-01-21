@@ -62,17 +62,36 @@ kubectl -n "${INSTALL_NAMESPACE}" apply \
   -f ./config/rbac/clusterrole.yaml \
   -f ./config/rbac/role_binding.yaml \
   -f ./config/rbac/clusterrole_binding.yaml
-yq w ./config/rbac/ibm-crossplane_clusterrole.yaml "metadata.name" "${PROVIDER_NAME}-ibm-crossplane" |\
-  kubectl -n "${INSTALL_NAMESPACE}" apply -f -
-yq w ./config/rbac/ibm-crossplane_clusterrole_binding.yaml "metadata.name" "${PROVIDER_NAME}-ibm-crossplane" |\
-  yq w - "roleRef.name" "${PROVIDER_NAME}-ibm-crossplane" |\
-  kubectl -n "${INSTALL_NAMESPACE}" apply -f -
+if yq --version | grep -q 'version 4'; then
+  echo "[INFO] detected yq version 4"
+  yq e ".metadata.name = \"${PROVIDER_NAME}"\" config/rbac/ibm-crossplane_clusterrole.yaml |\
+    kubectl -n "${INSTALL_NAMESPACE}" apply -f -
+  yq e ".metadata.name = \"${PROVIDER_NAME}"\" config/rbac/ibm-crossplane_clusterrole_binding.yaml |\
+  yq e ".roleRef.name = \"${PROVIDER_NAME}"\" - |\
+    kubectl -n "${INSTALL_NAMESPACE}" apply -f -
+else
+  echo "[INFO] detected yq version 3"
+  yq w ./config/rbac/ibm-crossplane_clusterrole.yaml "metadata.name" "${PROVIDER_NAME}" |\
+    kubectl -n "${INSTALL_NAMESPACE}" apply -f -
+  yq w ./config/rbac/ibm-crossplane_clusterrole_binding.yaml "metadata.name" "${PROVIDER_NAME}" |\
+  yq w - "roleRef.name" "${PROVIDER_NAME}" |\
+    kubectl -n "${INSTALL_NAMESPACE}" apply -f -
+fi
 
 echo "[INFO] create provider's deployment"
-sed  "s|quay.io/opencloudio|${ARTIFACTORY_URL}/ibmcom|g" config/manager/manager.yaml |\
-  yq w - "metadata.name" "${PROVIDER_NAME}" |\
-  yq w - "spec.template.metadata.annotations[olm.targetNamespaces]" "${INSTALL_NAMESPACE}" |\
-  kubectl -n "${INSTALL_NAMESPACE}" apply -f -
+if yq --version | grep -q 'version 4'; then
+  echo "[INFO] detected yq version 4"
+  sed  "s|quay.io/opencloudio|${ARTIFACTORY_URL}/ibmcom|g" config/manager/manager.yaml |\
+    yq e ".metadata.name = \"${PROVIDER_NAME}"\" - |\
+    yq e ".spec.template.metadata.annotations[\"olm.targetNamespaces\"] = \"${INSTALL_NAMESPACE}"\" - |\
+      kubectl -n "${INSTALL_NAMESPACE}" apply -f -
+else
+  echo "[INFO] detected yq version 3"
+  sed  "s|quay.io/opencloudio|${ARTIFACTORY_URL}/ibmcom|g" config/manager/manager.yaml |\
+    yq w - "metadata.name" "${PROVIDER_NAME}" |\
+    yq w - "spec.template.metadata.annotations[olm.targetNamespaces]" "${INSTALL_NAMESPACE}" |\
+      kubectl -n "${INSTALL_NAMESPACE}" apply -f -
+fi
 
 echo "[INFO] create secret with IBM CLoud API key"
 IBMCLOUD_SECRET_NAME="provider-ibm-cloud-secret"

@@ -52,7 +52,7 @@ function erro() {
 function print_usage() {
     echo -e "Usage: $SCRIPT_NAME [-h] | [-t TAG] 
 
-Build catalog source with ibm-crossplane-operator
+Build catalog source with ibm-crossplane-ibm-cloud-provider-operator
 
 Options:
  -h  | --help 
@@ -146,7 +146,7 @@ declare -A IMG_REGS
 declare -A IMG_NAMES
 declare -A IMAGES
 
-OPERATOR_NAME="ibm-crossplane-provider-ibm-cloud-operator"
+OPERATOR_NAME="ibm-crossplane-provider-ibm-cloud-operator-app"
 OPERATOR_IMG="ibm-crossplane-provider-ibm-cloud-operator"
 IMG_NAMES=([$OPERATOR_IMG]="scratch")
 BUNDLE_METADATA_OPTS="--channels=v3 --default-channel=v3"

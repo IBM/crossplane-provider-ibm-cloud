@@ -47,7 +47,6 @@ import (
 )
 
 var (
-	role          = "Manager"
 	rkName        = "cos-creds"
 	rkID          = "crn:v1:bluemix:public:cloud-object-storage:global:a/0b5a00334eaf9eb9339d2ab48f20d7f5:f931e669-6c11-4d4d-b720-8b2f844a6d9e:resource-key:bbeca5fe-283f-443c-9aca-cd3f72c6f493"
 	createdBy     = "user00001"
@@ -152,11 +151,19 @@ func key(im ...keyModifier) *v1alpha1.ResourceKey {
 	return i
 }
 
-func resourceKeySpec() v1alpha1.ResourceKeyParameters {
+type keyParametersModifier func(*v1alpha1.ResourceKeyParameters)
+
+func rkpWithName(s string) keyParametersModifier {
+	return func(i *v1alpha1.ResourceKeyParameters) { i.Name = s }
+}
+
+func resourceKeySpec(im ...keyParametersModifier) v1alpha1.ResourceKeyParameters {
 	o := v1alpha1.ResourceKeyParameters{
 		Name:   rkName,
-		Role:   &role,
 		Source: &crn,
+	}
+	for _, m := range im {
+		m(&o)
 	}
 	return o
 }
@@ -331,11 +338,11 @@ func TestResourceKeyObserve(t *testing.T) {
 				mg: key(
 					rkWithExternalNameAnnotation(rkID),
 					rkWithID(rkID),
-					rkWithSpec(resourceKeySpec()),
+					rkWithSpec(resourceKeySpec(rkpWithName(rkID))),
 				),
 			},
 			want: want{
-				mg: genTestCRResourceKey(rkWithSpec(resourceKeySpec()),
+				mg: genTestCRResourceKey(rkWithSpec(resourceKeySpec(rkpWithName(rkID))),
 					rkWithExternalNameAnnotation(rkID), rkWithSourceCRN(sourceCrn)),
 				obs: managed.ExternalObservation{
 					ResourceExists:    true,

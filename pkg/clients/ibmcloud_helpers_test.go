@@ -292,7 +292,7 @@ func TestGetResourceGroupID(t *testing.T) {
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
 			mux := http.NewServeMux()
-			mux.HandleFunc("/resource_groups/", rgHandler)
+			mux.HandleFunc("/v2/resource_groups/", rgHandler)
 			server := httptest.NewServer(mux)
 			defer server.Close()
 
@@ -340,7 +340,7 @@ func TestGetResourceGroupName(t *testing.T) {
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
 			mux := http.NewServeMux()
-			mux.HandleFunc("/resource_groups/", rgHandler)
+			mux.HandleFunc("/v2/resource_groups/", rgHandler)
 			server := httptest.NewServer(mux)
 			defer server.Close()
 

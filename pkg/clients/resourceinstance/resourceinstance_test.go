@@ -201,7 +201,7 @@ func TestGenerateCreateResourceInstanceOptions(t *testing.T) {
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
 			mux := http.NewServeMux()
-			mux.HandleFunc("/resource_groups/", ibmc.RgTestHandler)
+			mux.HandleFunc("/v2/resource_groups/", ibmc.RgTestHandler)
 			mux.HandleFunc("/", ibmc.SvcatTestHandler(tc.args.params.ServiceName))
 			mux.HandleFunc("/"+tc.args.params.ServiceName+"/", ibmc.PcatTestHandler(tc.args.params.ResourcePlanName, *tc.want.instance.ResourcePlanID))
 			server := httptest.NewServer(mux)
@@ -256,7 +256,7 @@ func TestGenerateUpdateResourceInstanceOptions(t *testing.T) {
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
 			mux := http.NewServeMux()
-			mux.HandleFunc("/resource_groups/", ibmc.RgTestHandler)
+			mux.HandleFunc("/v2/resource_groups/", ibmc.RgTestHandler)
 			mux.HandleFunc("/", ibmc.SvcatTestHandler(tc.args.params.ServiceName))
 			mux.HandleFunc("/"+tc.args.params.ServiceName+"/", ibmc.PcatTestHandler(tc.args.params.ResourcePlanName, *tc.want.instance.ResourcePlanID))
 			server := httptest.NewServer(mux)
@@ -315,7 +315,7 @@ func TestResourceInstanceLateInitializeSpecs(t *testing.T) {
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
 			mux := http.NewServeMux()
-			mux.HandleFunc("/resource_groups/", ibmc.RgTestHandler)
+			mux.HandleFunc("/v2/resource_groups/", ibmc.RgTestHandler)
 			mux.HandleFunc("/", ibmc.SvcatTestHandler(tc.args.params.ServiceName))
 			mux.HandleFunc("/"+tc.args.params.ServiceName+"/", ibmc.PcatTestHandler(tc.args.params.ResourcePlanName, *tc.args.instance.ResourcePlanID))
 			mux.HandleFunc("/v3/tags/", ibmc.TagsTestHandler)
@@ -412,7 +412,7 @@ func TestResourceInstanceIsUpToDate(t *testing.T) {
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
 			mux := http.NewServeMux()
-			mux.HandleFunc("/resource_groups/", ibmc.RgTestHandler)
+			mux.HandleFunc("/v2/resource_groups/", ibmc.RgTestHandler)
 			mux.HandleFunc("/", ibmc.SvcatTestHandler(tc.args.params.ServiceName))
 			mux.HandleFunc("/"+tc.args.params.ServiceName+"/", ibmc.PcatTestHandler(tc.args.params.ResourcePlanName, *tc.args.instance.ResourcePlanID))
 			mux.HandleFunc("/v3/tags/", ibmc.TagsTestHandler)

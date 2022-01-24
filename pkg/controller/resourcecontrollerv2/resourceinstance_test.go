@@ -379,7 +379,7 @@ func TestObserve(t *testing.T) {
 					handlerFunc: tagsHandler,
 				},
 				{
-					path:        "/resource_groups/",
+					path:        "/v2/resource_groups/",
 					handlerFunc: rgHandler,
 				},
 				{
@@ -431,7 +431,7 @@ func TestObserve(t *testing.T) {
 					handlerFunc: tagsHandler,
 				},
 				{
-					path:        "/resource_groups/",
+					path:        "/v2/resource_groups/",
 					handlerFunc: rgHandler,
 				},
 				{
@@ -566,7 +566,7 @@ func TestCreate(t *testing.T) {
 					},
 				},
 				{
-					path:        "/resource_groups/",
+					path:        "/v2/resource_groups/",
 					handlerFunc: rgHandler,
 				},
 				{
@@ -618,7 +618,7 @@ func TestCreate(t *testing.T) {
 					},
 				},
 				{
-					path:        "/resource_groups/",
+					path:        "/v2/resource_groups/",
 					handlerFunc: rgHandler,
 				},
 				{

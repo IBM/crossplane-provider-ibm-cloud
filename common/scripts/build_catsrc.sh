@@ -52,7 +52,7 @@ function erro() {
 function print_usage() {
     echo -e "Usage: $SCRIPT_NAME [-h] | [-t TAG] 
 
-Build catalog source with ibm-crossplane-operator
+Build catalog source with ibm-crossplane-ibm-cloud-provider-operator
 
 Options:
  -h  | --help 
@@ -233,7 +233,7 @@ function prepare_operator_bundle_yamls() {
     # operand images
     $YQ w -i "$CSV_YAML" "spec.install.spec.deployments[0].spec.template.spec.containers[0].image" "${IMAGES[$OPERATOR_IMG]}"
     # annotations
-    $YQ w -i "$METADATA_YAML" "annotations.\"operators.operatorframework.io.bundle.package.v1\"" "$OPERATOR_NAME"
+    $YQ w -i "$METADATA_YAML" "annotations.\"operators.operatorframework.io.bundle.package.v1\"" "$OPERATOR_NAME-app"
     $OPERATOR_SDK bundle validate ./bundle
 }
 

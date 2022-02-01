@@ -7,6 +7,7 @@ metadata:
     categories: Developer Tools
     containerImage: quay.io/opencloudio/ibm-crossplane-provider-ibm-cloud-operator:1.4.0
     description: Operator installing CRDs, RBAC resources and deployment for Crossplane IBM Cloud Provider
+    operators.operatorframework.io/operator-type: non-standalone
   labels:
     app.kubernetes.io/instance: ibm-crossplane-operator
     app.kubernetes.io/managed-by: ibm-crossplane-operator
@@ -15,7 +16,6 @@ metadata:
     operatorframework.io/arch.ppc64le: supported
     operatorframework.io/arch.s390x: supported
     operatorframework.io/os.linux: supported
-    operators.operatorframework.io/operator-type: non-standalone
   name: ibm-crossplane-provider-ibm-cloud-operator.v0.0.0
   namespace: placeholder
 spec:

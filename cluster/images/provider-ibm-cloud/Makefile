@@ -8,7 +8,7 @@ include ../../../build/makelib/common.mk
 #  Options
 IMAGE_NAME = ibm-crossplane-provider-ibm-cloud
 IMAGE = $(BUILD_REGISTRY)/$(IMAGE_NAME):$(VERSION)-$(ARCH)
-OSBASEIMAGE = hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com/build-images/ubi8-minimal:latest
+OSBASEIMAGE = scratch
 include ../../../build/makelib/image.mk
 
 # ====================================================================================

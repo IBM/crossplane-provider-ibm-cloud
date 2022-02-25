@@ -38,7 +38,7 @@ on:
 
 env:
   RUNNING_IN_CI: 'true'
-  GO_VERSION: "1.17.5"
+  GO_VERSION: "1.17.7"
   GOLANGCI_VERSION: "v1.31"
 
 jobs:

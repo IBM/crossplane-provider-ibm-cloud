@@ -5,7 +5,7 @@ metadata:
     alm-examples: '[]'
     capabilities: Seamless Upgrades
     categories: Developer Tools
-    containerImage: quay.io/opencloudio/ibm-crossplane-provider-ibm-cloud-operator:1.5.0
+    containerImage: quay.io/opencloudio/ibm-crossplane-provider-ibm-cloud-operator:1.6.0
     description: Operator installing CRDs, RBAC resources and deployment for Crossplane IBM Cloud Provider
     operators.operatorframework.io/operator-type: non-standalone
   labels:

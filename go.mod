@@ -26,6 +26,6 @@ require (
 	sigs.k8s.io/controller-tools v0.2.4
 )
 
-replace github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.0
+replace github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.3.0
 
-replace github.com/form3tech-oss/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.0
+replace github.com/form3tech-oss/jwt-go => github.com/golang-jwt/jwt/v4 v4.2.0

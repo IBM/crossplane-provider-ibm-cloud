@@ -2,6 +2,7 @@
 # Setup Project
 
 PLATFORMS := linux_amd64 linux_ppc64le linux_s390x
+include ../../../ibm/Makefile.common.mk
 include ../../../build/makelib/common.mk
 
 # Specify whether this repo is build locally or not, default values is '1';

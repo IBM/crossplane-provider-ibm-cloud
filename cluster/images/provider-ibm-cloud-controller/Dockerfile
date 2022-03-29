@@ -1,4 +1,4 @@
-FROM hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com/build-images/ubi8-minimal:latest
+FROM BASEIMAGE
 
 ARG ARCH
 ARG TINI_VERSION

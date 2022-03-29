@@ -4,16 +4,27 @@
 PLATFORMS := linux_amd64 linux_ppc64le linux_s390x
 include ../../../build/makelib/common.mk
 
+# Specify whether this repo is build locally or not, default values is '1';
+# If set to 1, then you need to also set 'DOCKER_USERNAME' and 'DOCKER_PASSWORD'
+# environment variables before build the repo.
+BUILD_LOCALLY ?= 1
+
+ifeq ($(BUILD_LOCALLY),0)
+    export CONFIG_DOCKER_TARGET = config-docker
+endif
+
+
 # ====================================================================================
 #  Options
 IMAGE_NAME = ibm-crossplane-provider-ibm-cloud-operator
 IMAGE = $(BUILD_REGISTRY)/$(IMAGE_NAME):$(VERSION)-$(ARCH)
 include ../../../build/makelib/image.mk
 
+
 # ====================================================================================
 # Targets
 
-img.build:
+img.build: $(CONFIG_DOCKER_TARGET)
 ifneq (,$(BUILDX))
 	$(eval CONTAINER_CLI = docker buildx build --platform linux/$(ARCH) $(BUILDX_ARGS))
 else

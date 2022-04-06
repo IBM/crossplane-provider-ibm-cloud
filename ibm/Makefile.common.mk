@@ -69,7 +69,7 @@ DOCKER_REGISTRY = hyc-cloud-private-integration-docker-local.artifactory.swg-dev
 endif
 export BUILD_REGISTRY=$(DOCKER_REGISTRY)
 
-export OSBASEIMAGE=hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com/build-images/ubi8-minimal:latest
+export OSBASEIMAGE=registry.access.redhat.com/ubi8/ubi-minimal:latest
 IMAGE_NAME ?= ibm-crossplane-provider-ibm-cloud
 
 ifeq ($(HOSTOS),darwin)

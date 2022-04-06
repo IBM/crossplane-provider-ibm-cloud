@@ -26,7 +26,6 @@ NC='\033[0m'
 
 TIMESTAMP=$(date +%s)
 SCRATCH_REG="hyc-cloud-private-scratch-docker-local.artifactory.swg-devops.com/ibmcom"
-DOCKER_EDGE_REGISTRY="hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com"
 REGISTRY=${REGISTRY:-"$SCRATCH_REG"}
 
 # usage: info <message>;
@@ -89,7 +88,6 @@ function setup() {
         info "log in to container registry"
         echo "$ARTIFACTORY_TOKEN" | $CONTAINER_CLI login "$SCRATCH_REG" -u "$ARTIFACTORY_USER" --password-stdin
         echo "$ARTIFACTORY_TOKEN" | $CONTAINER_CLI login "$COMMON_SERVICE_BASE_REGISTRY" -u "$ARTIFACTORY_USER" --password-stdin
-        echo "$ARTIFACTORY_TOKEN" | $CONTAINER_CLI login "$DOCKER_EDGE_REGISTRY" -u "$ARTIFACTORY_USER" --password-stdin
     else
         erro "ARTIFACTORY_USER or ARTIFACTORY_TOKEN not set"
     fi

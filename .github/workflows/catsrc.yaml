@@ -38,8 +38,8 @@ on:
 
 env:
   RUNNING_IN_CI: 'true'
-  GO_VERSION: "1.17.8"
-  GOLANGCI_VERSION: "v1.31"
+  GO_VERSION: "1.18.1"
+  GOLANGCI_VERSION: "v1.45"
 
 jobs:
   build-ibm-crossplane-catsrc:

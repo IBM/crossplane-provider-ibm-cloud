@@ -132,11 +132,24 @@ issues:
       linters:
         - gocyclo
         - errcheck
+        - errchkjson
         - dupl
         - gosec
         - scopelint
         - unparam
     
+    ###TODO in the future
+    - text: "is not checked"
+      linters:
+        - errchkjson
+
+    - path: apis/(eventstreamsadminv1|cloudantv1)/v1alpha1/referencers\.go
+      text: "error is not nil"
+      linters:
+        - nilerr
+    ###End of todo
+
+
     # Ease some gocritic warnings on test files.
     - path: _test\.go
       text: "(unnamedResult|exitAfterDefer)"

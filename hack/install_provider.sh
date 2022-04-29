@@ -81,13 +81,15 @@ fi
 echo "[INFO] create provider's deployment"
 if yq --version | grep -q 'version 4'; then
   echo "[INFO] detected yq version 4"
-  sed  "s|quay.io/opencloudio|${ARTIFACTORY_URL}/ibmcom|g" config/manager/manager.yaml |\
+  sed  "s|icr.io/cpopen/cpfs|${ARTIFACTORY_URL}/ibmcom|g" config/manager/manager.yaml |\
+  sed  "s|icr.io/cpopen|${ARTIFACTORY_URL}/ibmcom|g" config/manager/manager.yaml |\
     yq e ".metadata.name = \"${PROVIDER_NAME}\"" - |\
     yq e ".spec.template.metadata.annotations[\"olm.targetNamespaces\"] = \"${INSTALL_NAMESPACE}\"" - |\
       kubectl -n "${INSTALL_NAMESPACE}" apply -f -
 else
   echo "[INFO] detected yq version 3"
-  sed  "s|quay.io/opencloudio|${ARTIFACTORY_URL}/ibmcom|g" config/manager/manager.yaml |\
+  sed  "s|icr.io/cpopen/cpfs|${ARTIFACTORY_URL}/ibmcom|g" config/manager/manager.yaml |\
+  sed  "s|icr.io/cpopen|${ARTIFACTORY_URL}/ibmcom|g" config/manager/manager.yaml |\
     yq w - "metadata.name" "${PROVIDER_NAME}" |\
     yq w - "spec.template.metadata.annotations[olm.targetNamespaces]" "${INSTALL_NAMESPACE}" |\
       kubectl -n "${INSTALL_NAMESPACE}" apply -f -

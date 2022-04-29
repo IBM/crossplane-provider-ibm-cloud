@@ -53,7 +53,7 @@ if [[ -f "${CSV_PATH}" ]]; then
 
 
     yq w ${CSV_PATH} "spec.relatedImages[0] name" "IBM_CROSSPLANE_PROVIDER_IBM_CLOUD_OPERATOR_IMAGE" 1<>${CSV_PATH}
-    yq w ${CSV_PATH} "spec.relatedImages[0] image" "quay.io/opencloudio/ibm-crossplane-provider-ibm-cloud-operator:${OPERATOR_VERSION}" 1<>${CSV_PATH}
+    yq w ${CSV_PATH} "spec.relatedImages[0] image" "icr.io/cpopen/ibm-crossplane-provider-ibm-cloud-operator:${OPERATOR_VERSION}" 1<>${CSV_PATH}
 
     # replaces
     # REMOVE FOR FIRST RELEASE

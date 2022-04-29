@@ -85,7 +85,7 @@ spec:
           volumeMounts:
             - name: package-cache
               mountPath: /cache
-          image: quay.io/opencloudio/ibm-crossplane-provider-ibm-cloud-operator:1.7.0
+          image: icr.io/cpopen/ibm-crossplane-provider-ibm-cloud-operator:1.7.0
           args: []
       topologySpreadConstraints:
         - maxSkew: 1

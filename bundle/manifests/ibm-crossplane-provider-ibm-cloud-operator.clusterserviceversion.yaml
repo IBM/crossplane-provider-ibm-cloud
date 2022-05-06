@@ -364,6 +364,7 @@ spec:
   provider:
     name: IBM
   version: 1.7.0
+  replaces: ibm-crossplane-provider-ibm-cloud-operator.v1.6.0
   relatedImages:
     - name: IBM_CROSSPLANE_PROVIDER_IBM_CLOUD_OPERATOR_IMAGE
       image: icr.io/cpopen/ibm-crossplane-provider-ibm-cloud-operator:1.7.0

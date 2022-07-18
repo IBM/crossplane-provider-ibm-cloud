@@ -156,6 +156,7 @@ type ResourceKey struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
+	// +kubebuilder:pruning:PreserveUnknownFields
 	Spec   ResourceKeySpec   `json:"spec"`
 	Status ResourceKeyStatus `json:"status,omitempty"`
 }

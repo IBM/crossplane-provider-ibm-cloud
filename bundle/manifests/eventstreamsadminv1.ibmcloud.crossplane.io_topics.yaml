@@ -41,10 +41,14 @@ spec:
         description: A Topic represents an instance of a managed service on IBM Cloud
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -53,7 +57,9 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: DeletionPolicy specifies what will happen to the underlying external when this managed resource is deleted - either "Delete" or "Orphan" the external resource.
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
                 enum:
                 - Orphan
                 - Delete
@@ -75,10 +81,12 @@ spec:
                       type: object
                     type: array
                   kafkaAdminUrl:
-                    description: KafkaAdminURL is the URL to the Event Streams instance admin endpoint
+                    description: KafkaAdminURL is the URL to the Event Streams instance
+                      admin endpoint
                     type: string
                   kafkaAdminUrlRef:
-                    description: A reference to the Event Streams Secret Key used to set KafkaAdminURL
+                    description: A reference to the Event Streams Secret Key used
+                      to set KafkaAdminURL
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -87,22 +95,26 @@ spec:
                     - name
                     type: object
                   kafkaAdminUrlSelector:
-                    description: SourceSelector selects a reference to a resource used to set Source
+                    description: SourceSelector selects a reference to a resource
+                      used to set Source
                     properties:
                       matchControllerRef:
-                        description: MatchControllerRef ensures an object with the same controller reference as the selecting object is selected.
+                        description: MatchControllerRef ensures an object with the
+                          same controller reference as the selecting object is selected.
                         type: boolean
                       matchLabels:
                         additionalProperties:
                           type: string
-                        description: MatchLabels ensures an object with matching labels is selected.
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
                         type: object
                     type: object
                   name:
                     description: The name of topic to be created.
                     type: string
                   partitionCount:
-                    description: The number of partitions, this field takes precedence over 'partitions'. Default value is 1 if not specified.
+                    description: The number of partitions, this field takes precedence
+                      over 'partitions'. Default value is 1 if not specified.
                     format: int64
                     type: integer
                   partitions:
@@ -115,7 +127,9 @@ spec:
               providerConfigRef:
                 default:
                   name: default
-                description: ProviderConfigReference specifies how the provider that will be used to create, observe, update, and delete this managed resource should be configured.
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -124,7 +138,9 @@ spec:
                 - name
                 type: object
               providerRef:
-                description: 'ProviderReference specifies the provider that will be used to create, observe, update, and delete this managed resource. Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -133,7 +149,11 @@ spec:
                 - name
                 type: object
               writeConnectionSecretToRef:
-                description: WriteConnectionSecretToReference specifies the namespace and name of a Secret to which any connection details for this managed resource should be written. Connection details frequently include the endpoint, username, and password required to connect to the managed resource.
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
                 properties:
                   name:
                     description: Name of the secret.
@@ -188,7 +208,8 @@ spec:
                       description: 'ReplicaAssignment : ReplicaAssignment struct'
                       properties:
                         brokers:
-                          description: 'ReplicaAssignmentBrokers : ReplicaAssignmentBrokers struct'
+                          description: 'ReplicaAssignmentBrokers : ReplicaAssignmentBrokers
+                            struct'
                           properties:
                             replicas:
                               items:
@@ -211,7 +232,8 @@ spec:
                     format: int64
                     type: integer
                   state:
-                    description: The current state of the topic. For example, if the topic is deleted, it will return removed.
+                    description: The current state of the topic. For example, if the
+                      topic is deleted, it will return removed.
                     type: string
                 type: object
               conditions:
@@ -220,20 +242,25 @@ spec:
                   description: A Condition that may apply to a resource.
                   properties:
                     lastTransitionTime:
-                      description: LastTransitionTime is the last time this condition transitioned from one status to another.
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
                       format: date-time
                       type: string
                     message:
-                      description: A Message containing details about this condition's last transition from one status to another, if any.
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
                       type: string
                     reason:
-                      description: A Reason for this condition's last transition from one status to another.
+                      description: A Reason for this condition's last transition from
+                        one status to another.
                       type: string
                     status:
-                      description: Status of this condition; is it currently True, False, or Unknown?
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
                       type: string
                     type:
-                      description: Type of this condition. At most one of each condition type may apply to a resource at any point in time.
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
                       type: string
                   required:
                   - lastTransitionTime

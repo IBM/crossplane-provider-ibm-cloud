@@ -146,6 +146,7 @@ type CloudantDatabase struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
+	// +kubebuilder:pruning:PreserveUnknownFields
 	Spec   CloudantDatabaseSpec   `json:"spec"`
 	Status CloudantDatabaseStatus `json:"status,omitempty"`
 }

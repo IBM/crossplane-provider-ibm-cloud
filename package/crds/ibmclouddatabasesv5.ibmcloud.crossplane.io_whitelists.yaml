@@ -164,6 +164,7 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-preserve-unknown-fields: true
           status:
             description: A WhitelistStatus represents the observed state of a Whitelist.
             properties:

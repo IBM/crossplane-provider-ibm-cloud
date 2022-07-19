@@ -197,6 +197,7 @@ type ResourceInstance struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
+	// +kubebuilder:pruning:PreserveUnknownFields
 	Spec   ResourceInstanceSpec   `json:"spec"`
 	Status ResourceInstanceStatus `json:"status,omitempty"`
 }

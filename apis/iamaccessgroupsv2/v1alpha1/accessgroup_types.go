@@ -95,6 +95,7 @@ type AccessGroup struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
+	// +kubebuilder:pruning:PreserveUnknownFields
 	Spec   AccessGroupSpec   `json:"spec"`
 	Status AccessGroupStatus `json:"status,omitempty"`
 }

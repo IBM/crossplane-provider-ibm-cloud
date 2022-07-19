@@ -129,6 +129,7 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-preserve-unknown-fields: true
           status:
             description: A AccessGroupStatus represents the observed state of a AccessGroup.
             properties:

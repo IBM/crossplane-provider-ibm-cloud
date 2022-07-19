@@ -100,6 +100,7 @@ type CustomRole struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
+	// +kubebuilder:pruning:PreserveUnknownFields
 	Spec   CustomRoleSpec   `json:"spec"`
 	Status CustomRoleStatus `json:"status,omitempty"`
 }

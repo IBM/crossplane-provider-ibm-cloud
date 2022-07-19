@@ -122,6 +122,7 @@ type AccessGroupRule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
+	// +kubebuilder:pruning:PreserveUnknownFields
 	Spec   AccessGroupRuleSpec   `json:"spec"`
 	Status AccessGroupRuleStatus `json:"status,omitempty"`
 }

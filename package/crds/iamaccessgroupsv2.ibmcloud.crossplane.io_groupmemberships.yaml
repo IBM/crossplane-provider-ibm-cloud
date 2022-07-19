@@ -161,6 +161,7 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-preserve-unknown-fields: true
           status:
             description: A GroupMembershipStatus represents the observed state of
               a GroupMembership.

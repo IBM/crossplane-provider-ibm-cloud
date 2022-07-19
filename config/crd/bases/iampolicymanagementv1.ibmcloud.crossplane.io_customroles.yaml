@@ -1,3 +1,5 @@
+
+---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -137,6 +139,7 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-preserve-unknown-fields: true
           status:
             description: A CustomRoleStatus represents the observed state of a CustomRole.
             properties:

@@ -53,7 +53,7 @@ if [[ -z "$(echo "${new_pull_secret}"| grep 'hyc-cloud-private-daily-docker-loca
 fi
 
 if [[ -z "$(echo "${new_pull_secret}" | grep 'hyc-cloud-private-edge-docker-local')" ]]; then
-    registry_pull_secret="\"hyc-cloud-private-edge-docker-local.artifactory.swg-devops.com\":{\"auth\":\"${artifactory_secret}\"}"
+    registry_pull_secret="\"docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-edge-docker-local\":{\"auth\":\"${artifactory_secret}\"}"
     new_pull_secret=$(echo "${new_pull_secret}" | sed -e "s/}}$//")
     new_pull_secret=$(echo "${new_pull_secret},${registry_pull_secret}}}")
     changed=true

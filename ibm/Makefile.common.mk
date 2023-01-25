@@ -65,7 +65,7 @@ build.init: buildx
 BUILD_LOCALLY ?= 1
 
 ifeq ($(BUILD_LOCALLY),0)
-DOCKER_REGISTRY = hyc-cloud-private-integration-docker-local.artifactory.swg-devops.com/ibmcom
+DOCKER_REGISTRY = docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-integration-docker-local/ibmcom
 endif
 export BUILD_REGISTRY=$(DOCKER_REGISTRY)
 

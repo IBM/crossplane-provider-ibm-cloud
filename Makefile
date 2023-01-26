@@ -74,7 +74,7 @@ export VERSION=$(RELEASE_VERSION)
 export GIT_VERSION=$(shell git describe --exact-match 2> /dev/null || \
                  	   git describe --match=$(git rev-parse --short=8 HEAD) --always --dirty --abbrev=8)
 
-DOCKER_REGISTRY = hyc-cloud-private-scratch-docker-local.artifactory.swg-devops.com/ibmcom
+DOCKER_REGISTRY = docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-scratch-docker-local/ibmcom
 IMAGES = provider-ibm-cloud provider-ibm-cloud-controller
 -include build/makelib/image.mk
 

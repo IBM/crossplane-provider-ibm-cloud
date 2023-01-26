@@ -16,7 +16,7 @@
 #
 
 KUBECTL=$(command -v kubectl)
-DOCKER_REGISTRY="hyc-cloud-private-integration-docker-local.artifactory.swg-devops.com"
+DOCKER_REGISTRY="docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-integration-docker-local"
 DOCKER_USERNAME=$(${KUBECTL} -n default get secret artifactory-cred -o jsonpath='{.data.username}' | base64 --decode)
 DOCKER_PASSWORD=$(${KUBECTL} -n default get secret artifactory-cred -o jsonpath='{.data.password}' | base64 --decode)
 

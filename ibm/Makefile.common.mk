@@ -77,22 +77,21 @@ MANIFEST_TOOL_ARGS ?= --username $(DOCKER_USERNAME) --password $(DOCKER_PASSWORD
 else
 MANIFEST_TOOL_ARGS ?=
 endif
-MANIFEST_PLATFORMS ?= linux/amd64,linux/ppc64le,linux/s390x
 
 images: $(MANIFEST_TOOL)
 ifeq ($(BUILD_LOCALLY),1)
 	@make build.all BUILDX_ARGS=--push
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-$(GIT_VERSION) || $(FAIL)
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION) || $(FAIL)
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-$(GIT_VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-$(GIT_VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-$(GIT_VERSION) || $(FAIL)
 else
 	@make config-docker
 	@make build.all BUILDX_ARGS=--push
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-$(GIT_VERSION) || $(FAIL)
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION) || $(FAIL)
-	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms $(MANIFEST_PLATFORMS) --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-$(GIT_VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-$(GIT_VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION) || $(FAIL)
+	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME)-operator:$(VERSION)-$(GIT_VERSION) || $(FAIL)
 endif
 
 

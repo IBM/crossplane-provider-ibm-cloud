@@ -58,6 +58,7 @@ jobs:
         with:
           version: v0.9.1
           buildkitd-flags: --debug
+          driver-opts: image=moby/buildkit:v0.11.0
 
       - name: Login to Artifactory
         uses: docker/login-action@v1

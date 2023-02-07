@@ -85,6 +85,7 @@ install-tools:
 	@echo "Checking build tools"
 	@source common/scripts/install_tools.sh
 	@echo "Done"
+	ls $(TOOLS_DIR)
 
 images: install-tools
 ifeq ($(BUILD_LOCALLY),1)
@@ -95,7 +96,7 @@ ifeq ($(BUILD_LOCALLY),1)
 	@echo "TOOLS_DIR: "
 	@echo $(TOOLS_DIR)
 	$(MANIFEST_TOOL) --version
-	ls
+	ls $(TOOLS_DIR)
 
 	@make build.all BUILDX_ARGS=--push
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)

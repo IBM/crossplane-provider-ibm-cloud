@@ -85,8 +85,11 @@ ifeq ($(BUILD_LOCALLY),1)
 	@echo "Done"
 	@echo "Manifest tool version:"
 	@echo $(MANIFEST_TOOL_VERSION)
+	export MANIFEST_TOOL_VERSION=v0.7.0
+	@echo "Manifest tool version:"
+	@echo $(MANIFEST_TOOL_VERSION)
 	@echo "Manifest tool var:"
-	@echa $(MANIFEST_TOOL)
+	@echo $(MANIFEST_TOOL)
 	$(MANIFEST_TOOL) --version
 	@echo "Release version"
 	@echo $(RELEASE_VERSION)

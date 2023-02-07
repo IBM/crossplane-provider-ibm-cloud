@@ -83,9 +83,15 @@ endif
 
 images: #$(MANIFEST_TOOL)
 ifeq ($(BUILD_LOCALLY),1)
-	@echo "Checking build tools"
-	@source common/scripts/install_tools.sh
-	@echo "Done"
+	@export RELEASE_VERSION="v0.7.0"
+	@export URL="https://github.com/estesp/manifest-tool/releases/download"
+	@export FILE_NAME="manifest-tool-${OS}-${ARCH}"
+	@curl -L -o "$(pwd)/bin/manifest-tool" "${URL}/${RELEASE_VERSION}/${FILE_NAME}"
+	@chmod +x "${TOOLS_DIR}/manifest-tool"
+	@export MANIFEST_TOOL=${TOOLS_DIR}/manifest-tool
+# @echo "Checking build tools"
+# @source common/scripts/install_tools.sh
+# @echo "Done"
 	@echo "Manifest tool version:"
 	@echo $(MANIFEST_TOOL_VERSION)
 	@echo "Manifest tool var:"

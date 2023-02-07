@@ -61,7 +61,7 @@ GO111MODULE = on
 
 # ====================================================================================
 # Setup tools
-MANIFEST_TOOL_VERSION = v1.0.3
+MANIFEST_TOOL_VERSION = v0.7.0
 BUILDX_VERSION = v0.6.1
 KIND_VERSION = v0.11.1
 USE_HELM3 = true

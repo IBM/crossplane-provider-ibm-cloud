@@ -81,22 +81,21 @@ else
 MANIFEST_TOOL_ARGS ?=
 endif
 
-images: #$(MANIFEST_TOOL)
+install-tools:
+	@echo "Checking build tools"
+	@source common/scripts/install_tools.sh
+	@echo "Done"
+
+images: install-tools
 ifeq ($(BUILD_LOCALLY),1)
-	@export RELEASE_VERSION="v0.7.0"
-	@export URL="https://github.com/estesp/manifest-tool/releases/download"
-	@export FILE_NAME="manifest-tool-${OS}-${ARCH}"
-	@curl -L -o "$(pwd)/bin/manifest-tool" "${URL}/${RELEASE_VERSION}/${FILE_NAME}"
-	@chmod +x "${TOOLS_DIR}/manifest-tool"
-	@export MANIFEST_TOOL=${TOOLS_DIR}/manifest-tool
-# @echo "Checking build tools"
-# @source common/scripts/install_tools.sh
-# @echo "Done"
 	@echo "Manifest tool version:"
 	@echo $(MANIFEST_TOOL_VERSION)
 	@echo "Manifest tool var:"
 	@echo $(MANIFEST_TOOL)
+	@echo "TOOLS_DIR: "
+	@echo $(TOOLS_DIR)
 	$(MANIFEST_TOOL) --version
+	ls
 
 	@make build.all BUILDX_ARGS=--push
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)

@@ -83,11 +83,11 @@ endif
 
 install-manifest-tool:
 	@echo "Checking build tools"
-	@source common/scripts/install_tools.sh
+	@source common/scripts/install_tools.sh check_manifest_tool
 	@echo "Done installing script"
 	@command pwd
 
-images: install-tools
+images: install-manifest-tool
 ifeq ($(BUILD_LOCALLY),1)
 	@echo "Manifest tool version:"
 	@echo $(MANIFEST_TOOL_VERSION)

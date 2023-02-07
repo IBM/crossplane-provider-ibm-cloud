@@ -81,11 +81,11 @@ else
 MANIFEST_TOOL_ARGS ?=
 endif
 
-images: $(MANIFEST_TOOL)
+images: #$(MANIFEST_TOOL)
 ifeq ($(BUILD_LOCALLY),1)
-# @echo "Checking build tools"
-# @source common/scripts/install_tools.sh
-# @echo "Done"
+	@echo "Checking build tools"
+	@source common/scripts/install_tools.sh
+	@echo "Done"
 	@echo "Manifest tool version:"
 	@echo $(MANIFEST_TOOL_VERSION)
 	@echo "Manifest tool var:"

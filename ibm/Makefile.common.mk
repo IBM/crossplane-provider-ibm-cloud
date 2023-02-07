@@ -83,7 +83,7 @@ endif
 
 install-manifest-tool:
 	@echo "Checking build tools"
-	@source common/scripts/install_tools.sh check_manifest_tool
+	@source common/scripts/install_tools.sh
 	@echo "Done installing script"
 	@command pwd
 

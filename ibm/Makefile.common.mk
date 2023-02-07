@@ -65,7 +65,7 @@ build.init: buildx
 BUILD_LOCALLY ?= 1
 
 #TOOLS_DIR=$(pwd)/bin
-#MANIFEST_TOOL=/home/runner/work/crossplane-provider-ibm-cloud/crossplane-provider-ibm-cloud/bin/manifest-tool
+export MANIFEST_TOOL=$(pwd)/bin/manifest-tool
 
 ifeq ($(BUILD_LOCALLY),0)
 DOCKER_REGISTRY = docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-integration-docker-local/ibmcom
@@ -85,7 +85,6 @@ install-manifest-tool:
 	@echo "Checking build tools"
 	@source common/scripts/install_tools.sh check_manifest_tool
 	@echo "Done installing script"
-	@export MANIFEST_TOOL=$(pwd)/bin/manifest-tool
 
 images: install-manifest-tool
 ifeq ($(BUILD_LOCALLY),1)

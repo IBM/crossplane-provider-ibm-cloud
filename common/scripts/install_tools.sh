@@ -85,7 +85,6 @@ function check_manifest_tool() {
     chmod +x "$TOOLS_DIR/manifest-tool"
     export MANIFEST_TOOL=${MANIFEST_TOOL:-"$TOOLS_DIR/manifest-tool"}
     $MANIFEST_TOOL --version
-    command pwd
 }
 
 function check_container_cli() {

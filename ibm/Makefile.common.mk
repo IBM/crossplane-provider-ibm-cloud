@@ -85,7 +85,7 @@ install-manifest-tool:
 	@echo "Checking build tools"
 	@source common/scripts/install_tools.sh check_manifest_tool
 	@echo "Done installing script"
-	@command pwd
+	@export MANIFEST_TOOL=$(pwd)/bin/manifest-tool
 
 images: install-manifest-tool
 ifeq ($(BUILD_LOCALLY),1)

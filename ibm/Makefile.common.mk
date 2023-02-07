@@ -66,7 +66,7 @@ BUILD_LOCALLY ?= 1
 
 MANIFEST_TOOL_VERSION=v0.7.0
 TOOLS_DIR=$(pwd)/bin
-MANIFEST_TOOL=${TOOLS_DIR}/manifest-tool
+MANIFEST_TOOL=/home/runner/work/crossplane-provider-ibm-cloud/crossplane-provider-ibm-cloud/bin/manifest-tool
 
 ifeq ($(BUILD_LOCALLY),0)
 DOCKER_REGISTRY = docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-integration-docker-local/ibmcom
@@ -88,7 +88,6 @@ ifeq ($(BUILD_LOCALLY),1)
 	@source common/scripts/install_tools.sh
 	@echo "Done"
 	@echo "Manifest tool version:"
-	@echo $(MANIFEST_TOOL_VERSION)
 	@echo $(MANIFEST_TOOL_VERSION)
 	@echo "Manifest tool var:"
 	@echo $(MANIFEST_TOOL)

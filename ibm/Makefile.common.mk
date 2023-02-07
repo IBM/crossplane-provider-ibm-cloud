@@ -66,7 +66,7 @@ BUILD_LOCALLY ?= 1
 
 MANIFEST_TOOL_VERSION=v0.7.0
 TOOLS_DIR=$(pwd)/bin/
-MANIFEST_TOOL="${TOOLS_DIR}/manifest-tool
+MANIFEST_TOOL=${TOOLS_DIR}/manifest-tool
 
 ifeq ($(BUILD_LOCALLY),0)
 DOCKER_REGISTRY = docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-integration-docker-local/ibmcom

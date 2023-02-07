@@ -64,6 +64,8 @@ build.init: buildx
 # environment variables before build the repo.
 BUILD_LOCALLY ?= 1
 
+MANIFEST_TOOL_VERSION=v0.7.0
+
 ifeq ($(BUILD_LOCALLY),0)
 DOCKER_REGISTRY = docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-integration-docker-local/ibmcom
 endif
@@ -85,8 +87,6 @@ ifeq ($(BUILD_LOCALLY),1)
 	@echo "Done"
 	@echo "Manifest tool version:"
 	@echo $(MANIFEST_TOOL_VERSION)
-	export MANIFEST_TOOL_VERSION=v0.7.0
-	@echo "Manifest tool version:"
 	@echo $(MANIFEST_TOOL_VERSION)
 	@echo "Manifest tool var:"
 	@echo $(MANIFEST_TOOL)

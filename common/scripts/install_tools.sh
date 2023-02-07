@@ -83,7 +83,7 @@ function check_manifest_tool() {
     local FILE_NAME="manifest-tool-${OS}-${ARCH}"
     $CURL -L -o "$TOOLS_DIR/manifest-tool" "$URL/$RELEASE_VERSION/$FILE_NAME"
     chmod +x "$TOOLS_DIR/manifest-tool"
-    export MANIFEST_TOOL="${TOOLS_DIR}/manifest-tool"
+    export MANIFEST_TOOL=${MANIFEST_TOOL:-"$TOOLS_DIR/manifest-tool"}
     $MANIFEST_TOOL --version
 }
 
@@ -118,5 +118,3 @@ check_kustomize
 check_opm
 check_yq
 export TOOLS_CHECKED=true
-
-$*

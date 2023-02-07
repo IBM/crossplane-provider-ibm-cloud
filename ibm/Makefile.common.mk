@@ -64,8 +64,7 @@ build.init: buildx
 # environment variables before build the repo.
 BUILD_LOCALLY ?= 1
 
-#TOOLS_DIR=$(pwd)/bin
-export MANIFEST_TOOL=$(pwd)/bin/manifest-tool
+export MANIFEST_TOOL=$(shell pwd)/bin/manifest-tool
 
 ifeq ($(BUILD_LOCALLY),0)
 DOCKER_REGISTRY = docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-integration-docker-local/ibmcom

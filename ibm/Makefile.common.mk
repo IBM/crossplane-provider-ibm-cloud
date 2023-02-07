@@ -64,7 +64,6 @@ build.init: buildx
 # environment variables before build the repo.
 BUILD_LOCALLY ?= 1
 
-MANIFEST_TOOL_VERSION=v0.7.0
 TOOLS_DIR=$(pwd)/bin
 MANIFEST_TOOL=/home/runner/work/crossplane-provider-ibm-cloud/crossplane-provider-ibm-cloud/bin/manifest-tool
 
@@ -82,18 +81,16 @@ else
 MANIFEST_TOOL_ARGS ?=
 endif
 
-images: #$(MANIFEST_TOOL)
+images: $(MANIFEST_TOOL)
 ifeq ($(BUILD_LOCALLY),1)
-	@echo "Checking build tools"
-	@source common/scripts/install_tools.sh
-	@echo "Done"
+# @echo "Checking build tools"
+# @source common/scripts/install_tools.sh
+# @echo "Done"
 	@echo "Manifest tool version:"
 	@echo $(MANIFEST_TOOL_VERSION)
 	@echo "Manifest tool var:"
 	@echo $(MANIFEST_TOOL)
 	$(MANIFEST_TOOL) --version
-	@echo "Release version"
-	@echo $(RELEASE_VERSION)
 
 	@make build.all BUILDX_ARGS=--push
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)

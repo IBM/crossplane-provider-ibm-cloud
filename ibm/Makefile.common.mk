@@ -81,11 +81,11 @@ else
 MANIFEST_TOOL_ARGS ?=
 endif
 
-install-tools:
+install-manifest-tool:
 	@echo "Checking build tools"
-	@source common/scripts/install_tools.sh
-	@echo "Done"
-	ls $(TOOLS_DIR)
+	@source common/scripts/install_tools.sh check_manifest_tool
+	@echo "Done installing script"
+	@command pwd
 
 images: install-tools
 ifeq ($(BUILD_LOCALLY),1)
@@ -93,10 +93,10 @@ ifeq ($(BUILD_LOCALLY),1)
 	@echo $(MANIFEST_TOOL_VERSION)
 	@echo "Manifest tool var:"
 	@echo $(MANIFEST_TOOL)
-	@echo "TOOLS_DIR: "
+	@echo "TOOLS_DIR:"
 	@echo $(TOOLS_DIR)
+	
 	$(MANIFEST_TOOL) --version
-	ls $(TOOLS_DIR)
 
 	@make build.all BUILDX_ARGS=--push
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)

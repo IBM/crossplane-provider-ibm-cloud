@@ -119,3 +119,5 @@ check_kustomize
 check_opm
 check_yq
 export TOOLS_CHECKED=true
+
+$*

@@ -64,8 +64,8 @@ build.init: buildx
 # environment variables before build the repo.
 BUILD_LOCALLY ?= 1
 
-TOOLS_DIR=$(pwd)/bin
-MANIFEST_TOOL=/home/runner/work/crossplane-provider-ibm-cloud/crossplane-provider-ibm-cloud/bin/manifest-tool
+#TOOLS_DIR=$(pwd)/bin
+#MANIFEST_TOOL=/home/runner/work/crossplane-provider-ibm-cloud/crossplane-provider-ibm-cloud/bin/manifest-tool
 
 ifeq ($(BUILD_LOCALLY),0)
 DOCKER_REGISTRY = docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-integration-docker-local/ibmcom

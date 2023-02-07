@@ -87,15 +87,6 @@ install-manifest-tool:
 
 images: install-manifest-tool
 ifeq ($(BUILD_LOCALLY),1)
-	@echo "Manifest tool version:"
-	@echo $(MANIFEST_TOOL_VERSION)
-	@echo "Manifest tool var:"
-	@echo $(MANIFEST_TOOL)
-	@echo "TOOLS_DIR:"
-	@echo $(TOOLS_DIR)
-	
-	$(MANIFEST_TOOL) --version
-
 	@make build.all BUILDX_ARGS=--push
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-$(GIT_VERSION) || $(FAIL)

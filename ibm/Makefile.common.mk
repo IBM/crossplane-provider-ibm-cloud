@@ -80,7 +80,9 @@ endif
 
 images: #$(MANIFEST_TOOL)
 ifeq ($(BUILD_LOCALLY),1)
-	@${MANIFEST_TOOL} --version
+	@info "Checking build tools"
+	@source common/scripts/install_tools.sh
+	@info "Done"
 
 	@make build.all BUILDX_ARGS=--push
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)

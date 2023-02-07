@@ -73,9 +73,9 @@ export OSBASEIMAGE=registry.access.redhat.com/ubi8/ubi-minimal:latest
 IMAGE_NAME ?= ibm-crossplane-provider-ibm-cloud
 
 ifeq ($(HOSTOS),darwin)
-MANIFEST_TOOL_ARGS ?= --username $(DOCKER_USERNAME) --password $(DOCKER_PASSWORD)
+MANIFEST_TOOL_ARGS ?= --username $(DOCKER_USERNAME) --password $(DOCKER_PASSWORD) --debug
 else
-MANIFEST_TOOL_ARGS ?=
+MANIFEST_TOOL_ARGS ?= --debug
 endif
 
 images: $(MANIFEST_TOOL)

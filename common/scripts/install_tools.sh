@@ -78,15 +78,11 @@ function check_opm() {
 }
 
 function check_manifest_tool() {
-    if [[ $(which manifest-tool) != "" ]]; then
-        export MANIFEST_TOOL=$(which manifest-tool)
-    elif [[ ! -f "$TOOLS_DIR/manifest-tool" ]]; then
-        local RELEASE_VERSION="v1.0.3"
-        local URL="https://github.com/estesp/manifest-tool/releases/download"
-        local FILE_NAME="manifest-tool-${OS}-${ARCH}"
-        $CURL -L -o "$TOOLS_DIR/manifest-tool" "$URL/$RELEASE_VERSION/$FILE_NAME"
-	    chmod +x "$TOOLS_DIR/manifest-tool"
-	fi
+    local RELEASE_VERSION="v0.7.0"
+    local URL="https://github.com/estesp/manifest-tool/releases/download"
+    local FILE_NAME="manifest-tool-${OS}-${ARCH}"
+    $CURL -L -o "$TOOLS_DIR/manifest-tool" "$URL/$RELEASE_VERSION/$FILE_NAME"
+    chmod +x "$TOOLS_DIR/manifest-tool"
     export MANIFEST_TOOL=${MANIFEST_TOOL:-"$TOOLS_DIR/manifest-tool"}
     $MANIFEST_TOOL --version
 }

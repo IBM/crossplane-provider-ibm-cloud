@@ -64,8 +64,10 @@ build.init: buildx
 # environment variables before build the repo.
 BUILD_LOCALLY ?= 1
 
+export MANIFEST_TOOL=$(shell pwd)/bin/manifest-tool
+
 ifeq ($(BUILD_LOCALLY),0)
-DOCKER_REGISTRY = hyc-cloud-private-integration-docker-local.artifactory.swg-devops.com/ibmcom
+DOCKER_REGISTRY = docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-integration-docker-local/ibmcom
 endif
 export BUILD_REGISTRY=$(DOCKER_REGISTRY)
 
@@ -78,7 +80,12 @@ else
 MANIFEST_TOOL_ARGS ?=
 endif
 
-images: $(MANIFEST_TOOL)
+install-manifest-tool:
+	@echo "Checking build tools"
+	@source common/scripts/install_tools.sh check_manifest_tool
+	@echo "Done installing script"
+
+images: install-manifest-tool
 ifeq ($(BUILD_LOCALLY),1)
 	@make build.all BUILDX_ARGS=--push
 	@$(MANIFEST_TOOL) $(MANIFEST_TOOL_ARGS) push from-args --platforms linux/amd64,linux/ppc64le,linux/s390x --template $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION)-ARCH --target $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(VERSION) || $(FAIL)

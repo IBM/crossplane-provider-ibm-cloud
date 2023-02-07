@@ -61,7 +61,7 @@ GO111MODULE = on
 
 # ====================================================================================
 # Setup tools
-MANIFEST_TOOL_VERSION = v1.0.3
+MANIFEST_TOOL_VERSION = v0.7.0
 BUILDX_VERSION = v0.6.1
 KIND_VERSION = v0.11.1
 USE_HELM3 = true
@@ -74,7 +74,7 @@ export VERSION=$(RELEASE_VERSION)
 export GIT_VERSION=$(shell git describe --exact-match 2> /dev/null || \
                  	   git describe --match=$(git rev-parse --short=8 HEAD) --always --dirty --abbrev=8)
 
-DOCKER_REGISTRY = hyc-cloud-private-scratch-docker-local.artifactory.swg-devops.com/ibmcom
+DOCKER_REGISTRY = docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-scratch-docker-local/ibmcom
 IMAGES = provider-ibm-cloud provider-ibm-cloud-controller
 -include build/makelib/image.mk
 

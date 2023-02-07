@@ -53,14 +53,14 @@ BUNDLE_DEFAULT_CHANNEL := --default-channel=$(DEFAULT_CHANNEL)
 endif
 BUNDLE_METADATA_OPTS ?= $(BUNDLE_CHANNELS) $(BUNDLE_DEFAULT_CHANNEL)
 
-REGISTRY_DAILY ?= hyc-cloud-private-daily-docker-local.artifactory.swg-devops.com/ibmcom
+REGISTRY_DAILY ?= docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-daily-docker-local/ibmcom
 
 ifeq ($(BUILD_LOCALLY),0)
     export CONFIG_DOCKER_TARGET = config-docker
 	# Default image repo
-	REGISTRY ?= hyc-cloud-private-integration-docker-local.artifactory.swg-devops.com/ibmcom
+	REGISTRY ?= docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-integration-docker-local/ibmcom
 else
-	REGISTRY ?= hyc-cloud-private-scratch-docker-local.artifactory.swg-devops.com/ibmcom
+	REGISTRY ?= docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-scratch-docker-local/ibmcom
 endif
 OPERATOR_IMAGE := $(REGISTRY)/$(OPERATOR_IMAGE_NAME):$(VERSION)
 
@@ -133,7 +133,7 @@ endif
 ############################################################
 
 # artifactory registry
-ARTIFACTORY_REGISTRY := hyc-cloud-private-scratch-docker-local.artifactory.swg-devops.com
+ARTIFACTORY_REGISTRY := docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-scratch-docker-local
 
 ifeq ($(OS),darwin)
 	MANIFEST_TOOL_ARGS ?= --username $(DOCKER_USERNAME) --password $(DOCKER_PASSWORD)

@@ -18,6 +18,7 @@ require (
 	github.com/google/go-cmp v0.5.5
 	github.com/jeremywohl/flatten v1.0.1
 	github.com/pkg/errors v0.9.1
+	github.com/prometheus/client_golang v1.11.1 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	k8s.io/api v0.21.2
 	k8s.io/apimachinery v0.21.2

@@ -114,11 +114,13 @@ type bucketExternal struct {
 // Retrieves the bucket with the given name, and for the same instance id, as the parameters if one exists.
 //
 // Params
-//	   crossplaneBucket - a "crossplane" bucket
+//
+//	crossplaneBucket - a "crossplane" bucket
 //
 // Returns
-//	   the bucket retrieved (if error != nil), or nil - if no bucket was found
-//	   the error that happened when trying to retrieve all the buckets; nil if none exists
+//
+//	the bucket retrieved (if error != nil), or nil - if no bucket was found
+//	the error that happened when trying to retrieve all the buckets; nil if none exists
 func (c *bucketExternal) retrieveBucket(crossplaneBucket *v1alpha1.Bucket) (*s3.Bucket, error) {
 	var result *s3.Bucket
 

@@ -153,12 +153,13 @@ func createCrossplaneBucket(im ...bucketModifier) *v1alpha1.Bucket {
 
 // Converts an array of buckets to XML (imitating the IBM cloud api's response)
 //
-//
 // Params
-//    s3BucketArray - the array of buckets
+//
+//	s3BucketArray - the array of buckets
 //
 // Response
-//     an XML string containing only the names and the creation dates of the buckets
+//
+//	an XML string containing only the names and the creation dates of the buckets
 func toXML(s3BucketArray []*s3.Bucket) string {
 	result := "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><ListAllMyBucketsResult xmlns=\"http://s3.amazonaws.com/doc/2006-03-01/\"><Owner><ID>6967f0d3-dc43-4b9e-beaa-40a79a3128d2</ID><DisplayName>6967f0d3-dc43-4b9e-beaa-40a79a3128d2</DisplayName></Owner><Buckets>"
 
@@ -175,14 +176,16 @@ func toXML(s3BucketArray []*s3.Bucket) string {
 // Sets up a unit test http server, and creates an external bucket appropriate for unit test.
 //
 // Params
-//	   testingObj - the test object
-//	   handlers - the handlers that create the responses
-//	   client - the controller runtime client
+//
+//	testingObj - the test object
+//	handlers - the handlers that create the responses
+//	client - the controller runtime client
 //
 // Returns
-//		the external bucket, ready for unit test
-//		the test http server, on which the caller should call 'defer ....Close()' (reason for this is we need to keep it around to prevent
-//		garbage collection)
+//
+//	the external bucket, ready for unit test
+//	the test http server, on which the caller should call 'defer ....Close()' (reason for this is we need to keep it around to prevent
+//	garbage collection)
 func setupServerAndGetUnitTestExternalBucket(testingObj *testing.T, handlers *[]handler, kube *client.Client) (*bucketExternal, *httptest.Server, error) {
 	mux := http.NewServeMux()
 	for _, h := range *handlers {

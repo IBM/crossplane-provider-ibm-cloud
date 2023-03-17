@@ -42,7 +42,7 @@ KIND_NODE_IMAGE_TAG ?= v1.19.11
 # Setup Go
 
 # Setup golang-ci version
-GOLANGCILINT_VERSION=1.45.0
+GOLANGCILINT_VERSION=1.51.2
 
 # Set a sane default so that the nprocs calculation below is less noisy on the initial
 # loading of this file

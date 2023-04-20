@@ -3,7 +3,7 @@ package clients
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -42,7 +42,7 @@ var tagsCache = map[string]bool{"dev": true}
 var tagsHandler = func(w http.ResponseWriter, r *http.Request) {
 	var tags gtagv1.TagList
 	if r.Method == http.MethodPost {
-		body, _ := ioutil.ReadAll(r.Body)
+		body, _ := io.ReadAll(r.Body)
 		m := map[string]interface{}{}
 		json.Unmarshal(body, &m)
 		tags := m["tag_names"].([]interface{})

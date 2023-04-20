@@ -3,7 +3,7 @@ package groupmembership
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -304,7 +304,7 @@ var iamMembersHandler = func(w http.ResponseWriter, r *http.Request) {
 	resp := iamagv2.GroupMembersList{}
 	switch r.Method {
 	case http.MethodPut:
-		body, _ := ioutil.ReadAll(r.Body)
+		body, _ := io.ReadAll(r.Body)
 		req := iamagv2.AddMembersToAccessGroupOptions{}
 		json.Unmarshal(body, &req)
 		for _, m := range req.Members {
@@ -315,7 +315,7 @@ var iamMembersHandler = func(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	case http.MethodPost:
-		body, _ := ioutil.ReadAll(r.Body)
+		body, _ := io.ReadAll(r.Body)
 		req := iamagv2.RemoveMembersFromAccessGroupOptions{}
 		json.Unmarshal(body, &req)
 		for _, m := range req.Members {

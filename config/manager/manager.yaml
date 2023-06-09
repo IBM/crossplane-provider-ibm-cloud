@@ -85,7 +85,7 @@ spec:
           volumeMounts:
             - name: package-cache
               mountPath: /cache
-          image: icr.io/cpopen/ibm-crossplane-provider-ibm-cloud-operator:1.12.4
+          image: icr.io/cpopen/ibm-crossplane-provider-ibm-cloud-operator:1.12.5
           args: []
       topologySpreadConstraints:
         - maxSkew: 1

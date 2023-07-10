@@ -25,6 +25,11 @@ func (mg *CloudantDatabase) GetCondition(ct runtimev1alpha1.ConditionType) runti
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this CloudantDatabase.
+func (mg *CloudantDatabase) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this CloudantDatabase.
 func (mg *CloudantDatabase) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -51,6 +56,11 @@ func (mg *CloudantDatabase) GetWriteConnectionSecretToReference() *runtimev1alph
 // SetConditions of this CloudantDatabase.
 func (mg *CloudantDatabase) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this CloudantDatabase.
+func (mg *CloudantDatabase) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r;
 }
 
 // SetDeletionPolicy of this CloudantDatabase.

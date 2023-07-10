@@ -25,6 +25,11 @@ func (mg *Bucket) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alpha1
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this Bucket.
+func (mg *Bucket) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this Bucket.
 func (mg *Bucket) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -51,6 +56,11 @@ func (mg *Bucket) GetWriteConnectionSecretToReference() *runtimev1alpha1.SecretR
 // SetConditions of this Bucket.
 func (mg *Bucket) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this Bucket.
+func (mg *Bucket) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r;
 }
 
 // SetDeletionPolicy of this Bucket.

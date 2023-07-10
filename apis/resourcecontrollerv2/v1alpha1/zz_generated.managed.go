@@ -25,6 +25,11 @@ func (mg *ResourceInstance) GetCondition(ct runtimev1alpha1.ConditionType) runti
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this ResourceInstance.
+func (mg *ResourceInstance) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this ResourceInstance.
 func (mg *ResourceInstance) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -51,6 +56,11 @@ func (mg *ResourceInstance) GetWriteConnectionSecretToReference() *runtimev1alph
 // SetConditions of this ResourceInstance.
 func (mg *ResourceInstance) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this ResourceInstance.
+func (mg *ResourceInstance) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r;
 }
 
 // SetDeletionPolicy of this ResourceInstance.
@@ -81,6 +91,11 @@ func (mg *ResourceKey) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1a
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this ResourceKey.
+func (mg *ResourceKey) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this ResourceKey.
 func (mg *ResourceKey) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -107,6 +122,11 @@ func (mg *ResourceKey) GetWriteConnectionSecretToReference() *runtimev1alpha1.Se
 // SetConditions of this ResourceKey.
 func (mg *ResourceKey) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this ResourceKey.
+func (mg *ResourceKey) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r;
 }
 
 // SetDeletionPolicy of this ResourceKey.

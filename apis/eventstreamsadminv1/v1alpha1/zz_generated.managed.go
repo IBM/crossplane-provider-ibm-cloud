@@ -25,6 +25,11 @@ func (mg *Topic) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alpha1.
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this Topic.
+func (mg *Topic) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this Topic.
 func (mg *Topic) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -51,6 +56,11 @@ func (mg *Topic) GetWriteConnectionSecretToReference() *runtimev1alpha1.SecretRe
 // SetConditions of this Topic.
 func (mg *Topic) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this Topic.
+func (mg *Topic) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r;
 }
 
 // SetDeletionPolicy of this Topic.

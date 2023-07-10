@@ -25,6 +25,11 @@ func (mg *AccessGroup) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1a
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this AccessGroup.
+func (mg *AccessGroup) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this AccessGroup.
 func (mg *AccessGroup) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -51,6 +56,11 @@ func (mg *AccessGroup) GetWriteConnectionSecretToReference() *runtimev1alpha1.Se
 // SetConditions of this AccessGroup.
 func (mg *AccessGroup) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this AccessGroup.
+func (mg *AccessGroup) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r;
 }
 
 // SetDeletionPolicy of this AccessGroup.
@@ -81,6 +91,11 @@ func (mg *AccessGroupRule) GetCondition(ct runtimev1alpha1.ConditionType) runtim
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this AccessGroupRule.
+func (mg *AccessGroupRule) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this AccessGroupRule.
 func (mg *AccessGroupRule) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -107,6 +122,11 @@ func (mg *AccessGroupRule) GetWriteConnectionSecretToReference() *runtimev1alpha
 // SetConditions of this AccessGroupRule.
 func (mg *AccessGroupRule) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this AccessGroupRule.
+func (mg *AccessGroupRule) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r;
 }
 
 // SetDeletionPolicy of this AccessGroupRule.
@@ -137,6 +157,11 @@ func (mg *GroupMembership) GetCondition(ct runtimev1alpha1.ConditionType) runtim
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this GroupMembership.
+func (mg *GroupMembership) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this GroupMembership.
 func (mg *GroupMembership) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -163,6 +188,11 @@ func (mg *GroupMembership) GetWriteConnectionSecretToReference() *runtimev1alpha
 // SetConditions of this GroupMembership.
 func (mg *GroupMembership) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this GroupMembership.
+func (mg *GroupMembership) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r;
 }
 
 // SetDeletionPolicy of this GroupMembership.

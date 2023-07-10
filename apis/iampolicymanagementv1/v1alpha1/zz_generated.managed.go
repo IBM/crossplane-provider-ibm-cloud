@@ -25,6 +25,11 @@ func (mg *CustomRole) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1al
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this CustomRole.
+func (mg *CustomRole) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this CustomRole.
 func (mg *CustomRole) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -51,6 +56,11 @@ func (mg *CustomRole) GetWriteConnectionSecretToReference() *runtimev1alpha1.Sec
 // SetConditions of this CustomRole.
 func (mg *CustomRole) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this CustomRole.
+func (mg *CustomRole) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetDeletionPolicy of this CustomRole.
@@ -81,6 +91,11 @@ func (mg *Policy) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alpha1
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this Policy.
+func (mg *Policy) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this Policy.
 func (mg *Policy) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -107,6 +122,11 @@ func (mg *Policy) GetWriteConnectionSecretToReference() *runtimev1alpha1.SecretR
 // SetConditions of this Policy.
 func (mg *Policy) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this Policy.
+func (mg *Policy) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetDeletionPolicy of this Policy.

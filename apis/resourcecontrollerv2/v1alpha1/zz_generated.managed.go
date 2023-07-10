@@ -18,25 +18,20 @@ limitations under the License.
 
 package v1alpha1
 
-import runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 // GetCondition of this ResourceInstance.
-func (mg *ResourceInstance) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alpha1.Condition {
+func (mg *ResourceInstance) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetPublishConnectionDetailsTo of this ResourceInstance.
-func (mg *ResourceInstance) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetDeletionPolicy of this ResourceInstance.
-func (mg *ResourceInstance) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
+func (mg *ResourceInstance) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetProviderConfigReference of this ResourceInstance.
-func (mg *ResourceInstance) GetProviderConfigReference() *runtimev1alpha1.Reference {
+func (mg *ResourceInstance) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
@@ -44,32 +39,32 @@ func (mg *ResourceInstance) GetProviderConfigReference() *runtimev1alpha1.Refere
 GetProviderReference of this ResourceInstance.
 Deprecated: Use GetProviderConfigReference.
 */
-func (mg *ResourceInstance) GetProviderReference() *runtimev1alpha1.Reference {
+func (mg *ResourceInstance) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this ResourceInstance.
+func (mg *ResourceInstance) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this ResourceInstance.
-func (mg *ResourceInstance) GetWriteConnectionSecretToReference() *runtimev1alpha1.SecretReference {
+func (mg *ResourceInstance) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this ResourceInstance.
-func (mg *ResourceInstance) SetConditions(c ...runtimev1alpha1.Condition) {
+func (mg *ResourceInstance) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetPublishConnectionDetailsTo of this ResourceInstance.
-func (mg *ResourceInstance) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r;
-}
-
 // SetDeletionPolicy of this ResourceInstance.
-func (mg *ResourceInstance) SetDeletionPolicy(r runtimev1alpha1.DeletionPolicy) {
+func (mg *ResourceInstance) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetProviderConfigReference of this ResourceInstance.
-func (mg *ResourceInstance) SetProviderConfigReference(r *runtimev1alpha1.Reference) {
+func (mg *ResourceInstance) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
@@ -77,32 +72,32 @@ func (mg *ResourceInstance) SetProviderConfigReference(r *runtimev1alpha1.Refere
 SetProviderReference of this ResourceInstance.
 Deprecated: Use SetProviderConfigReference.
 */
-func (mg *ResourceInstance) SetProviderReference(r *runtimev1alpha1.Reference) {
+func (mg *ResourceInstance) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
 }
 
+// SetPublishConnectionDetailsTo of this ResourceInstance.
+func (mg *ResourceInstance) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
 // SetWriteConnectionSecretToReference of this ResourceInstance.
-func (mg *ResourceInstance) SetWriteConnectionSecretToReference(r *runtimev1alpha1.SecretReference) {
+func (mg *ResourceInstance) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this ResourceKey.
-func (mg *ResourceKey) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alpha1.Condition {
+func (mg *ResourceKey) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetPublishConnectionDetailsTo of this ResourceKey.
-func (mg *ResourceKey) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetDeletionPolicy of this ResourceKey.
-func (mg *ResourceKey) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
+func (mg *ResourceKey) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetProviderConfigReference of this ResourceKey.
-func (mg *ResourceKey) GetProviderConfigReference() *runtimev1alpha1.Reference {
+func (mg *ResourceKey) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
@@ -110,32 +105,32 @@ func (mg *ResourceKey) GetProviderConfigReference() *runtimev1alpha1.Reference {
 GetProviderReference of this ResourceKey.
 Deprecated: Use GetProviderConfigReference.
 */
-func (mg *ResourceKey) GetProviderReference() *runtimev1alpha1.Reference {
+func (mg *ResourceKey) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this ResourceKey.
+func (mg *ResourceKey) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this ResourceKey.
-func (mg *ResourceKey) GetWriteConnectionSecretToReference() *runtimev1alpha1.SecretReference {
+func (mg *ResourceKey) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this ResourceKey.
-func (mg *ResourceKey) SetConditions(c ...runtimev1alpha1.Condition) {
+func (mg *ResourceKey) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetPublishConnectionDetailsTo of this ResourceKey.
-func (mg *ResourceKey) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r;
-}
-
 // SetDeletionPolicy of this ResourceKey.
-func (mg *ResourceKey) SetDeletionPolicy(r runtimev1alpha1.DeletionPolicy) {
+func (mg *ResourceKey) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetProviderConfigReference of this ResourceKey.
-func (mg *ResourceKey) SetProviderConfigReference(r *runtimev1alpha1.Reference) {
+func (mg *ResourceKey) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
@@ -143,11 +138,16 @@ func (mg *ResourceKey) SetProviderConfigReference(r *runtimev1alpha1.Reference) 
 SetProviderReference of this ResourceKey.
 Deprecated: Use SetProviderConfigReference.
 */
-func (mg *ResourceKey) SetProviderReference(r *runtimev1alpha1.Reference) {
+func (mg *ResourceKey) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
 }
 
+// SetPublishConnectionDetailsTo of this ResourceKey.
+func (mg *ResourceKey) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
 // SetWriteConnectionSecretToReference of this ResourceKey.
-func (mg *ResourceKey) SetWriteConnectionSecretToReference(r *runtimev1alpha1.SecretReference) {
+func (mg *ResourceKey) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

@@ -18,25 +18,20 @@ limitations under the License.
 
 package v1alpha1
 
-import runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 // GetCondition of this CloudantDatabase.
-func (mg *CloudantDatabase) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alpha1.Condition {
+func (mg *CloudantDatabase) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetPublishConnectionDetailsTo of this CloudantDatabase.
-func (mg *CloudantDatabase) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetDeletionPolicy of this CloudantDatabase.
-func (mg *CloudantDatabase) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
+func (mg *CloudantDatabase) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetProviderConfigReference of this CloudantDatabase.
-func (mg *CloudantDatabase) GetProviderConfigReference() *runtimev1alpha1.Reference {
+func (mg *CloudantDatabase) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
@@ -44,32 +39,32 @@ func (mg *CloudantDatabase) GetProviderConfigReference() *runtimev1alpha1.Refere
 GetProviderReference of this CloudantDatabase.
 Deprecated: Use GetProviderConfigReference.
 */
-func (mg *CloudantDatabase) GetProviderReference() *runtimev1alpha1.Reference {
+func (mg *CloudantDatabase) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this CloudantDatabase.
+func (mg *CloudantDatabase) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this CloudantDatabase.
-func (mg *CloudantDatabase) GetWriteConnectionSecretToReference() *runtimev1alpha1.SecretReference {
+func (mg *CloudantDatabase) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this CloudantDatabase.
-func (mg *CloudantDatabase) SetConditions(c ...runtimev1alpha1.Condition) {
+func (mg *CloudantDatabase) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetPublishConnectionDetailsTo of this CloudantDatabase.
-func (mg *CloudantDatabase) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r;
-}
-
 // SetDeletionPolicy of this CloudantDatabase.
-func (mg *CloudantDatabase) SetDeletionPolicy(r runtimev1alpha1.DeletionPolicy) {
+func (mg *CloudantDatabase) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetProviderConfigReference of this CloudantDatabase.
-func (mg *CloudantDatabase) SetProviderConfigReference(r *runtimev1alpha1.Reference) {
+func (mg *CloudantDatabase) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
@@ -77,11 +72,16 @@ func (mg *CloudantDatabase) SetProviderConfigReference(r *runtimev1alpha1.Refere
 SetProviderReference of this CloudantDatabase.
 Deprecated: Use SetProviderConfigReference.
 */
-func (mg *CloudantDatabase) SetProviderReference(r *runtimev1alpha1.Reference) {
+func (mg *CloudantDatabase) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
 }
 
+// SetPublishConnectionDetailsTo of this CloudantDatabase.
+func (mg *CloudantDatabase) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
 // SetWriteConnectionSecretToReference of this CloudantDatabase.
-func (mg *CloudantDatabase) SetWriteConnectionSecretToReference(r *runtimev1alpha1.SecretReference) {
+func (mg *CloudantDatabase) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

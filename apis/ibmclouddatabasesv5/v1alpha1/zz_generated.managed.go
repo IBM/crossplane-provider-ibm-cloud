@@ -25,6 +25,11 @@ func (mg *AutoscalingGroup) GetCondition(ct runtimev1alpha1.ConditionType) runti
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this AutoscalingGroup.
+func (mg *AutoscalingGroup) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this AutoscalingGroup.
 func (mg *AutoscalingGroup) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -51,6 +56,11 @@ func (mg *AutoscalingGroup) GetWriteConnectionSecretToReference() *runtimev1alph
 // SetConditions of this AutoscalingGroup.
 func (mg *AutoscalingGroup) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this AutoscalingGroup.
+func (mg *AutoscalingGroup) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetDeletionPolicy of this AutoscalingGroup.
@@ -81,6 +91,11 @@ func (mg *ScalingGroup) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this ScalingGroup.
+func (mg *ScalingGroup) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+  return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this ScalingGroup.
 func (mg *ScalingGroup) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -107,6 +122,11 @@ func (mg *ScalingGroup) GetWriteConnectionSecretToReference() *runtimev1alpha1.S
 // SetConditions of this ScalingGroup.
 func (mg *ScalingGroup) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this ScalingGroup.
+func (mg *ScalingGroup) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+  mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetDeletionPolicy of this ScalingGroup.
@@ -137,6 +157,11 @@ func (mg *Whitelist) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alp
 	return mg.Status.GetCondition(ct)
 }
 
+// GetPublishConnectionDetailsTo of this Whitelist.
+func (mg *Whitelist) GetPublishConnectionDetailsTo() *runtimev1alpha1.PublishConnectionDetailsTo {
+  return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetDeletionPolicy of this Whitelist.
 func (mg *Whitelist) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
@@ -163,6 +188,11 @@ func (mg *Whitelist) GetWriteConnectionSecretToReference() *runtimev1alpha1.Secr
 // SetConditions of this Whitelist.
 func (mg *Whitelist) SetConditions(c ...runtimev1alpha1.Condition) {
 	mg.Status.SetConditions(c...)
+}
+
+// SetPublishConnectionDetailsTo of this Whitelist.
+func (mg *Whitelist) SetPublishConnectionDetailsTo(r *runtimev1alpha1.PublishConnectionDetailsTo) {
+  mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetDeletionPolicy of this Whitelist.

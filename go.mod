@@ -104,4 +104,7 @@ require (
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
 
-replace github.com/form3tech-oss/jwt-go => github.com/golang-jwt/jwt/v4 v4.5.0
+replace (
+	github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.4-0.20221129150041-2f0984a28be8
+	github.com/form3tech-oss/jwt-go => github.com/golang-jwt/jwt/v4 v4.5.0
+)

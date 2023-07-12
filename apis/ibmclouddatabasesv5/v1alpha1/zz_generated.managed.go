@@ -18,20 +18,20 @@ limitations under the License.
 
 package v1alpha1
 
-import runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
 // GetCondition of this AutoscalingGroup.
-func (mg *AutoscalingGroup) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alpha1.Condition {
+func (mg *AutoscalingGroup) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this AutoscalingGroup.
-func (mg *AutoscalingGroup) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
+func (mg *AutoscalingGroup) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetProviderConfigReference of this AutoscalingGroup.
-func (mg *AutoscalingGroup) GetProviderConfigReference() *runtimev1alpha1.Reference {
+func (mg *AutoscalingGroup) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
@@ -39,27 +39,32 @@ func (mg *AutoscalingGroup) GetProviderConfigReference() *runtimev1alpha1.Refere
 GetProviderReference of this AutoscalingGroup.
 Deprecated: Use GetProviderConfigReference.
 */
-func (mg *AutoscalingGroup) GetProviderReference() *runtimev1alpha1.Reference {
+func (mg *AutoscalingGroup) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this AutoscalingGroup.
+func (mg *AutoscalingGroup) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this AutoscalingGroup.
-func (mg *AutoscalingGroup) GetWriteConnectionSecretToReference() *runtimev1alpha1.SecretReference {
+func (mg *AutoscalingGroup) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this AutoscalingGroup.
-func (mg *AutoscalingGroup) SetConditions(c ...runtimev1alpha1.Condition) {
+func (mg *AutoscalingGroup) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this AutoscalingGroup.
-func (mg *AutoscalingGroup) SetDeletionPolicy(r runtimev1alpha1.DeletionPolicy) {
+func (mg *AutoscalingGroup) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetProviderConfigReference of this AutoscalingGroup.
-func (mg *AutoscalingGroup) SetProviderConfigReference(r *runtimev1alpha1.Reference) {
+func (mg *AutoscalingGroup) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
@@ -67,27 +72,32 @@ func (mg *AutoscalingGroup) SetProviderConfigReference(r *runtimev1alpha1.Refere
 SetProviderReference of this AutoscalingGroup.
 Deprecated: Use SetProviderConfigReference.
 */
-func (mg *AutoscalingGroup) SetProviderReference(r *runtimev1alpha1.Reference) {
+func (mg *AutoscalingGroup) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
 }
 
+// SetPublishConnectionDetailsTo of this AutoscalingGroup.
+func (mg *AutoscalingGroup) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
 // SetWriteConnectionSecretToReference of this AutoscalingGroup.
-func (mg *AutoscalingGroup) SetWriteConnectionSecretToReference(r *runtimev1alpha1.SecretReference) {
+func (mg *AutoscalingGroup) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this ScalingGroup.
-func (mg *ScalingGroup) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alpha1.Condition {
+func (mg *ScalingGroup) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this ScalingGroup.
-func (mg *ScalingGroup) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
+func (mg *ScalingGroup) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetProviderConfigReference of this ScalingGroup.
-func (mg *ScalingGroup) GetProviderConfigReference() *runtimev1alpha1.Reference {
+func (mg *ScalingGroup) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
@@ -95,27 +105,32 @@ func (mg *ScalingGroup) GetProviderConfigReference() *runtimev1alpha1.Reference 
 GetProviderReference of this ScalingGroup.
 Deprecated: Use GetProviderConfigReference.
 */
-func (mg *ScalingGroup) GetProviderReference() *runtimev1alpha1.Reference {
+func (mg *ScalingGroup) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this ScalingGroup.
+func (mg *ScalingGroup) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this ScalingGroup.
-func (mg *ScalingGroup) GetWriteConnectionSecretToReference() *runtimev1alpha1.SecretReference {
+func (mg *ScalingGroup) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this ScalingGroup.
-func (mg *ScalingGroup) SetConditions(c ...runtimev1alpha1.Condition) {
+func (mg *ScalingGroup) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this ScalingGroup.
-func (mg *ScalingGroup) SetDeletionPolicy(r runtimev1alpha1.DeletionPolicy) {
+func (mg *ScalingGroup) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetProviderConfigReference of this ScalingGroup.
-func (mg *ScalingGroup) SetProviderConfigReference(r *runtimev1alpha1.Reference) {
+func (mg *ScalingGroup) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
@@ -123,27 +138,32 @@ func (mg *ScalingGroup) SetProviderConfigReference(r *runtimev1alpha1.Reference)
 SetProviderReference of this ScalingGroup.
 Deprecated: Use SetProviderConfigReference.
 */
-func (mg *ScalingGroup) SetProviderReference(r *runtimev1alpha1.Reference) {
+func (mg *ScalingGroup) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
 }
 
+// SetPublishConnectionDetailsTo of this ScalingGroup.
+func (mg *ScalingGroup) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
 // SetWriteConnectionSecretToReference of this ScalingGroup.
-func (mg *ScalingGroup) SetWriteConnectionSecretToReference(r *runtimev1alpha1.SecretReference) {
+func (mg *ScalingGroup) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this Whitelist.
-func (mg *Whitelist) GetCondition(ct runtimev1alpha1.ConditionType) runtimev1alpha1.Condition {
+func (mg *Whitelist) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this Whitelist.
-func (mg *Whitelist) GetDeletionPolicy() runtimev1alpha1.DeletionPolicy {
+func (mg *Whitelist) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetProviderConfigReference of this Whitelist.
-func (mg *Whitelist) GetProviderConfigReference() *runtimev1alpha1.Reference {
+func (mg *Whitelist) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
@@ -151,27 +171,32 @@ func (mg *Whitelist) GetProviderConfigReference() *runtimev1alpha1.Reference {
 GetProviderReference of this Whitelist.
 Deprecated: Use GetProviderConfigReference.
 */
-func (mg *Whitelist) GetProviderReference() *runtimev1alpha1.Reference {
+func (mg *Whitelist) GetProviderReference() *xpv1.Reference {
 	return mg.Spec.ProviderReference
 }
 
+// GetPublishConnectionDetailsTo of this Whitelist.
+func (mg *Whitelist) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
 // GetWriteConnectionSecretToReference of this Whitelist.
-func (mg *Whitelist) GetWriteConnectionSecretToReference() *runtimev1alpha1.SecretReference {
+func (mg *Whitelist) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this Whitelist.
-func (mg *Whitelist) SetConditions(c ...runtimev1alpha1.Condition) {
+func (mg *Whitelist) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this Whitelist.
-func (mg *Whitelist) SetDeletionPolicy(r runtimev1alpha1.DeletionPolicy) {
+func (mg *Whitelist) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetProviderConfigReference of this Whitelist.
-func (mg *Whitelist) SetProviderConfigReference(r *runtimev1alpha1.Reference) {
+func (mg *Whitelist) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
@@ -179,11 +204,16 @@ func (mg *Whitelist) SetProviderConfigReference(r *runtimev1alpha1.Reference) {
 SetProviderReference of this Whitelist.
 Deprecated: Use SetProviderConfigReference.
 */
-func (mg *Whitelist) SetProviderReference(r *runtimev1alpha1.Reference) {
+func (mg *Whitelist) SetProviderReference(r *xpv1.Reference) {
 	mg.Spec.ProviderReference = r
 }
 
+// SetPublishConnectionDetailsTo of this Whitelist.
+func (mg *Whitelist) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
 // SetWriteConnectionSecretToReference of this Whitelist.
-func (mg *Whitelist) SetWriteConnectionSecretToReference(r *runtimev1alpha1.SecretReference) {
+func (mg *Whitelist) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

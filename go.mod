@@ -47,7 +47,7 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/gobuffalo/flect v0.1.5 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang-jwt/jwt/v4 v4.4.0 // indirect
+	github.com/golang-jwt/jwt/v4 v4.4.3 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/gofuzz v1.1.0 // indirect
@@ -104,6 +104,7 @@ require (
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
 
-replace github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.3.0
-
-replace github.com/form3tech-oss/jwt-go => github.com/golang-jwt/jwt/v4 v4.2.0
+replace (
+	github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.4-0.20221129150041-2f0984a28be8
+	github.com/form3tech-oss/jwt-go => github.com/golang-jwt/jwt/v4 v4.5.0
+)

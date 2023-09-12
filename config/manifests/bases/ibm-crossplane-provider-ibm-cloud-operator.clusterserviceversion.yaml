@@ -5,7 +5,7 @@ metadata:
     alm-examples: '[]'
     capabilities: Seamless Upgrades
     categories: Developer Tools
-    containerImage: icr.io/cpopen/ibm-crossplane-provider-ibm-cloud-operator:1.12.7
+    containerImage: icr.io/cpopen/ibm-crossplane-provider-ibm-cloud-operator:1.12.8
     description: Operator installing CRDs, RBAC resources and deployment for Crossplane
       IBM Cloud Provider
     operators.operatorframework.io/operator-type: non-standalone

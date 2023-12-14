@@ -72,6 +72,7 @@ jobs:
         uses: golangci/golangci-lint-action@v2
         with:
           version: ${{ env.GOLANGCI_VERSION }}
+          args: --verbose
 
   check-diff:
     runs-on: ubuntu-20.04

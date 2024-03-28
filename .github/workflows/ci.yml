@@ -14,6 +14,7 @@ env:
   GOLANGCI_VERSION: 'v1.51.2'
   DOCKER_BUILDX_VERSION: 'v0.4.2'
   RUNNING_IN_CI: 'true'
+  GOGC: '10'
 
 jobs:
   detect-noop:
@@ -71,6 +72,7 @@ jobs:
         uses: golangci/golangci-lint-action@v2
         with:
           version: ${{ env.GOLANGCI_VERSION }}
+          args: --verbose
 
   check-diff:
     runs-on: ubuntu-20.04

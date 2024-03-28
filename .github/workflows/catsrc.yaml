@@ -40,6 +40,7 @@ env:
   RUNNING_IN_CI: 'true'
   GO_VERSION: "1.21"
   GOLANGCI_VERSION: "v1.51.2"
+  GOGC: '10'
 
 jobs:
   build-ibm-crossplane-catsrc:

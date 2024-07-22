@@ -44,7 +44,7 @@ jobs:
 
       - name: Find the Go Build Cache
         id: go
-        run: echo "::set-output name=cache::$(go env GOCACHE)"
+        run: echo "cache=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
 
       - name: Cache the Go Build Cache
         uses: actions/cache@v2
@@ -90,7 +90,7 @@ jobs:
 
       - name: Find the Go Build Cache
         id: go
-        run: echo "::set-output name=cache::$(go env GOCACHE)"
+        run: echo "cache=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
 
       - name: Cache the Go Build Cache
         uses: actions/cache@v2
@@ -133,7 +133,7 @@ jobs:
 
       - name: Find the Go Build Cache
         id: go
-        run: echo "::set-output name=cache::$(go env GOCACHE)"
+        run: echo "cache=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
 
       - name: Cache the Go Build Cache
         uses: actions/cache@v2
@@ -187,7 +187,7 @@ jobs:
 
       - name: Find the Go Build Cache
         id: go
-        run: echo "::set-output name=cache::$(go env GOCACHE)"
+        run: echo "cache=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
 
       - name: Cache the Go Build Cache
         uses: actions/cache@v2
